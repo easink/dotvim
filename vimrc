@@ -32,8 +32,15 @@
     syntax on " syntax highlighting on
 " }
 
+" Pathogen {
+    filetype off
+    call pathogen#runtime_append_all_bundles()
+    call pathogen#helptags()
+" }
+
 " General {
-    filetype plugin indent on " load filetype plugins/indent settings
+    "filetype plugin indent on " load filetype plugins/indent settings
+
     set autochdir " always switch to the current file directory
     set backspace=indent,eol,start " make backspace a more flexible
     set backup " make backup files
