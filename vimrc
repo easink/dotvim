@@ -9,6 +9,17 @@
 "   http://robertmelton.com/contact (many forms of communication)
 " }
 
+" Pathogen {
+    " Run this first...
+    filetype off
+    call pathogen#runtime_append_all_bundles()
+    call pathogen#helptags()
+
+    "set foldmethod=indent
+    "set foldlevel=99
+
+" }
+
 " Basics {
     set nocompatible " explicitly get out of vi-compatible mode
     set noexrc " don't use local version of .(g)vimrc, .exrc
@@ -32,14 +43,8 @@
     syntax on " syntax highlighting on
 " }
 
-" Pathogen {
-    filetype off
-    call pathogen#runtime_append_all_bundles()
-    call pathogen#helptags()
-" }
-
 " General {
-    "filetype plugin indent on " load filetype plugins/indent settings
+    filetype plugin indent on " load filetype plugins/indent settings
 
     set autochdir " always switch to the current file directory
     set backspace=indent,eol,start " make backspace a more flexible
@@ -98,7 +103,7 @@
     set showcmd " show the command being typed
     set showmatch " show matching brackets
     set sidescrolloff=10 " Keep 5 lines at the size
-    set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
+    set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]%=%{fugitive#statusline()}
     "              | | | | |  |   |      |  |     |    |
     "              | | | | |  |   |      |  |     |    + current
     "              | | | | |  |   |      |  |     |       column
