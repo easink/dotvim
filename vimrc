@@ -93,7 +93,7 @@
     "set numberwidth=5           " We are good up to 99999 lines
     "set report=0                " tell us when anything is changed via :...
     set ruler                    " Always show current positions along the bottom
-    set scrolloff=10             " Keep 10 lines (top/bottom) for scope
+	set scrolloff=10             " Keep 10 lines (top/bottom) for scope
     set shortmess=aOstT          " shortens messages to avoid
                                  " 'press a key' prompt
     set showcmd                  " show the command being typed
@@ -118,7 +118,6 @@
 
 " Text Formatting/Layout {
     set completeopt=       " don't use a pop up menu for completions
-    set noexpandtab        " real tabs please!
     set formatoptions=rq   " Automatically insert comment leader on return,
                            " and let gq format comments
     set ignorecase         " case insensitive by default
@@ -130,8 +129,9 @@
                            " >>, << and stuff like that
     set softtabstop=4      " when hitting tab or backspace, how many spaces
                            " should a tab be (see expandtab)
-    set tabstop=8          " real tabs should be 8, and they will show with
+    set tabstop=4          " real tabs should be 8, and they will show with
                            " set list on
+    set expandtab          " no real tabs please!
 " }
 
 " Folding {
