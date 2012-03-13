@@ -182,6 +182,14 @@
 " }
 
 " Mappings {
+    let mapleader = ","
+
+    "remove trailing spaces
+    nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+    "reselect pasted text
+    nnoremap <leader>v V`]
+
     " ROT13 - fun
     "map <F12> ggVGg?
 
