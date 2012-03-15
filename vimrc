@@ -211,6 +211,20 @@
             set nomesg sm smd
             set fo=croq
 
+            " Complete options (disable preview scratch window)
+            set completeopt = menu,menuone,longest
+            " Limit popup menu height
+            set pumheight = 15
+
+            " SuperTab option for context aware completion
+            "let g:SuperTabDefaultCompletionType = "context"
+
+            " Disable auto popup, use <Tab> to autocomplete
+            let g:clang_complete_auto = 0
+            " Show clang errors in the quickfix window
+            let g:clang_complete_copen = 1
+
+            " Cscope
             if has("cscope")
                     " cs tag order = 0 => first cs then tag
                     set csto=0
