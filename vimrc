@@ -191,6 +191,12 @@
     "    map <up> <ESC>:bp<RETURN>
     " }
 
+    " Buffer shifts
+    map <C-Left> :bprev<CR>
+    map <C-Right> :bnext<CR>
+    imap <C-Left> <Esc>:bprev<CR><insert>
+    imap <C-Right> <Esc>:bnext<CR><insert>
+
     " I always let go of shift too slow...
     cab Q q
     cab W w
