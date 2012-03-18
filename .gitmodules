@@ -37,3 +37,6 @@
 [submodule "bundle/metacosm"]
 	path = bundle/metacosm
 	url = https://github.com/vim-scripts/metacosm.vim
+[submodule "bundle/mustang"]
+	path = bundle/mustang
+	url = https://github.com/marcus/vim-mustang
