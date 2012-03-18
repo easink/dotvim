@@ -38,7 +38,7 @@
     "             +-- :read updates alternative file name
     syntax on " syntax highlighting on
 
-    colorscheme metacosm
+    colorscheme mustang
 " }
 
 " General {
@@ -297,7 +297,7 @@
 " GUI Settings {
 if has("gui_running")
     " Basics {
-        "colorscheme metacosm    " my color scheme (only works in GUI)
+        "colorscheme metacosm    " already set through csapprox
         set columns=180          " perfect size for me
         set guifont=Consolas:h10 " My favorite font
         set guioptions=ce 
