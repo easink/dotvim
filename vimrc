@@ -37,6 +37,8 @@
     "             |+-- :write updates alternative file name
     "             +-- :read updates alternative file name
     syntax on " syntax highlighting on
+
+    colorscheme metacosm
 " }
 
 " General {
