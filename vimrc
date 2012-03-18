@@ -258,11 +258,11 @@
             "imap ;for for (;;) {<CR>}<Esc>kf(a
 
             " finds the current function in C
-            map ,f mk[[?^[A-Za-z0-9_].*(<CR>V"ky`k:echo "<C-R>k"<CR>
+            noremap <leader>f mk[[?^[A-Za-z0-9_].*(<CR>V"ky`k:echo "<C-R>k"<CR>
             "  better version for C, doesn't always work though 8)
-            map ,k  :?^{??^\k? mark k\|echo getline("'k")<cr>
+            noremap <leader>k  :?^{??^\k? mark k\|echo getline("'k")<cr>
             " finds the current function in perl
-            map ,p mk?^sub <CR>wve"ky'k:echo "<C-R>k"<CR>
+            noremap <leader>p mk?^sub <CR>wve"ky'k:echo "<C-R>k"<CR>
 
             " Makes ctrl-g show the buffer # as well.
             noremap <C-G> 2<C-G>
