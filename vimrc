@@ -67,11 +67,10 @@
     "              | | +-- "h" Normal and Visual (not recommended)
     "              | +-- <Space> Normal and Visual
     "              +-- <BS> Normal and Visual
-    "set wildmenu                    " turn on command line completion wild style
+    set wildmenu                    " turn on command line completion wild style
     "ignore these list file extensions
-    "set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
-    "                \*.jpg,*.gif,*.png
-    "set wildmode=list:longest       " turn on wild mode huge list
+    set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png
+    set wildmode=list:longest:full   " turn on wild mode huge list
 " }
 
 " Vim UI {
@@ -115,7 +114,7 @@
 " }
 
 " Text Formatting/Layout {
-    set completeopt=       " don't use a pop up menu for completions
+    set completeopt=menuone " show pop up menu for completions
     set formatoptions=rq   " Automatically insert comment leader on return, and let gq format comments
     set ignorecase         " case insensitive by default
     set infercase          " case inferred by default
