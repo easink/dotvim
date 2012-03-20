@@ -220,9 +220,9 @@
             set fo=croq
 
             " Complete options (disable preview scratch window)
-            set completeopt = menu,menuone,longest
+            set completeopt=menu,menuone,longest
             " Limit popup menu height
-            set pumheight = 15
+            set pumheight=15
 
             " SuperTab option for context aware completion
             "let g:SuperTabDefaultCompletionType = "context"
@@ -246,7 +246,7 @@
             endif
 
             if has("insert_expand")
-                    set showfulltag-
+                    set showfulltag
             endif
 
             " C programming stuff
