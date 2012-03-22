@@ -231,6 +231,8 @@
             let g:clang_complete_auto = 0
             " Show clang errors in the quickfix window
             let g:clang_complete_copen = 1
+            " Use libclang for spedd and features
+            let g:clang_use_library = 0
 
             " Cscope
             if has("cscope")
