@@ -12,9 +12,6 @@
     path = bundle/git
     url = https://github.com/tpope/vim-git.git
     ignore = untracked
-[submodule "bundle/tasklist"]
-    path = bundle/tasklist
-    url = https://github.com/vim-scripts/TaskList.vim.git
 [submodule "bundle/tabular"]
     path = bundle/tabular
     url = https://github.com/godlygeek/tabular
@@ -52,3 +49,6 @@
 [submodule "bundle/gitv"]
 	path = bundle/gitv
 	url = https://github.com/gregsexton/gitv
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = https://github.com/wincent/Command-T
