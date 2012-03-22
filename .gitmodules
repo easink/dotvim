@@ -18,9 +18,6 @@
 [submodule "bundle/nerdcommenter"]
     path = bundle/nerdcommenter
     url = https://github.com/scrooloose/nerdcommenter
-[submodule "bundle/clang_complete"]
-    path = bundle/clang_complete
-    url = https://github.com/Rip-Rip/clang_complete
 [submodule "bundle/blackboard"]
     path = bundle/blackboard
     url = https://github.com/nelstrom/vim-blackboard
