@@ -12,18 +12,12 @@
     path = bundle/git
     url = https://github.com/tpope/vim-git.git
     ignore = untracked
-[submodule "bundle/tasklist"]
-    path = bundle/tasklist
-    url = https://github.com/vim-scripts/TaskList.vim.git
 [submodule "bundle/tabular"]
     path = bundle/tabular
     url = https://github.com/godlygeek/tabular
 [submodule "bundle/nerdcommenter"]
     path = bundle/nerdcommenter
     url = https://github.com/scrooloose/nerdcommenter
-[submodule "bundle/clang_complete"]
-    path = bundle/clang_complete
-    url = https://github.com/Rip-Rip/clang_complete
 [submodule "bundle/blackboard"]
     path = bundle/blackboard
     url = https://github.com/nelstrom/vim-blackboard
@@ -46,3 +40,15 @@
 [submodule "bundle/solarized"]
 	path = bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized
+[submodule "bundle/vimcalc"]
+	path = bundle/vimcalc
+	url = https://github.com/gregsexton/VimCalc
+[submodule "bundle/gitv"]
+	path = bundle/gitv
+	url = https://github.com/gregsexton/gitv
+[submodule "bundle/command-t"]
+	path = bundle/command-t
+	url = https://github.com/wincent/Command-T
+[submodule "bundle/clang_complete"]
+	path = bundle/clang_complete
+	url = https://github.com/Rip-Rip/clang_complete
