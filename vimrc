@@ -227,15 +227,19 @@
             " SuperTab option for context aware completion
             "let g:SuperTabDefaultCompletionType = "context"
 
-            " clang debuggin
+            " Debug clang_complete
             let g:clang_debug = 1
             " Disable auto popup, use <Tab> to autocomplete
             let g:clang_complete_auto = 0
             " Show clang errors in the quickfix window
             let g:clang_complete_copen = 1
-            " Use libclang for spedd and features
+            " Use the lib instead for speed and functions
             let g:clang_use_library = 1
             let g:clang_library_path="/usr/lib/"
+            " Correct libclang path
+            if has("gui_macvim")
+                    let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
+            endif
 
             " Cscope
             if has("cscope")
