@@ -33,7 +33,7 @@
 	url = https://github.com/vim-scripts/metacosm.vim
 [submodule "bundle/mustang"]
 	path = bundle/mustang
-	url = ssh://rydbrink@192.168.0.2/home/rydbrink/source/vim-mustang/
+	url = file:///home/andreas/git/vim-mustang/
 [submodule "bundle/camo"]
 	path = bundle/camo
 	url = https://github.com/vim-scripts/camo.vim
