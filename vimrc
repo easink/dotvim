@@ -179,6 +179,9 @@
     "reselect pasted text
     nnoremap <leader>v V`]
 
+    " Toggle line numbers and fold column for easy copying:
+    nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+
     " ROT13 - fun
     "map <F12> ggVGg?
 
