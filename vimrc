@@ -11,9 +11,12 @@
 
 " Pathogen {
     " Run this first...
-    filetype off
-    call pathogen#runtime_append_all_bundles()
-    call pathogen#helptags()
+    "filetype off
+    "call pathogen#runtime_append_all_bundles()
+    "call pathogen#helptags()
+    let g:pathogen_disabled = ['jedi-vim']
+    execute pathogen#infect()
+
 " }
 
 " Basics {
