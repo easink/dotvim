@@ -32,6 +32,12 @@
 	path = bundle/clang_complete
 	url = https://github.com/Rip-Rip/clang_complete
     ignore = untracked
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/jedi-vim"]
+	path = bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim.git
 [submodule "bundle/minibufexpl"]
 	path = bundle/minibufexpl
-	url = https://github.com/fholgado/minibufexpl.vim.git
+	url = https://github.com/techlivezheng/vim-plugin-minibufexpl.git
