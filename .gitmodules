@@ -8,7 +8,7 @@
 [submodule "bundle/git"]
     path = bundle/git
     url = https://github.com/tpope/vim-git.git
-    ignore = untracked
+    ignore = dirty
 [submodule "bundle/tabular"]
     path = bundle/tabular
     url = https://github.com/godlygeek/tabular
@@ -18,7 +18,7 @@
 [submodule "bundle/csapprox"]
     path = bundle/csapprox
     url = https://github.com/vim-scripts/CSApprox
-    ignore = untracked
+    ignore = dirty
 [submodule "bundle/mustang"]
 	path = bundle/mustang
 	url = ssh://rydbrink@192.168.0.2/home/rydbrink/source/vim-mustang/
@@ -32,7 +32,7 @@
 [submodule "bundle/clang_complete"]
 	path = bundle/clang_complete
 	url = https://github.com/Rip-Rip/clang_complete
-    ignore = untracked
+    ignore = dirty
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://github.com/tpope/vim-surround.git
