@@ -11,9 +11,12 @@
 
 " Pathogen {
     " Run this first...
-    filetype off
-    call pathogen#runtime_append_all_bundles()
-    call pathogen#helptags()
+    "filetype off
+    "call pathogen#runtime_append_all_bundles()
+    "call pathogen#helptags()
+    let g:pathogen_disabled = ['jedi-vim']
+    execute pathogen#infect()
+
 " }
 
 " Basics {
@@ -147,27 +150,27 @@
     let b:match_ignorecase = 1 " case is stupid
     let perl_extended_vars=1   " highlight advanced perl vars inside strings
 
-    " TagList Settings {
-        let Tlist_Auto_Open=0              " let the tag list open automagically
-        let Tlist_Compact_Format = 1       " show small menu
-        let Tlist_Ctags_Cmd = 'ctags'      " location of ctags
-        let Tlist_Enable_Fold_Column = 0   " do show folding tree
-        let Tlist_Exist_OnlyWindow = 1     " if you are the last, kill yourself
-        let Tlist_File_Fold_Auto_Close = 0 " fold closed other trees
-        let Tlist_Sort_Type = "name"       " order by
-        let Tlist_Use_Right_Window = 1     " split to the right side of the screen
-        let Tlist_WinWidth = 40            " 40 cols wide, so i can (almost always) read my functions
-        " Language Specifics {
-            " just functions and classes please
-            let tlist_aspjscript_settings = 'asp;f:function;c:class' 
-            " just functions and subs please
-            let tlist_aspvbs_settings = 'asp;f:function;s:sub' 
-            " don't show variables in freaking php
-            let tlist_php_settings = 'php;c:class;d:constant;f:function' 
-            " just functions and classes please
-            let tlist_vb_settings = 'asp;f:function;c:class' 
-        " }
-    " }
+"    " TagList Settings {
+"        let Tlist_Auto_Open=0              " let the tag list open automagically
+"        let Tlist_Compact_Format = 1       " show small menu
+"        let Tlist_Ctags_Cmd = 'ctags'      " location of ctags
+"        let Tlist_Enable_Fold_Column = 0   " do show folding tree
+"        let Tlist_Exist_OnlyWindow = 1     " if you are the last, kill yourself
+"        let Tlist_File_Fold_Auto_Close = 0 " fold closed other trees
+"        let Tlist_Sort_Type = "name"       " order by
+"        let Tlist_Use_Right_Window = 1     " split to the right side of the screen
+"        let Tlist_WinWidth = 40            " 40 cols wide, so i can (almost always) read my functions
+"        " Language Specifics {
+"            " just functions and classes please
+"            let tlist_aspjscript_settings = 'asp;f:function;c:class' 
+"            " just functions and subs please
+"            let tlist_aspvbs_settings = 'asp;f:function;s:sub' 
+"            " don't show variables in freaking php
+"            let tlist_php_settings = 'php;c:class;d:constant;f:function' 
+"            " just functions and classes please
+"            let tlist_vb_settings = 'asp;f:function;c:class' 
+"        " }
+"    " }
 " }
 
 " Mappings {
@@ -178,6 +181,9 @@
 
     "reselect pasted text
     nnoremap <leader>v V`]
+
+    " Toggle line numbers and fold column for easy copying:
+    nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
     " ROT13 - fun
     "map <F12> ggVGg?
@@ -198,6 +204,8 @@
     map <C-Right> :bnext<CR>
     imap <C-Left> <Esc>:bprev<CR><insert>
     imap <C-Right> <Esc>:bnext<CR><insert>
+    nnoremap <leader>, :CommandTBuffer<CR>
+    nnoremap <leader>. :CommandT<CR>
 
     " I always let go of shift too slow...
     cab Q q
@@ -214,6 +222,7 @@
             set shiftwidth=4
 
             set cindent
+            set cinoptions=:0,(0
             set autoindent
             set smartindent
             set nomesg sm smd
@@ -227,10 +236,19 @@
             " SuperTab option for context aware completion
             "let g:SuperTabDefaultCompletionType = "context"
 
+            " Debug clang_complete
+            let g:clang_debug = 1
             " Disable auto popup, use <Tab> to autocomplete
             let g:clang_complete_auto = 0
             " Show clang errors in the quickfix window
             let g:clang_complete_copen = 1
+            " Use the lib instead for speed and functions
+            let g:clang_use_library = 1
+            let g:clang_library_path="/usr/lib/"
+            " Correct libclang path
+            if has("gui_macvim")
+                    let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
+            endif
 
             " Cscope
             if has("cscope")
