@@ -8,6 +8,7 @@
 [submodule "bundle/git"]
     path = bundle/git
     url = https://github.com/tpope/vim-git.git
+    ignore = dirty
 [submodule "bundle/tabular"]
     path = bundle/tabular
     url = https://github.com/godlygeek/tabular
