@@ -8,7 +8,6 @@
 [submodule "bundle/git"]
     path = bundle/git
     url = https://github.com/tpope/vim-git.git
-    ignore = all
 [submodule "bundle/tabular"]
     path = bundle/tabular
     url = https://github.com/godlygeek/tabular
@@ -18,8 +17,7 @@
 [submodule "bundle/csapprox"]
     path = bundle/csapprox
     url = https://github.com/vim-scripts/CSApprox
-    ignore = dirty
-    ignore = untracked
+    ignore = all
 [submodule "bundle/mustang"]
 	path = bundle/mustang
 	url = ssh://rydbrink@192.168.0.2/home/rydbrink/source/vim-mustang/
