@@ -185,6 +185,8 @@
     " Toggle line numbers and fold column for easy copying:
     nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 
+    " Clear highlighted search
+    nmap <silent> ,/ :nohlsearch<CR>
     " ROT13 - fun
     "map <F12> ggVGg?
 
@@ -198,6 +200,9 @@
     "    map <right> <ESC>:Tlist<RETURN>
     "    map <up> <ESC>:bp<RETURN>
     " }
+
+    " sudo trick - from Steve Losh
+    cmap w!! w !sudo tee % >/dev/null
 
     " Buffer shifts
     map <C-Left> :bprev<CR>
@@ -242,6 +247,9 @@
             let g:clang_complete_auto = 0
             " Show clang errors in the quickfix window
             let g:clang_complete_copen = 1
+            " Use snippets
+            let g:clang_snippets = 1
+            let g:clang_snippets_engine = "clang_complete"
             " Use the lib instead for speed and functions
             let g:clang_use_library = 1
             let g:clang_library_path="/usr/lib/"
