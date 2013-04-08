@@ -1,6 +1,16 @@
-all: submodules commandt
+all: setup git commandt
 
-submodules:
+setup:
+	[ -d backup ] || mkdir backup
+	[ -d syntax ] || mkdir syntax
+	[ -d indent ] || mkdir indent
+	[ -d plugin ] || mkdir plugin
+	[ -d spell ] || mkdir spell
+	[ -d bin ] || mkdir bin
+	[ -d doc ] || mkdir doc
+	[ -d tmp ] || mkdir tmp
+
+git:
 	git submodule foreach git pull origin master
 	cd ./bundle/minibufexpl && git pull origin develop
 
