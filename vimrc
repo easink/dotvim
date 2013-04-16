@@ -9,12 +9,17 @@
 "   http://robertmelton.com/contact (many forms of communication)
 " }
 
-" Pathogen {
+" Vundle {
     " Run this first...
-"    filetype off
-    execute pathogen#infect()
-"    call pathogen#runtime_append_all_bundles()
-"    call pathogen#helptags()
+    filetype off
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+
+    " let Vundle manage Vundle
+    Bundle 'gmarik/vundle'
+
+    " Vundle bundles
+    Bundle 'tpope/vim-fugitive'
 " }
 
 " Basics {
