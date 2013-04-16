@@ -20,7 +20,7 @@
 
     " Vundle bundles
     Bundle 'tpope/vim-fugitive'
-    Bundle 'tpopt/vim-git'
+    "Bundle 'tpopt/vim-git'
     Bundle 'tpope/vim-unimpaired'
     Bundle 'tpope/vim-repeat'
     Bundle 'godlygeek/tabular'
@@ -40,6 +40,7 @@
     Bundle 'Lokaltog/vim-easymotion'
     Bundle 'derekwyatt/vim-fswitch'
     Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
+    Bundle 'HubbaBubbaFett/mustang'
 " }
 
 " Basics {

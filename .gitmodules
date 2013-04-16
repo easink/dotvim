@@ -1,4 +1,0 @@
-[submodule "bundle/mustang"]
-    path = bundle/mustang
-    url = ssh://rydbrink@192.168.0.2/home/rydbrink/source/vim-mustang/
-    ignore = all
