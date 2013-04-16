@@ -20,6 +20,26 @@
 
     " Vundle bundles
     Bundle 'tpope/vim-fugitive'
+    Bundle 'tpopt/vim-git'
+    Bundle 'tpope/vim-unimpaired'
+    Bundle 'tpope/vim-repeat'
+    Bundle 'godlygeek/tabular'
+    Bundle 'scrooloose/nerdcommenter'
+    Bundle 'vim-scripts/CSApprox'
+    Bundle 'wincent/Command-T'
+    Bundle 'Rip-Rip/clang_complete'
+    Bundle 'tpope/vim-surround'
+    Bundle 'techlivezheng/vim-plugin-minibufexpl'
+    Bundle 'msanders/snipmate.vim'
+    Bundle 'klen/python-mode'
+    Bundle 'kana/vim-textobj-user'
+    Bundle 'kana/vim-textobj-indent'
+    Bundle 'coderifous/textobj-word-column.vim'
+    Bundle 'gregsexton/gitv'
+    Bundle 'majutsushi/tagbar'
+    Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'derekwyatt/vim-fswitch'
+    Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
 " }
 
 " Basics {
