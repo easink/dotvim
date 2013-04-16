@@ -20,7 +20,7 @@
 
     " Vundle bundles
     Bundle 'tpope/vim-fugitive'
-    "Bundle 'tpopt/vim-git'
+    "Bundle 'tpope/vim-git'
     Bundle 'tpope/vim-unimpaired'
     Bundle 'tpope/vim-repeat'
     Bundle 'godlygeek/tabular'
