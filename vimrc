@@ -40,7 +40,7 @@
     Bundle 'msanders/snipmate.vim'
     Bundle 'scrooloose/nerdcommenter'
     " python bundles
-    "Bundle 'klen/python-mode'
+    Bundle 'klen/python-mode'
     Bundle 'davidhalter/jedi-vim'
     " c/c++ bundles
     Bundle 'Rip-Rip/clang_complete'
@@ -182,6 +182,13 @@
     let b:match_ignorecase = 1 " case is stupid
     let perl_extended_vars=1   " highlight advanced perl vars inside strings
 
+    " Python-mode
+    let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
+
+    " Minibufexplorer
+    let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
+
+
 "    " TagList Settings {
 "        let Tlist_Auto_Open=0              " let the tag list open automagically
 "        let Tlist_Compact_Format = 1       " show small menu
@@ -279,9 +286,6 @@
 
     " FSwitch
     nnoremap <leader>o :FSSplitAbove<CR>
-
-    " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
-    let g:miniBufExplorerHideWhenDiff = 1
 
     " Spell
     map <leader>ss :setlocal spell!
