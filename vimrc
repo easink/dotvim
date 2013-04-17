@@ -40,7 +40,7 @@
     Bundle 'msanders/snipmate.vim'
     Bundle 'scrooloose/nerdcommenter'
     " python bundles
-    Bundle 'klen/python-mode'
+    "Bundle 'klen/python-mode'
     Bundle 'davidhalter/jedi-vim'
     " c/c++ bundles
     Bundle 'Rip-Rip/clang_complete'
