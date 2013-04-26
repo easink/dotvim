@@ -9,11 +9,42 @@
 "   http://robertmelton.com/contact (many forms of communication)
 " }
 
-" Pathogen {
+" Vundle {
     " Run this first...
     filetype off
-    call pathogen#runtime_append_all_bundles()
-    call pathogen#helptags()
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+
+    " let Vundle manage Vundle
+    Bundle 'gmarik/vundle'
+
+    " Vundle bundles
+    Bundle 'tpope/vim-fugitive'
+    "Bundle 'tpope/vim-git'
+    Bundle 'tpope/vim-unimpaired'
+    Bundle 'tpope/vim-surround'
+    Bundle 'tpope/vim-repeat'
+    Bundle 'godlygeek/tabular'
+    Bundle 'vim-scripts/CSApprox'
+    Bundle 'wincent/Command-T'
+    Bundle 'techlivezheng/vim-plugin-minibufexpl'
+    Bundle 'kana/vim-textobj-user'
+    Bundle 'kana/vim-textobj-indent'
+    Bundle 'coderifous/textobj-word-column.vim'
+    Bundle 'gregsexton/gitv'
+    Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
+    Bundle 'HubbaBubbaFett/mustang'
+    " coding bundles
+    Bundle 'majutsushi/tagbar'
+    Bundle 'msanders/snipmate.vim'
+    Bundle 'scrooloose/nerdcommenter'
+    " python bundles
+    Bundle 'klen/python-mode'
+    Bundle 'davidhalter/jedi-vim'
+    " c/c++ bundles
+    Bundle 'Rip-Rip/clang_complete'
+    Bundle 'derekwyatt/vim-fswitch'
 " }
 
 " Basics {
@@ -39,6 +70,8 @@
     syntax on " syntax highlighting on
 
     colorscheme mustang
+    "complement to mustang...
+    :hi ColorColumn guibg=#2d2d2d ctermbg=236
 " }
 
 " General {
@@ -74,6 +107,7 @@
 " }
 
 " Vim UI {
+    set colorcolumn=120          " highligth column 120
     "set cursorcolumn            " highlight the current column
     "set cursorline              " highlight current line
     set incsearch                " BUT do highlight as you type you search phrase
@@ -114,7 +148,8 @@
 " }
 
 " Text Formatting/Layout {
-    set completeopt=menuone " show pop up menu for completions
+    "set completeopt=menuone " show pop up menu for completions
+    set completeopt=menu,menuone,longest " show pop up menu for completions
     set formatoptions=rq   " Automatically insert comment leader on return, and let gq format comments
     set ignorecase         " case insensitive by default
     set infercase          " case inferred by default
@@ -147,40 +182,78 @@
     let b:match_ignorecase = 1 " case is stupid
     let perl_extended_vars=1   " highlight advanced perl vars inside strings
 
-    " TagList Settings {
-        let Tlist_Auto_Open=0              " let the tag list open automagically
-        let Tlist_Compact_Format = 1       " show small menu
-        let Tlist_Ctags_Cmd = 'ctags'      " location of ctags
-        let Tlist_Enable_Fold_Column = 0   " do show folding tree
-        let Tlist_Exist_OnlyWindow = 1     " if you are the last, kill yourself
-        let Tlist_File_Fold_Auto_Close = 0 " fold closed other trees
-        let Tlist_Sort_Type = "name"       " order by
-        let Tlist_Use_Right_Window = 1     " split to the right side of the screen
-        let Tlist_WinWidth = 40            " 40 cols wide, so i can (almost always) read my functions
-        " Language Specifics {
-            " just functions and classes please
-            let tlist_aspjscript_settings = 'asp;f:function;c:class' 
-            " just functions and subs please
-            let tlist_aspvbs_settings = 'asp;f:function;s:sub' 
-            " don't show variables in freaking php
-            let tlist_php_settings = 'php;c:class;d:constant;f:function' 
-            " just functions and classes please
-            let tlist_vb_settings = 'asp;f:function;c:class' 
-        " }
-    " }
+    " Python-mode
+    let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
+
+    " Minibufexplorer
+    let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
+
+
+"    " TagList Settings {
+"        let Tlist_Auto_Open=0              " let the tag list open automagically
+"        let Tlist_Compact_Format = 1       " show small menu
+"        let Tlist_Ctags_Cmd = 'ctags'      " location of ctags
+"        let Tlist_Enable_Fold_Column = 0   " do show folding tree
+"        let Tlist_Exist_OnlyWindow = 1     " if you are the last, kill yourself
+"        let Tlist_File_Fold_Auto_Close = 0 " fold closed other trees
+"        let Tlist_Sort_Type = "name"       " order by
+"        let Tlist_Use_Right_Window = 1     " split to the right side of the screen
+"        let Tlist_WinWidth = 40            " 40 cols wide, so i can (almost always) read my functions
+"        " Language Specifics {
+"            " just functions and classes please
+"            let tlist_aspjscript_settings = 'asp;f:function;c:class'
+"            " just functions and subs please
+"            let tlist_aspvbs_settings = 'asp;f:function;s:sub'
+"            " don't show variables in freaking php
+"            let tlist_php_settings = 'php;c:class;d:constant;f:function'
+"            " just functions and classes please
+"            let tlist_vb_settings = 'asp;f:function;c:class'
+"        " }
+"    " }
 " }
 
 " Mappings {
     let mapleader = ","
+    nnoremap \ ,
 
-    "remove trailing spaces
+    " Force me to ignore arrow keys
+    noremap <left> <nop>
+    noremap <right> <nop>
+    noremap <up> <nop>
+    noremap <down> <nop>
+
+    " Quick save
+    " Never used it
+    " nmap <leader>w :w!<CR>
+    " Trying this instead (must turn of C-s in terminal!)
+    nnoremap <C-s> :w!<CR>
+    inoremap <C-s> <Esc>:w!<CR>a
+    " Quick save + exit
+    nnoremap <C-q> :wq!<CR>
+    inoremap <C-q> <Esc>:wq!<CR>
+    " Quick exit
+    nnoremap <M-q> :q!<CR>
+    inoremap <M-q> <Esc>:q!<CR>
+
+    " Remove trailing spaces
     nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
-    "reselect pasted text
+    " Reselect pasted text
     nnoremap <leader>v V`]
 
+    " Toggle line numbers on fold column for easy copying
+    "nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
+    nnoremap <F2> :set nonumber!<CR>
+    " Toggle Tagbar
+    nnoremap <silent> <F4> :TagbarToggle<CR>
+
+    " Clear highlighted search
+    "nmap <silent> ,/ :nohlsearch<CR>
     " ROT13 - fun
     "map <F12> ggVGg?
+
+    " Use shorter for n. pattern
+    nnoremap <C-å> n.
 
     " space / shift-space scroll in normal mode
     "noremap <S-space> <C-b>
@@ -198,6 +271,28 @@
     map <C-Right> :bnext<CR>
     imap <C-Left> <Esc>:bprev<CR><insert>
     imap <C-Right> <Esc>:bnext<CR><insert>
+    nnoremap <leader>, :CommandTBuffer<CR>
+    nnoremap <leader>. :CommandT<CR>
+
+    " Window movements
+    map <C-j> <C-W>j
+    map <C-k> <C-W>k
+    map <C-h> <C-W>h
+    map <C-l> <C-W>l
+
+    " Visual mode pressing * or # search for current selection
+"    vnoremap <silent> * :call VisualSelection('f')<CR>
+"    vnoremap <silent> # :call VisualSelection('b')<CR>
+
+    " FSwitch
+    nnoremap <leader>o :FSSplitAbove<CR>
+
+    " Spell
+    map <leader>ss :setlocal spell!
+    map <leader>sn ]s
+    map <leader>np [s
+    map <leader>sa zg
+    map <leader>s? z=
 
     " I always let go of shift too slow...
     cab Q q
@@ -206,6 +301,14 @@
 " }
 
 " Autocommands {
+"    " Return to last edit position when opening files (You want this!)
+"    autocmd BufReadPost *
+"        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+"        \   exe "normal g'\"" |
+"        \ endif
+"    " Remember info about open buffers on close
+"    set viminfo^=%
+"
     " C {
         function FT_C()
             set autowrite
@@ -214,6 +317,9 @@
             set shiftwidth=4
 
             set cindent
+            set cino=(0,:0
+            "         |  +--------- case placement
+            "         +------------ second line parameter placement
             set autoindent
             set smartindent
             set nomesg sm smd
@@ -229,10 +335,18 @@
 
             " Debug clang_complete
             let g:clang_debug = 1
+            " May fix scan issue???
+            "let g:clang_user_options='|| exit 0'
+            " Enable snipmate
+            "let g:clang_snippets = 1
+            "let g:clang_snippets_engine = 'snipmate'
             " Disable auto popup, use <Tab> to autocomplete
             let g:clang_complete_auto = 0
             " Show clang errors in the quickfix window
             let g:clang_complete_copen = 1
+            " Use snippets
+            let g:clang_snippets = 1
+            let g:clang_snippets_engine = "clang_complete"
             " Use the lib instead for speed and functions
             let g:clang_use_library = 1
             let g:clang_library_path="/usr/lib/"
@@ -280,8 +394,8 @@
     " }
     " Ruby {
         " ruby standard 2 spaces, always
-        au BufRead,BufNewFile *.rb,*.rhtml set shiftwidth=2 
-        au BufRead,BufNewFile *.rb,*.rhtml set softtabstop=2 
+        au BufRead,BufNewFile *.rb,*.rhtml set shiftwidth=2
+        au BufRead,BufNewFile *.rb,*.rhtml set softtabstop=2
     " }
     " Notes {
         " I consider .notes files special, and handle them differently, I
@@ -300,16 +414,17 @@
         au BufRead,BufNewFile *.notes set guifont=Consolas:h12
         au BufRead,BufNewFile *.notes set spell
     " }
-    au BufNewFile,BufRead *.ahk setf ahk 
+    au BufNewFile,BufRead *.ahk setf ahk
 " }
 
 " GUI Settings {
 if has("gui_running")
     " Basics {
         "colorscheme metacosm    " already set through csapprox
-        set columns=180          " perfect size for me
+        "set columns=180          " perfect size for me
+        set columns=120          " perfect size for me
         set guifont=Consolas:h10 " My favorite font
-        set guioptions=ce 
+        set guioptions=ce
         "              ||
         "              |+-- use simple dialogs rather than pop-ups
         "              +  use GUI tabs, not console style tabs
