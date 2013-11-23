@@ -20,6 +20,7 @@
 
     " Vundle bundles
     Bundle 'tpope/vim-fugitive'
+    Bundle 'gregsexton/gitv'
     "Bundle 'tpope/vim-git'
     Bundle 'tpope/vim-unimpaired'
     Bundle 'tpope/vim-surround'
@@ -27,23 +28,25 @@
     Bundle 'godlygeek/tabular'
     Bundle 'vim-scripts/CSApprox'
     Bundle 'wincent/Command-T'
-    Bundle 'techlivezheng/vim-plugin-minibufexpl'
+    "Bundle 'techlivezheng/vim-plugin-minibufexpl'
     Bundle 'kana/vim-textobj-user'
     Bundle 'kana/vim-textobj-indent'
     Bundle 'coderifous/textobj-word-column.vim'
-    Bundle 'gregsexton/gitv'
     Bundle 'Lokaltog/vim-easymotion'
     Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
     Bundle 'HubbaBubbaFett/mustang'
+    Bundle 'chrisbra/Recover.vim'
     " coding bundles
     Bundle 'majutsushi/tagbar'
-    Bundle 'msanders/snipmate.vim'
+    "Bundle 'msanders/snipmate.vim'
+    Bundle 'SirVer/ultisnips'
     Bundle 'scrooloose/nerdcommenter'
     " python bundles
     Bundle 'klen/python-mode'
-    Bundle 'davidhalter/jedi-vim'
+    "Bundle 'davidhalter/jedi-vim'
     " c/c++ bundles
-    Bundle 'Rip-Rip/clang_complete'
+    Bundle 'Valloric/YouCompleteMe'
+    "Bundle 'Rip-Rip/clang_complete'
     Bundle 'derekwyatt/vim-fswitch'
 " }
 
@@ -182,11 +185,15 @@
     let b:match_ignorecase = 1 " case is stupid
     let perl_extended_vars=1   " highlight advanced perl vars inside strings
 
+    " YouCompleteMe
+    "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
+
     " Python-mode
     let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
+    let g:pymode_lint_ignore = "E501,C0301"       " ignore line to long error
 
     " Minibufexplorer
-    let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
+    "let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
 
 
 "    " TagList Settings {
