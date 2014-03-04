@@ -9,45 +9,8 @@
 "   http://robertmelton.com/contact (many forms of communication)
 " }
 
-" Vundle {
-    " Run this first...
-    filetype off
-    set rtp+=~/.vim/bundle/vundle/
-    call vundle#rc()
-
-    " let Vundle manage Vundle
-    Bundle 'gmarik/vundle'
-
-    " Vundle bundles
-    Bundle 'tpope/vim-fugitive'
-    Bundle 'gregsexton/gitv'
-    "Bundle 'tpope/vim-git'
-    Bundle 'tpope/vim-unimpaired'
-    Bundle 'tpope/vim-surround'
-    Bundle 'tpope/vim-repeat'
-    Bundle 'godlygeek/tabular'
-    Bundle 'vim-scripts/CSApprox'
-    Bundle 'wincent/Command-T'
-    "Bundle 'techlivezheng/vim-plugin-minibufexpl'
-    Bundle 'kana/vim-textobj-user'
-    Bundle 'kana/vim-textobj-indent'
-    Bundle 'coderifous/textobj-word-column.vim'
-    Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
-    Bundle 'HubbaBubbaFett/mustang'
-    Bundle 'chrisbra/Recover.vim'
-    " coding bundles
-    Bundle 'majutsushi/tagbar'
-    "Bundle 'msanders/snipmate.vim'
-    Bundle 'SirVer/ultisnips'
-    Bundle 'scrooloose/nerdcommenter'
-    " python bundles
-    Bundle 'klen/python-mode'
-    "Bundle 'davidhalter/jedi-vim'
-    " c/c++ bundles
-    Bundle 'Valloric/YouCompleteMe'
-    "Bundle 'Rip-Rip/clang_complete'
-    Bundle 'derekwyatt/vim-fswitch'
+" Includes {
+    source ~/.vim/vimrc.bundles
 " }
 
 " Basics {
@@ -295,11 +258,11 @@
     nnoremap <leader>o :FSSplitAbove<CR>
 
     " Spell
-    map <leader>ss :setlocal spell!
-    map <leader>sn ]s
-    map <leader>np [s
-    map <leader>sa zg
-    map <leader>s? z=
+    "map <leader>ss :setlocal spell!
+    "map <leader>sn ]s
+    "map <leader>np [s
+    "map <leader>sa zg
+    "map <leader>s? z=
 
     " I always let go of shift too slow...
     cab Q q
