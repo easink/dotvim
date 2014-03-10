@@ -4,13 +4,15 @@
 "   This is my personal .vimrc, I don't recommend you copy it, just
 "   use the "   pieces you want(and understand!).  When you copy a
 "   .vimrc in its entirety, weird and unexpected things can happen.
-"
-"   If you find an obvious mistake hit me up at:
-"   http://robertmelton.com/contact (many forms of communication)
 " }
 
 " Includes {
     source ~/.vim/vimrc.bundles
+
+    " Load matchit.vim, but only if the user hasn't installed a newer version.
+    if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+        runtime! macros/matchit.vim
+    endif
 " }
 
 " Basics {
@@ -86,7 +88,7 @@
     set hlsearch                 " highlight searched for phrases
     set nostartofline            " leave my cursor where it was
     set novisualbell             " don't blink
-    set number                   " turn on line numbers
+    set relativenumber           " turn on line numbers
     set numberwidth=4            " We are good up to 9999 lines
     "set report=0                " tell us when anything is changed via :...
     set ruler                    " Always show current positions along the bottom
@@ -218,7 +220,8 @@
     nnoremap <silent> <F4> :TagbarToggle<CR>
 
     " Clear highlighted search
-    "nmap <silent> ,/ :nohlsearch<CR>
+    nnoremap <silent> <CR> :nohlsearch<CR>
+
     " ROT13 - fun
     "map <F12> ggVGg?
 
@@ -241,8 +244,8 @@
     map <C-Right> :bnext<CR>
     imap <C-Left> <Esc>:bprev<CR><insert>
     imap <C-Right> <Esc>:bnext<CR><insert>
-    nnoremap <leader>, :CommandTBuffer<CR>
-    nnoremap <leader>. :CommandT<CR>
+    nnoremap <leader>, :CtrlPBuffer<CR>
+    nnoremap <leader>. :CtrlP<CR>
 
     " Window movements
     map <C-j> <C-W>j
@@ -271,14 +274,14 @@
 " }
 
 " Autocommands {
-"    " Return to last edit position when opening files (You want this!)
-"    autocmd BufReadPost *
-"        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-"        \   exe "normal g'\"" |
-"        \ endif
-"    " Remember info about open buffers on close
-"    set viminfo^=%
-"
+    " Return to last edit position when opening files (You want this!)
+    autocmd BufReadPost *
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal g'\"" |
+        \ endif
+    " Remember info about open buffers on close
+    set viminfo^=%
+
     " C {
         function FT_C()
             set autowrite
