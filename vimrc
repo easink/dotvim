@@ -97,22 +97,22 @@
     set showcmd                  " show the command being typed
     set showmatch                " show matching brackets
     set sidescrolloff=10         " Keep 5 lines at the size
-    set statusline=%F\ %m%r%h%w%{fugitive#statusline()}%=%y\ [%{&ff}]\ %l,%v\ %p%%
     "set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%l,%v]%=%{fugitive#statusline()}
-    "              | | | | |  |   |      |  |     |    |
-    "              | | | | |  |   |      |  |     |    + current
-    "              | | | | |  |   |      |  |     |       column
-    "              | | | | |  |   |      |  |     +-- current line
-    "              | | | | |  |   |      |  +-- current % into file
-    "              | | | | |  |   |      +-- current syntax in
-    "              | | | | |  |   |          square brackets
-    "              | | | | |  |   +-- current fileformat
-    "              | | | | |  +-- number of lines
-    "              | | | | +-- preview flag in square brackets
-    "              | | | +-- help flag in square brackets
-    "              | | +-- readonly flag in square brackets
-    "              | +-- rodified flag in square brackets
-    "              +-- full path to file in the buffer
+    set statusline=[%n]\ %t\ %F\ %m%r%h%w%{fugitive#statusline()}%=%y\ [%{&ff}]\ %l,%v\ %p%%
+    "                         | | | | |  |   |      |  |     |    |
+    "                         | | | | |  |   |      |  |     |    + current
+    "                         | | | | |  |   |      |  |     |       column
+    "                         | | | | |  |   |      |  |     +-- current line
+    "                         | | | | |  |   |      |  +-- current % into file
+    "                         | | | | |  |   |      +-- current syntax in
+    "                         | | | | |  |   |          square brackets
+    "                         | | | | |  |   +-- current fileformat
+    "                         | | | | |  +-- number of lines
+    "                         | | | | +-- preview flag in square brackets
+    "                         | | | +-- help flag in square brackets
+    "                         | | +-- readonly flag in square brackets
+    "                         | +-- rodified flag in square brackets
+    "                         +-- full path to file in the buffer
 " }
 
 " Text Formatting/Layout {
@@ -155,11 +155,18 @@
 
     " Python-mode
     let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
-    let g:pymode_lint_ignore = "E501,C0301"       " ignore line to long error
+    let g:pymode_lint_ignore = "E501,C0301" " ignore line to long error
 
     " Minibufexplorer
     "let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
 
+    " YouCompleteMe
+    let g:ycm_confirm_extra_conf = 0
+    "let g:ycm_key_list_selection = ['<Down>']
+
+    " Ultisnips
+    "let g:UltiSnipsExpandTrigger = "<C-Tab>"
+    "let g:UltiSnipsListSnippets = "<C-S-Tab>"
 
 "    " TagList Settings {
 "        let Tlist_Auto_Open=0              " let the tag list open automagically
@@ -186,6 +193,7 @@
 
 " Mappings {
     let mapleader = ","
+    " dont invalid vim function
     nnoremap \ ,
 
     " Force me to ignore arrow keys
@@ -208,10 +216,13 @@
     inoremap <M-q> <Esc>:q!<CR>
 
     " Remove trailing spaces
-    nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+    nnoremap <silent> <leader>W :%s/\s\+$//<CR>:let @/=''<CR><C-o>
 
     " Reselect pasted text
     nnoremap <leader>v V`]
+
+    " abbreviations
+    iabbrev ymd <C-R>=strftime("%F")<CR>
 
     " Toggle line numbers on fold column for easy copying
     "nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
@@ -220,7 +231,7 @@
     nnoremap <silent> <F4> :TagbarToggle<CR>
 
     " Clear highlighted search
-    nnoremap <silent> <CR> :nohlsearch<CR>
+    nnoremap <silent> <CR> :nohlsearch<CR><CR>
 
     " ROT13 - fun
     "map <F12> ggVGg?
@@ -240,10 +251,17 @@
     " }
 
     " Buffer shifts
-    map <C-Left> :bprev<CR>
-    map <C-Right> :bnext<CR>
-    imap <C-Left> <Esc>:bprev<CR><insert>
-    imap <C-Right> <Esc>:bnext<CR><insert>
+    " nnoremap <C-S-h> :bprev<CR>
+    " nnoremap <C-S-l> :bnext<CR>
+    " nnoremap <C-S-j> :bfirst<CR>
+    " nnoremap <C-S-k> :blast<CR>
+    " nnoremap <C-Left> :bprev<CR>
+    " nnoremap <C-Right> :bnext<CR>
+    " nnoremap <C-Up> :bfirst<CR>
+    " nnoremap <C-Down> :blast<CR>
+    " inoremap <C-Left> <Esc>:bprev<CR><insert>
+    " inoremap <C-Right> <Esc>:bnext<CR><insert>
+
     nnoremap <leader>, :CtrlPBuffer<CR>
     nnoremap <leader>. :CtrlP<CR>
 
@@ -259,6 +277,9 @@
 
     " FSwitch
     nnoremap <leader>o :FSSplitAbove<CR>
+
+    " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
+    let g:miniBufExplorerHideWhenDiff = 1
 
     " Spell
     "map <leader>ss :setlocal spell!
@@ -307,7 +328,7 @@
             "let g:SuperTabDefaultCompletionType = "context"
 
             " Debug clang_complete
-            let g:clang_debug = 1
+            "let g:clang_debug = 1
             " May fix scan issue???
             "let g:clang_user_options='|| exit 0'
             " Enable snipmate
@@ -315,14 +336,11 @@
             "let g:clang_snippets_engine = 'snipmate'
             " Disable auto popup, use <Tab> to autocomplete
             let g:clang_complete_auto = 0
-            " Show clang errors in the quickfix window
+            " " Show clang errors in the quickfix window
             let g:clang_complete_copen = 1
-            " Use snippets
-            let g:clang_snippets = 1
-            let g:clang_snippets_engine = "clang_complete"
             " Use the lib instead for speed and functions
-            let g:clang_use_library = 1
-            let g:clang_library_path="/usr/lib/"
+            "let g:clang_use_library = 1
+            "let g:clang_library_path="/usr/lib/"
             " Correct libclang path
             if has("gui_macvim")
                     let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
@@ -353,6 +371,9 @@
             "imap ;def #define-
             "imap ;for for (;;) {<CR>}<Esc>kf(a
 
+            " YouCompleteMe
+            nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
             " finds the current function in C
             noremap <leader>f mk[[?^[A-Za-z0-9_].*(<CR>V"ky`k:echo "<C-R>k"<CR>
             "  better version for C, doesn't always work though 8)
@@ -364,6 +385,9 @@
             noremap <C-G> 2<C-G>
         endfunction
         au BufRead,BufNewFile *.c,*.h call FT_C()
+    " }
+    " Markdown {
+        au BufRead,BufNewFile *.md set filetype=markdown
     " }
     " Ruby {
         " ruby standard 2 spaces, always
