@@ -1,6 +1,7 @@
 " Vundle {
     " Run this first...
-    filetype off
+    set nocompatible    " required
+    filetype off        " required
     set rtp+=~/.vim/bundle/vundle/
     call vundle#rc()
 
@@ -8,32 +9,43 @@
     Bundle 'gmarik/vundle'
 
     " Vundle bundles
-    Bundle 'tpope/vim-fugitive'
-    "Bundle 'tpope/vim-git'
+    " for the looks
+    Bundle 'nathanaelkane/vim-indent-guides'
+    Bundle 'vim-scripts/CSApprox'
+    Bundle 'HubbaBubbaFett/mustang'
+    " features
     Bundle 'tpope/vim-unimpaired'
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-repeat'
-    Bundle 'godlygeek/tabular'
-    Bundle 'vim-scripts/CSApprox'
+    Bundle 'tpope/vim-jdaddy'
     Bundle 'kien/ctrlp.vim'
     "Bundle 'wincent/Command-T'
     "Bundle 'techlivezheng/vim-plugin-minibufexpl'
+    "Bundle 'fholgado/minibufexpl.vim'
+    Bundle 'chrisbra/Recover.vim'
+    " git
+    Bundle 'tpope/vim-fugitive'
+    Bundle 'gregsexton/gitv'
+    "Bundle 'tpope/vim-git'
+    Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
+    " text objects
+    Bundle 'godlygeek/tabular'
     Bundle 'kana/vim-textobj-user'
     Bundle 'kana/vim-textobj-indent'
     Bundle 'coderifous/textobj-word-column.vim'
-    Bundle 'gregsexton/gitv'
     Bundle 'Lokaltog/vim-easymotion'
-    "Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
-    Bundle 'HubbaBubbaFett/mustang'
-    " coding bundles
+    " coding
     Bundle 'majutsushi/tagbar'
-    Bundle 'SirVer/ultisnips'
     "Bundle 'msanders/snipmate.vim'
+    Bundle 'SirVer/ultisnips'
     Bundle 'scrooloose/nerdcommenter'
     " python bundles
     Bundle 'klen/python-mode'
-    Bundle 'davidhalter/jedi-vim'
+    "Bundle 'davidhalter/jedi-vim'
     " c/c++ bundles
-    Bundle 'Rip-Rip/clang_complete'
+    Bundle 'Valloric/YouCompleteMe'
+    "Bundle 'Rip-Rip/clang_complete'
     Bundle 'derekwyatt/vim-fswitch'
+
+    filetype plugin indent on     " required
 " }

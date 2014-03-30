@@ -88,7 +88,8 @@
     set hlsearch                 " highlight searched for phrases
     set nostartofline            " leave my cursor where it was
     set novisualbell             " don't blink
-    set relativenumber           " turn on line numbers
+    set number                   " turn on line numbers
+    set relativenumber           " turn on relative line numbers
     set numberwidth=4            " We are good up to 9999 lines
     "set report=0                " tell us when anything is changed via :...
     set ruler                    " Always show current positions along the bottom
