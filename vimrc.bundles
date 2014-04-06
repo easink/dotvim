@@ -6,46 +6,47 @@
     call vundle#rc()
 
     " let Vundle manage Vundle
-    Bundle 'gmarik/vundle'
+    Plugin 'gmarik/vundle'
 
     " Vundle bundles
     " for the looks
-    Bundle 'nathanaelkane/vim-indent-guides'
-    Bundle 'vim-scripts/CSApprox'
-    Bundle 'HubbaBubbaFett/mustang'
+    Plugin 'nathanaelkane/vim-indent-guides'
+    Plugin 'vim-scripts/CSApprox'
+    Plugin 'HubbaBubbaFett/mustang'
     " features
-    Bundle 'tpope/vim-unimpaired'
-    Bundle 'tpope/vim-surround'
-    Bundle 'tpope/vim-repeat'
-    Bundle 'tpope/vim-jdaddy'
-    Bundle 'kien/ctrlp.vim'
-    "Bundle 'wincent/Command-T'
-    "Bundle 'techlivezheng/vim-plugin-minibufexpl'
-    "Bundle 'fholgado/minibufexpl.vim'
-    Bundle 'chrisbra/Recover.vim'
+    Plugin 'tpope/vim-unimpaired'
+    Plugin 'tpope/vim-surround'
+    Plugin 'tpope/vim-repeat'
+    Plugin 'tpope/vim-jdaddy'
+    Plugin 'kien/ctrlp.vim'
+    "Plugin 'wincent/Command-T'
+    "Plugin 'techlivezheng/vim-plugin-minibufexpl'
+    "Plugin 'fholgado/minibufexpl.vim'
+    Plugin 'chrisbra/Recover.vim'
     " git
-    Bundle 'tpope/vim-fugitive'
-    Bundle 'gregsexton/gitv'
-    "Bundle 'tpope/vim-git'
-    Bundle 'http://www.tidraso.co.uk/repository/vim-plugin/'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'gregsexton/gitv'
+    "Plugin 'tpope/vim-git'
+    Plugin 'http://www.tidraso.co.uk/repository/vim-plugin/'
     " text objects
-    Bundle 'godlygeek/tabular'
-    Bundle 'kana/vim-textobj-user'
-    Bundle 'kana/vim-textobj-indent'
-    Bundle 'coderifous/textobj-word-column.vim'
-    Bundle 'Lokaltog/vim-easymotion'
+    Plugin 'godlygeek/tabular'
+    Plugin 'kana/vim-textobj-user'
+    Plugin 'kana/vim-textobj-indent'
+    Plugin 'coderifous/textobj-word-column.vim'
+    Plugin 'Lokaltog/vim-easymotion'
     " coding
-    Bundle 'majutsushi/tagbar'
-    "Bundle 'msanders/snipmate.vim'
-    Bundle 'SirVer/ultisnips'
-    Bundle 'scrooloose/nerdcommenter'
+    Plugin 'majutsushi/tagbar'
+    "Plugin 'msanders/snipmate.vim'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'honza/vim-snippets'
+    Plugin 'scrooloose/nerdcommenter'
     " python bundles
-    Bundle 'klen/python-mode'
-    "Bundle 'davidhalter/jedi-vim'
+    Plugin 'klen/python-mode'
+    "Plugin 'davidhalter/jedi-vim'
     " c/c++ bundles
-    Bundle 'Valloric/YouCompleteMe'
-    "Bundle 'Rip-Rip/clang_complete'
-    Bundle 'derekwyatt/vim-fswitch'
+    Plugin 'Valloric/YouCompleteMe'
+    "Plugin 'Rip-Rip/clang_complete'
+    Plugin 'derekwyatt/vim-fswitch'
 
     filetype plugin indent on     " required
 " }
