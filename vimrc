@@ -155,8 +155,9 @@
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
 
     " Python-mode
-    let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
+    "let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
     let g:pymode_lint_ignore = "E501,C0301" " ignore line to long error
+    let g:pymode_rope_complete_on_dot = 0   " fix a freeze when using YCM
 
     " Minibufexplorer
     "let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
@@ -167,7 +168,15 @@
 
     " Ultisnips
     "let g:UltiSnipsExpandTrigger = "<C-Tab>"
-    "let g:UltiSnipsListSnippets = "<C-S-Tab>"
+    "let g:UltiSnipsListSnippets = "<S-Tab>"
+    "let g:UltiSnipsJumpForwardTrigger="<C-Tab>"
+    "let g:UltiSnipsExpandTrigger = "<C-Tab>"
+    "let g:UltiSnipsEditSplit = "vertical"
+    let g:UltiSnipsListSnippets = "<C-h>"
+    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    inoremap <C-K> <NOP>                    " disable digraphs
+    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "    " TagList Settings {
 "        let Tlist_Auto_Open=0              " let the tag list open automagically
@@ -202,19 +211,6 @@
     noremap <right> <nop>
     noremap <up> <nop>
     noremap <down> <nop>
-
-    " Quick save
-    " Never used it
-    " nmap <leader>w :w!<CR>
-    " Trying this instead (must turn of C-s in terminal!)
-    nnoremap <C-s> :w!<CR>
-    inoremap <C-s> <Esc>:w!<CR>a
-    " Quick save + exit
-    nnoremap <C-q> :wq!<CR>
-    inoremap <C-q> <Esc>:wq!<CR>
-    " Quick exit
-    nnoremap <M-q> :q!<CR>
-    inoremap <M-q> <Esc>:q!<CR>
 
     " Remove trailing spaces
     nnoremap <silent> <leader>W :%s/\s\+$//<CR>:let @/=''<CR><C-o>
@@ -267,10 +263,10 @@
     nnoremap <leader>. :CtrlP<CR>
 
     " Window movements
-    map <C-j> <C-W>j
-    map <C-k> <C-W>k
-    map <C-h> <C-W>h
-    map <C-l> <C-W>l
+    nnoremap <C-j> <C-W>j
+    nnoremap <C-k> <C-W>k
+    nnoremap <C-h> <C-W>h
+    nnoremap <C-l> <C-W>l
 
     " Visual mode pressing * or # search for current selection
 "    vnoremap <silent> * :call VisualSelection('f')<CR>
@@ -336,16 +332,16 @@
             "let g:clang_snippets = 1
             "let g:clang_snippets_engine = 'snipmate'
             " Disable auto popup, use <Tab> to autocomplete
-            let g:clang_complete_auto = 0
+            "let g:clang_complete_auto = 0
             " " Show clang errors in the quickfix window
-            let g:clang_complete_copen = 1
+            "let g:clang_complete_copen = 1
             " Use the lib instead for speed and functions
             "let g:clang_use_library = 1
             "let g:clang_library_path="/usr/lib/"
             " Correct libclang path
-            if has("gui_macvim")
-                    let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
-            endif
+            "if has("gui_macvim")
+            "        let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
+            "endif
 
             " Cscope
             if has("cscope")
