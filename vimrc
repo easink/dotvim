@@ -40,6 +40,8 @@
     colorscheme mustang
     "complement to mustang...
     :hi ColorColumn guibg=#2d2d2d ctermbg=236
+    " force CSApprox!
+    ":CSApprox!
 " }
 
 " General {
@@ -156,8 +158,25 @@
 
     " Python-mode
     "let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
-    let g:pymode_lint_ignore = "E501,C0301" " ignore line to long error
-    let g:pymode_rope_complete_on_dot = 0   " fix a freeze when using YCM
+    let g:pymode_lint_ignore = "E501,E265,C0301" " ignore line to long error
+    let g:pymode_rope = 0                    " disable rope
+    "let g:pymode_rope_complete_on_dot = 0   " fix a freeze when using YCM
+
+    " jedi-vim {
+    "" disable completion
+    "let g:jedi#auto_vim_configuration = 0
+    "let g:jedi#popup_on_dot = 0
+    "let g:jedi#popup_select_first = 0
+    "let g:jedi#completions_enabled = 0
+    "let g:jedi#completions_command = ""
+    "let g:jedi#show_call_signatures = "1"
+
+    "let g:jedi#goto_assignments_command = "<leader>pa"
+    "let g:jedi#goto_definitions_command = "<leader>pd"
+    "let g:jedi#documentation_command = "<leader>pk"
+    "let g:jedi#usages_command = "<leader>pu"
+    "let g:jedi#rename_command = "<leader>pr"
+    "" }
 
     " Minibufexplorer
     "let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
@@ -175,7 +194,8 @@
     let g:UltiSnipsListSnippets = "<C-h>"
     let g:UltiSnipsExpandTrigger="<c-j>"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
-    inoremap <C-K> <NOP>                    " disable digraphs
+    " disable digraphs
+    inoremap <C-K> <NOP>
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "    " TagList Settings {

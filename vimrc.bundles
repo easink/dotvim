@@ -11,7 +11,7 @@
     " Vundle bundles
     " for the looks
     Plugin 'nathanaelkane/vim-indent-guides'
-    Plugin 'vim-scripts/CSApprox'
+    Plugin 'godlygeek/csapprox'
     Plugin 'HubbaBubbaFett/mustang'
     " features
     Plugin 'tpope/vim-unimpaired'
