@@ -1,0 +1,50 @@
+" vim-plug {
+    " Run this first...
+    call plug#begin('~/.vim/plugged')
+
+    " let Vundle manage Vundle
+    Plug 'gmarik/vundle'
+
+    " Vundle bundles
+    " for the looks
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'godlygeek/csapprox'
+    Plug 'HubbaBubbaFett/mustang'
+    " features
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-jdaddy'
+    Plug 'kien/ctrlp.vim'
+    "Plug 'wincent/Command-T'
+    "Plug 'techlivezheng/vim-plugin-minibufexpl'
+    "Plug 'fholgado/minibufexpl.vim'
+    Plug 'chrisbra/Recover.vim'
+    " git
+    Plug 'tpope/vim-fugitive'
+    Plug 'gregsexton/gitv'
+    "Plug 'tpope/vim-git'
+    Plug 'http://www.tidraso.co.uk/repository/vim-plugin/'
+    " text objects
+    Plug 'godlygeek/tabular'
+    Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-indent'
+    Plug 'coderifous/textobj-word-column.vim'
+    Plug 'Lokaltog/vim-easymotion'
+    " coding
+    Plug 'majutsushi/tagbar'
+    "Plug 'msanders/snipmate.vim'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'scrooloose/nerdcommenter'
+    " python bundles
+    Plug 'klen/python-mode', { 'for': 'python' }
+    "Plug 'davidhalter/jedi-vim'
+    " c/c++ bundles
+    Plug 'Valloric/YouCompleteMe'
+    "Plug 'Rip-Rip/clang_complete'
+    Plug 'derekwyatt/vim-fswitch'
+
+    " End
+    call plug#end()
+" }
