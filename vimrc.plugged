@@ -3,7 +3,7 @@
     call plug#begin('~/.vim/plugged')
 
     " let Vundle manage Vundle
-    Plug 'gmarik/vundle'
+    "Plug 'gmarik/vundle'
 
     " Vundle bundles
     " for the looks
