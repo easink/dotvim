@@ -10,6 +10,7 @@
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'godlygeek/csapprox'
     Plug 'HubbaBubbaFett/mustang'
+    Plug 'haya14busa/incsearch.vim'
     " features
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
