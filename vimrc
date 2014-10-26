@@ -41,8 +41,6 @@
     colorscheme mustang
     "complement to mustang...
     :hi ColorColumn guibg=#2d2d2d ctermbg=236
-    " force CSApprox!
-    ":CSApprox!
 " }
 
 " General {
