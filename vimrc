@@ -248,8 +248,14 @@
     " Toggle Tagbar
     nnoremap <silent> <F4> :TagbarToggle<CR>
 
-    " Clear highlighted search
+    " High light search
+    map /  <Plug>(incsearch-forward)
+    map ?  <Plug>(incsearch-backward)
+    map g/ <Plug>(incsearch-stay)
+
+    " Clear highlighted search, need to test to know what version I want!
     nnoremap <silent> <CR> :nohlsearch<CR><CR>
+    nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
     " ROT13 - fun
     "map <F12> ggVGg?
