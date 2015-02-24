@@ -23,16 +23,16 @@
     set cpoptions=aABceFsmq
     "             |||||||||
     "             ||||||||+-- When joining lines, leave the cursor
-    "             |||||||      between joined lines
+    "             ||||||||     between joined lines
     "             |||||||+-- When a new match is created (showmatch)
-    "             ||||||      pause for .5
+    "             |||||||     pause for .5
     "             ||||||+-- Set buffer options when entering the
-    "             |||||      buffer
+    "             ||||||     buffer
     "             |||||+-- :write command updates current file name
     "             ||||+-- Automatically add <CR> to the last line
-    "             |||      when using :@r
+    "             ||||     when using :@r
     "             |||+-- Searching continues at the end of the match
-    "             ||      at the cursor position
+    "             |||     at the cursor position
     "             ||+-- A backslash has no special meaning in mappings
     "             |+-- :write updates alternative file name
     "             +-- :read updates alternative file name
@@ -181,7 +181,7 @@
     " racer
     " source /home/andreas/source/racer/editors/racer.vim
     let g:racer_cmd = "/home/andreas/source/racer/bin/racer"
-    let $RUST_SRC_PATH= "/home/andreas/source/rust-nightly/src"
+    let $RUST_SRC_PATH = "/home/andreas/source/rust-nightly/src"
 
     " Minibufexplorer
     "let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
