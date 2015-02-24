@@ -331,6 +331,17 @@
     " Remember info about open buffers on close
     set viminfo^=%
 
+    " Use local formatexpr instead of gloabl formatprg, stolen from Drew Neil
+    function! FormatprgLocal(filter)
+        if !empty(v:char)
+            return 1
+        else
+            let l:command = v:lnum.','.(v:lnum+v:count-1).'!'.a:filter
+            echo l:command
+            execute l:command
+        endif
+    endfunction
+
     " C {
         function FT_C()
             set autowrite
@@ -416,6 +427,16 @@
     " }
     " Markdown {
         au BufRead,BufNewFile *.md set filetype=markdown
+        " au FileType markdown setlocal formatexpr=FormatprgLocal('test')
+        " au FileType markdown setlocal formatexpr=FormatprgLocal("pandoc\ -f\ markdown\ -t\ markdown")
+        au FileType markdown setlocal formatexpr=FormatprgLocal('pandoc\ -f\ markdown\ -t\ markdown')
+    " }
+    " HTML {
+        au FileType html setlocal formatexpr=FormatprgLocal('pandoc\ -f\ html\ -t\ html')
+        " au FileType html setlocal formatexpr=FormatprgLocal('xmllint\ --format\ --html\ --xmlout')
+    " }
+    " XML {
+        au FileType html setlocal formatexpr=FormatprgLocal('xmllint\ --format')
     " }
     " Ruby {
         " ruby standard 2 spaces, always
