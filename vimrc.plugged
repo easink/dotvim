@@ -22,6 +22,7 @@
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'godlygeek/csapprox'
     Plug 'HubbaBubbaFett/mustang'
+    " Plug 'nathanaelkane/vim-indent-guides'
 
     " features
     Plug 'haya14busa/incsearch.vim'
@@ -56,13 +57,14 @@
     Plug 'honza/vim-snippets'
     Plug 'scrooloose/nerdcommenter'
     " python bundles
-    " Plug 'klen/python-mode', { 'for': 'python' }
+    Plug 'bps/vim-textobj-python', { 'for': 'python' }
+    Plug 'klen/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     " rust
     Plug 'wting/rust.vim', { 'for': 'rust' }
     " Plug 'ebfe/vim-racer', { 'for': 'rust' }
-     Plug '~/source/racer/editors/racer.vim', { 'for': 'rust' }
-    " c/c++ bundles
+    Plug '~/source/racer/editors/racer.vim', { 'for': 'rust' }
+    " python/c/c++ bundles
     Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     "Plug 'Rip-Rip/clang_complete'
     Plug 'derekwyatt/vim-fswitch'
