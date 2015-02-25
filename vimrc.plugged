@@ -22,7 +22,6 @@
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'godlygeek/csapprox'
     Plug 'HubbaBubbaFett/mustang'
-    " Plug 'nathanaelkane/vim-indent-guides'
 
     " features
     Plug 'haya14busa/incsearch.vim'
@@ -47,8 +46,14 @@
     Plug 'godlygeek/tabular'
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-indent'
+    Plug 'bps/vim-textobj-python', { 'for': 'python' }
     Plug 'coderifous/textobj-word-column.vim'
     Plug 'Lokaltog/vim-easymotion'
+
+    " markdown
+    Plug 'vim-pandoc/vim-pandoc'
+    " Plug 'vim-pandoc/vim-pandoc-syntax'
+    " Plug 'plasticboy/vim-markdown'
 
     " coding
     Plug 'majutsushi/tagbar'
@@ -57,7 +62,6 @@
     Plug 'honza/vim-snippets'
     Plug 'scrooloose/nerdcommenter'
     " python bundles
-    Plug 'bps/vim-textobj-python', { 'for': 'python' }
     Plug 'klen/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     " rust

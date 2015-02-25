@@ -156,10 +156,22 @@
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
 
     " Python-mode
-    ""let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
+    "let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
     "let g:pymode_lint_ignore = "E501,E265,C0301" " ignore line to long error
+    let g:pymode_lint_ignore = "E501"         " ignore line to long error
     "let g:pymode_rope = 0                    " disable rope
-    ""let g:pymode_rope_complete_on_dot = 0   " fix a freeze when using YCM
+    "let g:pymode_rope_complete_on_dot = 0   " fix a freeze when using YCM
+
+    " let g:syntastic_python_checker = 'pyflakes'
+    " let g:syntastic_python_flake8_args = 
+    "       \ '--ignore=W191,E501,E121,E122,E123,E128,E225,W291'
+    " let pymode_lint = 0
+    " au FileType python setlocal expandtab shiftwidth=4 tabstop=8
+    "       \ formatoptions+=croq softtabstop=4 smartindent
+    "       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+    " let python_highlight_all=1
+    " let python_highlight_exceptions=0
+    " let python_highlight_builtins=0
 
     " jedi-vim {
     "" disable completion
@@ -248,7 +260,9 @@
 
     " Toggle line numbers on fold column for easy copying
     "nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
-    nnoremap <F2> :set nonumber!<CR>
+    nnoremap <silent> <F2> :set nonumber!<CR>:set norelativenumber!<cr>
+    " Toggle Indent guides
+    nnoremap <silent> <F3> :IndentGuidesToggle<cr>
     " Toggle Tagbar
     nnoremap <silent> <F4> :TagbarToggle<CR>
 
