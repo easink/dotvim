@@ -182,11 +182,11 @@
     "let g:jedi#completions_command = ""
     "let g:jedi#show_call_signatures = "1"
 
-    "let g:jedi#goto_assignments_command = "<leader>pa"
-    "let g:jedi#goto_definitions_command = "<leader>pd"
-    "let g:jedi#documentation_command = "<leader>pk"
-    "let g:jedi#usages_command = "<leader>pu"
-    "let g:jedi#rename_command = "<leader>pr"
+    "let g:jedi#goto_assignments_command = "<leader>ja"
+    "let g:jedi#goto_definitions_command = "<leader>jd"
+    "let g:jedi#documentation_command = "<leader>jk"
+    "let g:jedi#usages_command = "<leader>ju"
+    "let g:jedi#rename_command = "<leader>jr"
     "" }
 
     " Rust
@@ -254,6 +254,9 @@
 
     " Reselect pasted text
     nnoremap <leader>v V`]
+
+    " Reindent / Format / Priettify
+    noremap <leader>p ggVGgq
 
     " abbreviations
     iabbrev ymd <C-R>=strftime("%F")<CR>
@@ -431,8 +434,6 @@
             noremap <leader>f mk[[?^[A-Za-z0-9_].*(<CR>V"ky`k:echo "<C-R>k"<CR>
             "  better version for C, doesn't always work though 8)
             noremap <leader>k  :?^{??^\k? mark k\|echo getline("'k")<cr>
-            " finds the current function in perl
-            noremap <leader>p mk?^sub <CR>wve"ky'k:echo "<C-R>k"<CR>
 
             " Makes ctrl-g show the buffer # as well.
             noremap <C-G> 2<C-G>

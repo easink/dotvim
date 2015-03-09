@@ -49,6 +49,7 @@
     Plug 'bps/vim-textobj-python', { 'for': 'python' }
     Plug 'coderifous/textobj-word-column.vim'
     Plug 'Lokaltog/vim-easymotion'
+    Plug 'jeetsukumaran/vim-indentwise'
 
     " markdown
     Plug 'vim-pandoc/vim-pandoc'
