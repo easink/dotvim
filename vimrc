@@ -240,6 +240,7 @@
 
 " Mappings {
     let mapleader = ","
+    let maplocalleader = ","
     " dont invalid vim function
     nnoremap \ ,
 
@@ -452,6 +453,11 @@
     " }
     " XML {
         au FileType html setlocal formatexpr=FormatprgLocal('xmllint\ --format')
+    " }
+    " Python {
+        " Tests
+        au FileType python nnoremap <localleader>t :!nose2<cr>
+        au BufRead,BufNewFile *.rb,*.rhtml set softtabstop=2
     " }
     " Ruby {
         " ruby standard 2 spaces, always
