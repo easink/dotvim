@@ -254,11 +254,18 @@
     " Remove trailing spaces
     nnoremap <silent> <leader>W :%s/\s\+$//<CR>:let @/=''<CR><C-o>
 
+    " Yank and paste X11 clipboard
+    nnoremap gp "+p
+    nnoremap gP "+P
+    "nnoremap gP "*p
+    vnoremap gy "+y
+    "vnoremap gY "*y
+
     " Reselect pasted text
     nnoremap <leader>v V`]
 
     " Reindent / Format / Priettify
-    noremap <leader>p ggVGgq
+    noremap <leader>p ggVGgq2<C-o>
 
     " abbreviations
     iabbrev ymd <C-R>=strftime("%F")<CR>
