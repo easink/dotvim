@@ -264,8 +264,20 @@
     " Reselect pasted text
     nnoremap <leader>v V`]
 
-    " Reindent / Format / Priettify
-    noremap <leader>p ggVGgq2<C-o>
+    " Reindent / Format / Prettify
+    nnoremap <silent> <leader>p ggVGgq2<C-o>
+    nnoremap <silent> <leader>pp ggVGgq2<C-o>
+    " csv - quick and dirty
+    nnoremap <silent> <leader>pc :Tabularize /,\zs<cr>
+    vnoremap <silent> <leader>pc :Tabularize /,\zs<cr>
+    "nnoremap <silent> <leader>pc :!csvtool readable -<cr>
+    " xml
+    nnoremap <silent> <leader>px :%!xmllint --format -<cr>
+    vnoremap <silent> <leader>px :!xmllint --format -<cr>
+    "nnoremap <silent> <leader>px :!xmllint --format --html --xmlout<cr>
+    " html
+    nnoremap <silent> <leader>ph :%!pandoc -f html -t html<cr>
+    vnoremap <silent> <leader>ph :!pandoc -f html -t html<cr>
 
     " abbreviations
     iabbrev ymd <C-R>=strftime("%F")<CR>
