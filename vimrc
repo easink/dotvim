@@ -272,8 +272,8 @@
     vnoremap <silent> <leader>pc :Tabularize /,\zs<cr>
     "nnoremap <silent> <leader>pc :!csvtool readable -<cr>
     " xml
-    nnoremap <silent> <leader>px :%!xmllint --format -<cr>
-    vnoremap <silent> <leader>px :!xmllint --format -<cr>
+    nnoremap <silent> <leader>px :%!xmllint --recover --format -<cr>
+    vnoremap <silent> <leader>px :!xmllint --recover --format -<cr>
     "nnoremap <silent> <leader>px :!xmllint --format --html --xmlout<cr>
     " html
     nnoremap <silent> <leader>ph :%!pandoc -f html -t html<cr>
