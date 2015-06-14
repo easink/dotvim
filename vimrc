@@ -6,9 +6,86 @@
 "   .vimrc in its entirety, weird and unexpected things can happen.
 " }
 
-" Includes {
-    "source ~/.vim/vimrc.bundles
-    source ~/.vim/vimrc.plugged
+" vim-plug {
+    " Run this first...
+    call plug#begin('~/.vim/plugged')
+
+    " Special build function for YCM
+    function! BuildYCM(info)
+        " info is a dictionary with 3 fields
+        " - name:   name of the plugin
+        " - status: 'installed', 'updated', or 'unchanged'
+        " - force:  set on PlugInstall! or PlugUpdate!
+        if a:info.status == 'installed' || a:info.force
+            !./install.sh
+        endif
+    endfunction
+
+    " let Vundle manage Vundle
+    "Plug 'gmarik/vundle'
+
+    " Plugins
+
+    " for the looks
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'godlygeek/csapprox'
+    Plug 'HubbaBubbaFett/mustang'
+
+    " features
+    Plug 'haya14busa/incsearch.vim'
+    Plug 'tpope/vim-unimpaired'
+    Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-repeat'
+    Plug 'kien/ctrlp.vim'
+    "Plug 'wincent/Command-T'
+    "Plug 'techlivezheng/vim-plugin-minibufexpl'
+    "Plug 'fholgado/minibufexpl.vim'
+    Plug 'chrisbra/Recover.vim'
+
+    " git
+    Plug 'tpope/vim-fugitive'
+    Plug 'gregsexton/gitv'
+    "Plug 'tpope/vim-git'
+    Plug 'http://www.tidraso.co.uk/repository/vim-plugin/'
+
+    " text objects
+    Plug 'tpope/vim-jdaddy'
+    Plug 'sukima/xmledit'
+    Plug 'godlygeek/tabular'
+    Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-indent'
+    Plug 'bps/vim-textobj-python', { 'for': 'python' }
+    Plug 'coderifous/textobj-word-column.vim'
+    Plug 'Lokaltog/vim-easymotion'
+    Plug 'jeetsukumaran/vim-indentwise'
+    Plug 'rhysd/libclang-vim'
+    Plug 'rhysd/vim-textobj-clang'
+
+    " markdown
+    Plug 'vim-pandoc/vim-pandoc'
+    " Plug 'vim-pandoc/vim-pandoc-syntax'
+    " Plug 'plasticboy/vim-markdown'
+
+    " coding
+    Plug 'majutsushi/tagbar'
+    "Plug 'msanders/snipmate.vim'
+    Plug 'SirVer/ultisnips'
+    Plug 'honza/vim-snippets'
+    Plug 'scrooloose/nerdcommenter'
+    " python bundles
+    Plug 'klen/python-mode', { 'for': 'python' }
+    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    " rust
+    Plug 'wting/rust.vim', { 'for': 'rust' }
+    " Plug 'ebfe/vim-racer', { 'for': 'rust' }
+    Plug '~/source/racer/editors/racer.vim', { 'for': 'rust' }
+    " python/c/c++ bundles
+    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    "Plug 'Rip-Rip/clang_complete'
+    Plug 'derekwyatt/vim-fswitch'
+
+    " End
+    call plug#end()
 
     " Load matchit.vim, but only if the user hasn't installed a newer version.
     if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
