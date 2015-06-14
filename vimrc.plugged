@@ -50,6 +50,8 @@
     Plug 'coderifous/textobj-word-column.vim'
     Plug 'Lokaltog/vim-easymotion'
     Plug 'jeetsukumaran/vim-indentwise'
+    Plug 'rhysd/libclang-vim'
+    Plug 'rhysd/vim-textobj-clang'
 
     " markdown
     Plug 'vim-pandoc/vim-pandoc'
