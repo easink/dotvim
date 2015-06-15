@@ -76,9 +76,9 @@
     Plug 'klen/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
     " rust
-    Plug 'wting/rust.vim', { 'for': 'rust' }
+    " Plug 'wting/rust.vim', { 'for': 'rust' }
     " Plug 'ebfe/vim-racer', { 'for': 'rust' }
-    Plug '~/source/racer/editors/racer.vim', { 'for': 'rust' }
+    " Plug '~/source/racer/editors/racer.vim', { 'for': 'rust' }
     " python/c/c++ bundles
     Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     "Plug 'Rip-Rip/clang_complete'
