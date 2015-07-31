@@ -37,7 +37,7 @@
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
-    Plug 'kien/ctrlp.vim'
+    Plug 'ctrlpvim/ctrlp.vim'
     "Plug 'wincent/Command-T'
     "Plug 'techlivezheng/vim-plugin-minibufexpl'
     "Plug 'fholgado/minibufexpl.vim'
