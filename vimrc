@@ -30,6 +30,7 @@
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'godlygeek/csapprox'
     Plug 'HubbaBubbaFett/mustang'
+    Plug 'ap/vim-buftabline'
 
     " features
     Plug 'haya14busa/incsearch.vim'
@@ -229,6 +230,10 @@
     let b:match_ignorecase = 1 " case is stupid
     let perl_extended_vars=1   " highlight advanced perl vars inside strings
 
+    " Buftabline
+    let g:buftabline_show = 1   " show when at least two buffers exists
+    let g:buftabline_numbers = 1
+
     " YouCompleteMe
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
 
@@ -406,7 +411,7 @@
     " inoremap <C-Right> <Esc>:bnext<CR><insert>
 
     nnoremap <leader>, :CtrlPBuffer<CR>
-    nnoremap <leader>. :CtrlP<CR>
+    nnoremap <leader>. :CtrlP .<CR>
 
     " Window movements
     nnoremap <C-j> <C-W>j
