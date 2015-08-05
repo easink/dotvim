@@ -84,6 +84,8 @@
     Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     "Plug 'Rip-Rip/clang_complete'
     Plug 'derekwyatt/vim-fswitch'
+    " puppet - well, not really coding
+    Plug 'rodjek/vim-puppet'
 
     " End
     call plug#end()
