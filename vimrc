@@ -333,6 +333,19 @@
     noremap <up> <nop>
     noremap <down> <nop>
 
+    " Buftabline toggle
+    nnoremap <silent> <leader>t :call BuftablineToggle()<cr>
+
+    function! BuftablineToggle()
+        if g:buftabline_show == 0
+            let g:buftabline_show = 1
+            call buftabline#update(0)
+        else
+            let g:buftabline_show = 0
+            call buftabline#update(0)
+        endif
+    endfunction
+
     " Remove trailing spaces
     nnoremap <silent> <leader>W :%s/\s\+$//<CR>:let @/=''<CR><C-o>
 
