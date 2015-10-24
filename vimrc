@@ -64,8 +64,8 @@
 
     " markdown
     Plug 'vim-pandoc/vim-pandoc'
-    " Plug 'vim-pandoc/vim-pandoc-syntax'
-    " Plug 'plasticboy/vim-markdown'
+    Plug 'vim-pandoc/vim-pandoc-syntax'
+    Plug 'plasticboy/vim-markdown'
 
     " coding
     Plug 'majutsushi/tagbar'
@@ -80,9 +80,15 @@
     " Plug 'wting/rust.vim', { 'for': 'rust' }
     " Plug 'ebfe/vim-racer', { 'for': 'rust' }
     " Plug '~/source/racer/editors/racer.vim', { 'for': 'rust' }
+
     " python/c/c++ bundles
-    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-    "Plug 'Rip-Rip/clang_complete'
+    if has("python3") && !has("python")
+        Plug 'Shougo/neocomplete.vim'
+    else
+        " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
+        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    endif
+    " Plug 'Rip-Rip/clang_complete'
     Plug 'derekwyatt/vim-fswitch'
     " puppet - well, not really coding
     Plug 'rodjek/vim-puppet'
@@ -199,7 +205,8 @@
 
 " Text Formatting/Layout {
     "set completeopt=menuone " show pop up menu for completions
-    set completeopt=menu,menuone,longest " show pop up menu for completions
+    "set completeopt=menu,menuone,longest " show pop up menu for completions
+    set completeopt-=preview " show pop up menu for completions
     set formatoptions=rq   " Automatically insert comment leader on return, and let gq format comments
     set ignorecase         " case insensitive by default
     set infercase          " case inferred by default
@@ -240,12 +247,12 @@
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
 
     " Python-mode
-    " let g:pymode_rope_vim_completion = 0    " disable pymode vim completion
+    let g:pymode_rope_vim_completion = 0            " disable pymode vim completion
     let pymode_lint_checkers = ['pep8', 'mccabe']   " ['pyflakes', 'pep8', 'mccabe']
-    " let g:pymode_lint_ignore = "E501,E265,C0301" " ignore line to long error
-    let g:pymode_lint_ignore = "E501"         " ignore line to long error
-    " let g:pymode_rope = 0                    " disable rope
-    " let g:pymode_rope_complete_on_dot = 0   " fix a freeze when using YCM
+    " let g:pymode_lint_ignore = "E501,E265,C0301"  " ignore line to long error
+    let g:pymode_lint_ignore = "E501"               " ignore line to long error
+    " let g:pymode_rope = 0                         " disable rope
+    " let g:pymode_rope_complete_on_dot = 0         " fix a freeze when using YCM
 
     " let g:syntastic_python_checker = 'pyflakes'
     " let g:syntastic_python_flake8_args = 
@@ -494,7 +501,8 @@
             set fo=croq
 
             " Complete options (disable preview scratch window)
-            set completeopt=menuone,preview
+            " set completeopt=menuone,preview
+            set completeopt-=preview
             " Limit popup menu height
             set pumheight=15
 
