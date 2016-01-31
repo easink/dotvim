@@ -242,12 +242,12 @@
     let g:ycm_seed_identifiers_with_syntax = 1
 
     " Python-mode
-    let g:pymode_rope_vim_completion = 0            " disable pymode vim completion
-    let pymode_lint_checkers = ['pep8', 'mccabe']   " ['pyflakes', 'pep8', 'mccabe']
-    " let g:pymode_lint_ignore = "E501,E265,C0301"  " ignore line to long error
-    let g:pymode_lint_ignore = "E501"               " ignore line to long error
-    " let g:pymode_rope = 0                         " disable rope
-    " let g:pymode_rope_complete_on_dot = 0         " fix a freeze when using YCM
+    let g:pymode_rope = 0                            " disable rope
+    " let g:pymode_rope_vim_completion = 0           " disable pymode vim completion
+    " let g:pymode_rope_complete_on_dot = 0          " fix a freeze when using YCM
+    let g:pymode_lint_checkers = ['pep8', 'mccabe']  " ['pyflakes', 'pep8', 'mccabe']
+    " let g:pymode_lint_ignore = "E501,E265,C0301"   " ignore line to long error
+    let g:pymode_lint_ignore = "E501"                " ignore line to long error
 
     " let g:syntastic_python_checker = 'pyflakes'
     " let g:syntastic_python_flake8_args = 
@@ -460,7 +460,7 @@
         \   exe "normal g'\"" |
         \ endif
     " Remember info about open buffers on close
-    set viminfo^=%
+    " set viminfo^=%
 
     " Use local formatexpr instead of gloabl formatprg, stolen from Drew Neil
     function! FormatprgLocal(filter)
