@@ -236,6 +236,10 @@
 
     " YouCompleteMe
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
+    let g:ycm_autoclose_preview_window_after_completion = 1
+    let g:ycm_autoclose_preview_window_after_insertion = 1
+    let g:ycm_use_ultisnips_completer = 1
+    let g:ycm_seed_identifiers_with_syntax = 1
 
     " Python-mode
     let g:pymode_rope_vim_completion = 0            " disable pymode vim completion
@@ -258,12 +262,15 @@
 
     " jedi-vim {
     " disable completion
+    let g:jedi#auto_initialization = 1
     let g:jedi#auto_vim_configuration = 0
+    let g:jedi#smart_auto_mappings = 0
     let g:jedi#popup_on_dot = 0
     let g:jedi#popup_select_first = 0
     let g:jedi#completions_enabled = 0
     let g:jedi#completions_command = ""
     let g:jedi#show_call_signatures = "1"
+    let g:jedi#show_call_signatures_delay = 0
 
     let g:jedi#goto_assignments_command = "<leader>ja"
     let g:jedi#goto_definitions_command = "<leader>jd"
