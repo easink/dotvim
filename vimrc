@@ -17,7 +17,7 @@
         " - status: 'installed', 'updated', or 'unchanged'
         " - force:  set on PlugInstall! or PlugUpdate!
         if a:info.status == 'installed' || a:info.force
-            !./install.sh
+            !./install.py --clang-completer --races-completer
         endif
     endfunction
 
@@ -76,18 +76,9 @@
     " python bundles
     Plug 'klen/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-    " rust
-    " Plug 'wting/rust.vim', { 'for': 'rust' }
-    " Plug 'ebfe/vim-racer', { 'for': 'rust' }
-    " Plug '~/source/racer/editors/racer.vim', { 'for': 'rust' }
 
     " python/c/c++ bundles
-    if has("python3") && !has("python")
-        Plug 'Shougo/neocomplete.vim'
-    else
-        " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
-        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-    endif
+    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     " Plug 'Rip-Rip/clang_complete'
     Plug 'derekwyatt/vim-fswitch'
     " puppet - well, not really coding
@@ -280,15 +271,6 @@
     let g:jedi#usages_command = "<leader>ju"
     let g:jedi#rename_command = "<leader>jr"
     " }
-
-    " Rust
-    " racer
-    " source /home/andreas/source/racer/editors/racer.vim
-    let g:racer_cmd = "/home/andreas/source/racer/bin/racer"
-    let $RUST_SRC_PATH = "/home/andreas/source/rust-nightly/src"
-
-    " Minibufexplorer
-    "let g:miniBufExplorerHideWhenDiff = 1   " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
 
     " YouCompleteMe
     let g:ycm_confirm_extra_conf = 0
