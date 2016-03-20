@@ -17,7 +17,7 @@
         " - status: 'installed', 'updated', or 'unchanged'
         " - force:  set on PlugInstall! or PlugUpdate!
         if a:info.status == 'installed' || a:info.force
-            !./install.py --clang-completer --races-completer
+            !./install.py --clang-completer
         endif
     endfunction
 
@@ -47,7 +47,7 @@
     Plug 'tpope/vim-fugitive'
     Plug 'gregsexton/gitv'
     "Plug 'tpope/vim-git'
-    Plug 'http://www.tidraso.co.uk/repository/vim-plugin/'
+    "Plug 'http://www.tidraso.co.uk/repository/vim-plugin/'
 
     " text objects
     Plug 'tpope/vim-jdaddy'
@@ -55,12 +55,14 @@
     Plug 'godlygeek/tabular'
     Plug 'kana/vim-textobj-user'
     Plug 'kana/vim-textobj-indent'
+    Plug 'kana/vim-textobj-function'
     Plug 'bps/vim-textobj-python', { 'for': 'python' }
     Plug 'coderifous/textobj-word-column.vim'
     Plug 'Lokaltog/vim-easymotion'
     Plug 'jeetsukumaran/vim-indentwise'
-    Plug 'rhysd/libclang-vim'
-    Plug 'rhysd/vim-textobj-clang'
+    Plug 'libclang-vim/libclang-vim'
+    Plug 'libclang-vim/vim-textobj-clang'
+    Plug 'libclang-vim/vim-textobj-function-clang'
 
     " markdown
     Plug 'vim-pandoc/vim-pandoc'
