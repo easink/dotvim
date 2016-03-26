@@ -29,7 +29,7 @@
     " for the looks
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'godlygeek/csapprox'
-    Plug 'HubbaBubbaFett/mustang'
+    Plug 'andryd/mustang'
     Plug 'ap/vim-buftabline'
 
     " features
@@ -62,7 +62,6 @@
     Plug 'jeetsukumaran/vim-indentwise'
     Plug 'libclang-vim/libclang-vim'
     Plug 'libclang-vim/vim-textobj-clang'
-    Plug 'libclang-vim/vim-textobj-function-clang'
 
     " markdown
     Plug 'vim-pandoc/vim-pandoc'
