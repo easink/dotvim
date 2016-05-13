@@ -555,6 +555,9 @@
             noremap <C-G> 2<C-G>
         endfunction
         au BufRead,BufNewFile *.c,*.h call FT_C()
+        " linux kernel at $HOME/source/linux.git/*
+        autocmd BufNewFile,BufRead $HOME/source/linux.git/* set tabstop=8 shiftwidth=8 columns=80 colorcolumn=81 nolist
+
     " }
     " Markdown {
         au BufRead,BufNewFile *.md set filetype=markdown
