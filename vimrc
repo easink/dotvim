@@ -73,6 +73,7 @@
     "Plug 'msanders/snipmate.vim'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
+    Plug 'scrooloose/syntastic'
     Plug 'scrooloose/nerdcommenter'
     " python bundles
     Plug 'klen/python-mode', { 'for': 'python' }
