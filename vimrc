@@ -66,7 +66,7 @@
     " markdown
     Plug 'vim-pandoc/vim-pandoc'
     Plug 'vim-pandoc/vim-pandoc-syntax'
-    Plug 'plasticboy/vim-markdown'
+    " Plug 'plasticboy/vim-markdown'
 
     " coding
     Plug 'majutsushi/tagbar'
@@ -81,6 +81,7 @@
 
     " python/c/c++ bundles
     Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
     " Plug 'Rip-Rip/clang_complete'
     Plug 'derekwyatt/vim-fswitch'
     " puppet - well, not really coding
@@ -236,6 +237,9 @@
     let g:buftabline_show = 1   " show when at least two buffers exists
     let g:buftabline_numbers = 1
 
+    " Pandoc
+    let g:pandoc#spell#enabled = 0  " bad highlighting
+
     " YouCompleteMe
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
     let g:ycm_autoclose_preview_window_after_completion = 1
@@ -243,13 +247,14 @@
     let g:ycm_use_ultisnips_completer = 1
     let g:ycm_seed_identifiers_with_syntax = 1
 
-    " Python-mode
+    " Python-mode {
     let g:pymode_rope = 0                            " disable rope
     " let g:pymode_rope_vim_completion = 0           " disable pymode vim completion
     " let g:pymode_rope_complete_on_dot = 0          " fix a freeze when using YCM
     let g:pymode_lint_checkers = ['pep8', 'mccabe']  " ['pyflakes', 'pep8', 'mccabe']
     " let g:pymode_lint_ignore = "E501,E265,C0301"   " ignore line to long error
     let g:pymode_lint_ignore = "E501"                " ignore line to long error
+    " }
 
     " let g:syntastic_python_checker = 'pyflakes'
     " let g:syntastic_python_flake8_args = 
