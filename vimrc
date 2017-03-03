@@ -17,7 +17,8 @@
         " - status: 'installed', 'updated', or 'unchanged'
         " - force:  set on PlugInstall! or PlugUpdate!
         if a:info.status == 'installed' || a:info.force
-            !./install.py --clang-completer
+            !python3 ./install.py
+            " !python3 ./install.py --clang-completer
         endif
     endfunction
 
@@ -29,7 +30,7 @@
     " for the looks
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'godlygeek/csapprox'
-    Plug 'andryd/mustang'
+    Plug 'easink/mustang'
     Plug 'ap/vim-buftabline'
 
     " features
@@ -73,15 +74,18 @@
     "Plug 'msanders/snipmate.vim'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
-    Plug 'scrooloose/syntastic'
+    " Plug 'vim-syntastic/syntastic'
+    Plug 'w0rp/ale'
     Plug 'scrooloose/nerdcommenter'
     " python bundles
-    Plug 'klen/python-mode', { 'for': 'python' }
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+    " Plug 'klen/python-mode', { 'for': 'python' }
+    Plug 'davidhalter/jedi-vim',
+    " Plug 'davidhalter/jedi-vim' | Plug 'lambdalisue/vim-pyenv'
 
     " python/c/c++ bundles
-    Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-    " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
+    " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+    Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
+    " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
     " Plug 'Rip-Rip/clang_complete'
     Plug 'derekwyatt/vim-fswitch'
     " puppet - well, not really coding
@@ -246,6 +250,15 @@
     let g:ycm_autoclose_preview_window_after_insertion = 1
     let g:ycm_use_ultisnips_completer = 1
     let g:ycm_seed_identifiers_with_syntax = 1
+    let g:ycm_confirm_extra_conf = 0
+    "let g:ycm_key_list_selection = ['<Down>']
+
+    " Virtualenv + YouCompleteMe
+    if isdirectory($VIRTUAL_ENV)
+        " let name = fnamemodify($VIRTUAL_ENV, ':t')
+        let g:ycm_python_binary_path = $VIRTUAL_ENV.'/bin/python'
+    endif
+
 
     " Python-mode {
     let g:pymode_rope = 0                            " disable rope
@@ -256,26 +269,28 @@
     let g:pymode_lint_ignore = "E501"                " ignore line to long error
     " }
 
-    " let g:syntastic_python_checker = 'pyflakes'
-    " let g:syntastic_python_flake8_args = 
-    "       \ '--ignore=W191,E501,E121,E122,E123,E128,E225,W291'
-    " let pymode_lint = 0
-    " au FileType python setlocal expandtab shiftwidth=4 tabstop=8
-    "       \ formatoptions+=croq softtabstop=4 smartindent
-    "       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-    " let python_highlight_all=1
-    " let python_highlight_exceptions=0
-    " let python_highlight_builtins=0
+    " let g:syntastic_always_populate_loc_list = 1
+    " let g:syntastic_python_checkers = ['pylint3']
+    "" let g:syntastic_python_flake8_args = 
+    ""       \ '--ignore=W191,E501,E121,E122,E123,E128,E225,W291'
+    "" let pymode_lint = 0
+    "" au FileType python setlocal expandtab shiftwidth=4 tabstop=8
+    ""       \ formatoptions+=croq softtabstop=4 smartindent
+    ""       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+    "" let python_highlight_all=1
+    "" let python_highlight_exceptions=0
+    "" let python_highlight_builtins=0
 
     " jedi-vim {
     " disable completion
     let g:jedi#auto_initialization = 1
     let g:jedi#auto_vim_configuration = 0
     let g:jedi#smart_auto_mappings = 0
-    let g:jedi#popup_on_dot = 0
+    let g:jedi#popup_on_dot = 1
     let g:jedi#popup_select_first = 0
-    let g:jedi#completions_enabled = 0
+    let g:jedi#completions_enabled = 1
     let g:jedi#completions_command = ""
+    " let g:jedi#show_call_signatures = 2
     let g:jedi#show_call_signatures = "1"
     let g:jedi#show_call_signatures_delay = 0
 
@@ -286,9 +301,19 @@
     let g:jedi#rename_command = "<leader>jr"
     " }
 
-    " YouCompleteMe
-    let g:ycm_confirm_extra_conf = 0
-    "let g:ycm_key_list_selection = ['<Down>']
+    " vim-pyenv {
+    " if jedi#init_python()
+    "     function! s:jedi_auto_force_py_version() abort
+    "         let major_version = pyenv#python#get_internal_major_version()
+    "         call jedi#force_py_version(major_version)
+    "     endfunction
+    "     augroup vim-pyenv-custom-augroup
+    "         au! *
+    "         au User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
+    "         au User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
+    "     augroup END
+    " endif
+    " }
 
     " Ultisnips
     "let g:UltiSnipsExpandTrigger = "<C-Tab>"
@@ -303,12 +328,13 @@
     inoremap <C-K> <NOP>
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
+
 "    " TagList Settings {
 "        let Tlist_Auto_Open=0              " let the tag list open automagically
 "        let Tlist_Compact_Format = 1       " show small menu
 "        let Tlist_Ctags_Cmd = 'ctags'      " location of ctags
 "        let Tlist_Enable_Fold_Column = 0   " do show folding tree
-"        let Tlist_Exist_OnlyWindow = 1     " if you are the last, kill yourself
+"        let Tlist_Exist_OnlyWindow = 1     " if you are the last, kill Yourself
 "        let Tlist_File_Fold_Auto_Close = 0 " fold closed other trees
 "        let Tlist_Sort_Type = "name"       " order by
 "        let Tlist_Use_Right_Window = 1     " split to the right side of the screen
@@ -339,7 +365,7 @@
     noremap <down> <nop>
 
     " Buftabline toggle
-    nnoremap <silent> <leader>t :call BuftablineToggle()<cr>
+    nnoremap <silent> <leader>b :call BuftablineToggle()<cr>
 
     function! BuftablineToggle()
         if g:buftabline_show == 0
