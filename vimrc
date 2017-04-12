@@ -91,6 +91,10 @@
     " puppet - well, not really coding
     Plug 'rodjek/vim-puppet'
 
+    " Elixir
+    Plug 'elixir-lang/vim-elixir'
+    Plug 'slashmili/alchemist.vim'
+
     " End
     call plug#end()
 
@@ -132,6 +136,8 @@
 
     "set autochdir                   " always switch to the current file directory
     set backspace=indent,eol,start   " make backspace a more flexible
+    set undofile                     " make persistent undo files throughout sessions
+    set undodir=~/.vim/undodir       " where to put undo files
     set backup                       " make backup files
     set backupdir=~/.vim/backup      " where to put backup files
     "set clipboard+=unnamed          " share windows clipboard
