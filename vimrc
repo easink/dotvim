@@ -81,11 +81,17 @@
     " Plug 'klen/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim',
     " Plug 'davidhalter/jedi-vim' | Plug 'lambdalisue/vim-pyenv'
+    "
 
     " python/c/c++ bundles
     " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-    Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
+    if has('nvim')
+        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    else
+        Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
+    endif
     " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+    " Plug 'tenfyzhong/CompleteParameter.vim'
     " Plug 'Rip-Rip/clang_complete'
     Plug 'derekwyatt/vim-fswitch'
     " puppet - well, not really coding
@@ -94,6 +100,15 @@
     " Elixir
     Plug 'elixir-lang/vim-elixir'
     Plug 'slashmili/alchemist.vim'
+    if has('nvim')
+        Plug 'awetzel/elixir.nvim'
+    else
+        Plug 'larrylv/ycm-elixir'
+    endif
+
+    " *-lang
+    Plug 'sheerun/vim-polyglot'
+    Plug 'tpope/vim-endwise'
 
     " End
     call plug#end()
@@ -265,6 +280,8 @@
         let g:ycm_python_binary_path = $VIRTUAL_ENV.'/bin/python'
     endif
 
+    " Alchemist
+    let g:alchemist#elixir_erlang_src = "/home/andreas/source/erlang/"
 
     " Python-mode {
     let g:pymode_rope = 0                            " disable rope
@@ -618,6 +635,9 @@
         " ruby standard 2 spaces, always
         au BufRead,BufNewFile *.rb,*.rhtml set shiftwidth=2
         au BufRead,BufNewFile *.rb,*.rhtml set softtabstop=2
+    " }
+    " Mail {
+        au BufRead,BufNewFile *mutt-* set filetype=mail
     " }
     " Notes {
         " I consider .notes files special, and handle them differently, I
