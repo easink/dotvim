@@ -38,7 +38,9 @@
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
-    Plug 'ctrlpvim/ctrlp.vim'
+    "Plug 'ctrlpvim/ctrlp.vim'
+    set rtp+=~/.fzf
+    Plug 'junegunn/fzf'
     "Plug 'wincent/Command-T'
     "Plug 'techlivezheng/vim-plugin-minibufexpl'
     "Plug 'fholgado/minibufexpl.vim'
@@ -84,11 +86,11 @@
     "
 
     " python/c/c++ bundles
-    " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     else
-        Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
+        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+        " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
     endif
     " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
     " Plug 'tenfyzhong/CompleteParameter.vim'
@@ -102,9 +104,10 @@
     Plug 'slashmili/alchemist.vim'
     if has('nvim')
         Plug 'awetzel/elixir.nvim'
-    else
-        Plug 'larrylv/ycm-elixir'
     endif
+
+    " Elm
+    Plug 'ElmCast/elm-vim'
 
     " *-lang
     Plug 'sheerun/vim-polyglot'
