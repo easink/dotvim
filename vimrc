@@ -8,7 +8,11 @@
 
 " vim-plug {
     " Run this first...
-    call plug#begin('~/.vim/plugged')
+    if has('nvim')
+        call plug#begin('~/.vim/plugged.nvim')
+    else
+        call plug#begin('~/.vim/plugged')
+    endif
 
     " Special build function for YCM
     function! BuildYCM(info)
@@ -88,6 +92,8 @@
     " python/c/c++ bundles
     if has('nvim')
         Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+        " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
     else
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
         " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -101,9 +107,10 @@
 
     " Elixir
     Plug 'elixir-lang/vim-elixir'
-    Plug 'slashmili/alchemist.vim'
     if has('nvim')
-        Plug 'awetzel/elixir.nvim'
+        " Plug 'awetzel/elixir.nvim'
+    else
+        Plug 'slashmili/alchemist.vim'
     endif
 
     " Elm
@@ -154,8 +161,8 @@
 
     "set autochdir                   " always switch to the current file directory
     set backspace=indent,eol,start   " make backspace a more flexible
-    set undofile                     " make persistent undo files throughout sessions
-    set undodir=~/.vim/undodir       " where to put undo files
+    " set undofile                     " make persistent undo files throughout sessions
+    " set undodir=~/.vim/undodir       " where to put undo files
     set backup                       " make backup files
     set backupdir=~/.vim/backup      " where to put backup files
     "set clipboard+=unnamed          " share windows clipboard
@@ -286,6 +293,30 @@
     " Alchemist
     let g:alchemist#elixir_erlang_src = "/home/andreas/source/erlang/"
 
+    " Deoplete
+    " deoplete#enable()
+    let g:deoplete#enable_at_startup = 1
+    " deoplete tab-complete
+    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+    " Language Server
+    " Required for operations modifying multiple buffers like rename.
+    " set hidden
+
+    let g:LanguageClient_serverCommands = {
+         \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+         \ 'javascript': ['/opt/javascript-typescript-langserver/lib/language-server-stdio.js'],
+         \ 'elixir': ['/home/andreas/bin/elixir-ls.wrapper.sh'],
+         \ }
+
+    " Automatically start language servers.
+    let g:LanguageClient_autoStart = 1
+
+    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+    nnoremap <silent> <F6> :call LanguageClient_textDocument_rename()<CR>
+    """
+
     " Python-mode {
     let g:pymode_rope = 0                            " disable rope
     " let g:pymode_rope_vim_completion = 0           " disable pymode vim completion
@@ -339,6 +370,13 @@
     "         au User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
     "     augroup END
     " endif
+    " }
+
+    " elm {
+    " disable polyglot
+    let g:polyglot_disabled = ['elm']
+    " enable ycm
+    let g:ycm_semantic_triggers = { 'elm' : ['.'], }
     " }
 
     " Ultisnips
@@ -480,8 +518,9 @@
     " inoremap <C-Left> <Esc>:bprev<CR><insert>
     " inoremap <C-Right> <Esc>:bnext<CR><insert>
 
-    nnoremap <leader>, :CtrlPBuffer<CR>
-    nnoremap <leader>. :CtrlP .<CR>
+    " nnoremap <leader>, :CtrlPBuffer<CR>
+    " nnoremap <leader>. :CtrlP .<CR>
+    nnoremap <leader>. :FZF .<CR>
 
     " Window movements
     nnoremap <C-j> <C-W>j
@@ -647,11 +686,6 @@
         " should probably put this in another file
         au BufRead,BufNewFile *.notes set foldlevel=2
         au BufRead,BufNewFile *.notes set foldmethod=indent
-        au BufRead,BufNewFile *.notes set foldtext=foldtext()
-        au BufRead,BufNewFile *.notes set listchars=tab:\ \
-        au BufRead,BufNewFile *.notes set noexpandtab
-        au BufRead,BufNewFile *.notes set shiftwidth=8
-        au BufRead,BufNewFile *.notes set softtabstop=8
         au BufRead,BufNewFile *.notes set tabstop=8
         au BufRead,BufNewFile *.notes set syntax=notes
         au BufRead,BufNewFile *.notes set nocursorcolumn
