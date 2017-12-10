@@ -91,9 +91,12 @@
 
     " python/c/c++ bundles
     if has('nvim')
-        Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'roxma/nvim-completion-manager'
+        " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
         " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+        Plug 'roxma/ncm-clang'
+        Plug 'roxma/ncm-elm-oracle'
     else
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
         " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -306,7 +309,7 @@
     let g:LanguageClient_serverCommands = {
          \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
          \ 'javascript': ['/opt/javascript-typescript-langserver/lib/language-server-stdio.js'],
-         \ 'elixir': ['/home/andreas/bin/elixir-ls.wrapper.sh'],
+         \ 'elixir': ["$HOME/bin/elixir-ls.wrapper.sh"],
          \ }
 
     " Automatically start language servers.
