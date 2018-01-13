@@ -119,6 +119,9 @@
     " Elm
     Plug 'ElmCast/elm-vim'
 
+    " Golang
+    Plug 'fatih/vim-go'
+
     " *-lang
     Plug 'sheerun/vim-polyglot'
     Plug 'tpope/vim-endwise'
@@ -294,13 +297,12 @@
     endif
 
     " Alchemist
-    let g:alchemist#elixir_erlang_src = "/home/andreas/source/erlang/"
+    let g:alchemist#elixir_erlang_src = "${HOME}/source/erlang/"
 
-    " Deoplete
-    " deoplete#enable()
-    let g:deoplete#enable_at_startup = 1
-    " deoplete tab-complete
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    " " Deoplete
+    " " deoplete#enable()
+    " let g:deoplete#enable_at_startup = 1
+    " " deoplete tab-complete
 
     " Language Server
     " Required for operations modifying multiple buffers like rename.
@@ -308,8 +310,11 @@
 
     let g:LanguageClient_serverCommands = {
          \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-         \ 'javascript': ['/opt/javascript-typescript-langserver/lib/language-server-stdio.js'],
          \ 'elixir': ["$HOME/bin/elixir-ls.wrapper.sh"],
+         \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
+         \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
+         \ 'go': ["${HOME}/go/bin/go-langserver", '-gocodecompletion'],
+         \ 'html': ['node', "${HOME}/source/vscode-html-languageservice/lib/htmlLanguageService"],
          \ }
 
     " Automatically start language servers.
@@ -331,7 +336,7 @@
 
     " let g:syntastic_always_populate_loc_list = 1
     " let g:syntastic_python_checkers = ['pylint3']
-    "" let g:syntastic_python_flake8_args = 
+    "" let g:syntastic_python_flake8_args =
     ""       \ '--ignore=W191,E501,E121,E122,E123,E128,E225,W291'
     "" let pymode_lint = 0
     "" au FileType python setlocal expandtab shiftwidth=4 tabstop=8
@@ -382,6 +387,49 @@
     let g:ycm_semantic_triggers = { 'elm' : ['.'], }
     " }
 
+    " vim-go {
+    " highlights
+    let g:go_highlight_build_constraints = 1
+    let g:go_highlight_extra_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_structs = 1
+    let g:go_highlight_types = 1
+
+    " highlight variables with same name
+    let g:go_auto_sameids = 1
+
+    " autoimport
+    let g:go_fmt_command = "goimports"
+
+    " ale
+    " let g:ale_sign_error = '⤫'
+    " let g:ale_sign_warning = '⚠'
+
+    " print typo
+    let g:go_auto_type_info = 1
+
+    " add tags (snakecase/camelcase)
+    let g:go_addtags_transform = "snakecase"
+
+    " choose snippet engine
+    " let g:go_snippet_engine = "ultisnips"
+    " }
+
+    " nvim-completion-manager
+    " let g:cm_completed_snippet_engine = "ultisnips"
+    " let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
+    " let g:UltiSnipsJumpForwardTrigger       = "<c-j>"
+    " let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
+    " let g:UltiSnipsRemoveSelectModeMappings = 0
+    " " optional
+    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
+    " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    map <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+    " imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+
     " Ultisnips
     "let g:UltiSnipsExpandTrigger = "<C-Tab>"
     "let g:UltiSnipsListSnippets = "<S-Tab>"
@@ -390,10 +438,14 @@
     "let g:UltiSnipsEditSplit = "vertical"
     let g:UltiSnipsListSnippets = "<C-h>"
     let g:UltiSnipsExpandTrigger="<c-j>"
+    " let g:UltiSnipsExpandTrigger  = "<Plug>(ultisnips_expand)"
+    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
+
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
     " disable digraphs
     inoremap <C-K> <NOP>
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
 
 
 "    " TagList Settings {
