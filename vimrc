@@ -299,21 +299,20 @@
     " Alchemist
     let g:alchemist#elixir_erlang_src = "${HOME}/source/erlang/"
 
-    " " Deoplete
-    " " deoplete#enable()
-    " let g:deoplete#enable_at_startup = 1
-    " " deoplete tab-complete
-
     " Language Server
     " Required for operations modifying multiple buffers like rename.
     " set hidden
+
+    " let g:cm_sources_override = {
+    "     \ 'cm-gocode': {'enable':0}
+    "     \ }
 
     let g:LanguageClient_serverCommands = {
          \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
          \ 'elixir': ["$HOME/bin/elixir-ls.wrapper.sh"],
          \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
          \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
-         \ 'go': ["${HOME}/go/bin/go-langserver", '-gocodecompletion'],
+         \ 'go': ['go-langserver', '-gocodecompletion'],
          \ 'html': ['node', "${HOME}/source/vscode-html-languageservice/lib/htmlLanguageService"],
          \ }
 
@@ -410,12 +409,16 @@
 
     " print typo
     let g:go_auto_type_info = 1
+    let g:go_info_mode = 'guru'
 
     " add tags (snakecase/camelcase)
     let g:go_addtags_transform = "snakecase"
 
     " choose snippet engine
     " let g:go_snippet_engine = "ultisnips"
+
+    " Ale
+    let g:ale_linters = {'go': ['gometalinter']}
     " }
 
     " nvim-completion-manager
@@ -426,8 +429,8 @@
     " let g:UltiSnipsRemoveSelectModeMappings = 0
     " " optional
     " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-    " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    map <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    """" map <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
     " imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
 
     " Ultisnips
