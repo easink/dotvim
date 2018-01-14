@@ -423,6 +423,16 @@
 
     " nvim-completion-manager
     " let g:cm_completed_snippet_engine = "ultisnips"
+    let g:cm_matcher = {
+        \ 'module': 'cm_matchers.abbrev_matcher',
+        \ 'case': 'smartcase',
+        \ }
+
+    " let g:cm_matcher.case   = 'smartcase'
+    " let g:cm_matcher.module = 'cm_matchers.abbrev_matcher'
+    " let g:cm_matcher.case   = 'smartcase'
+
+    " Ultisnips
     " let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
     " let g:UltiSnipsJumpForwardTrigger       = "<c-j>"
     " let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
@@ -642,7 +652,8 @@
             "         +------------ second line parameter placement
             set autoindent
             set smartindent
-            set nomesg sm smd
+            set sm smd
+            " set nomesg sm smd
             set fo=croq
 
             " Complete options (disable preview scratch window)
