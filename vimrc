@@ -110,6 +110,7 @@
 
     " Elixir
     Plug 'elixir-lang/vim-elixir'
+    Plug 'mhinz/vim-mix-format'
     if has('nvim')
         " Plug 'awetzel/elixir.nvim'
     else
@@ -296,8 +297,12 @@
         let g:ycm_python_binary_path = $VIRTUAL_ENV.'/bin/python'
     endif
 
-    " Alchemist
-    let g:alchemist#elixir_erlang_src = "${HOME}/source/erlang/"
+    " Elixir
+    " let g:alchemist#elixir_erlang_src = "${HOME}/source/erlang/"
+
+    let g:mix_format_on_save = 1
+    " let g:mix_format_options = '--check-equivalent'
+    " let g:mix_format_silent_errors = 1
 
     " Language Server
     " Required for operations modifying multiple buffers like rename.
