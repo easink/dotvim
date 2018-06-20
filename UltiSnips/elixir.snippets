@@ -10,18 +10,26 @@ defmodule ${1:TestModule} do
     {:ok, state}
   end
 
+  #
   # API
+  #
 
   def ${2:func} do
     GenServer.$3(__MODULE__, ${4:atom})
   end
 
-  # callbacks
+  #
+  # Callbacks
+  #
 
   def handle_$3($4, _from, state) do
     Logger.debug(fn -> "#{inspect state}" end)
     {:reply, ${5::ok}, ${6:state}}
   end
+
+  #
+  # Private
+  #
 
 end
 endsnippet
