@@ -91,12 +91,21 @@
 
     " python/c/c++ bundles
     if has('nvim')
-        Plug 'roxma/nvim-completion-manager'
+        " Plug 'roxma/nvim-completion-manager'
+        Plug 'ncm2/ncm2'
+        Plug 'roxma/nvim-yarp'
+        Plug 'ncm2/ncm2-bufword'
+        " Plug 'ncm2/ncm2-tmux'
+        Plug 'ncm2/ncm2-path'
+        Plug 'ncm2/ncm2-ultisnips'
         " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'autozimu/LanguageClient-neovim', {
+                    \  'branch': 'next',
+                    \ 'do': 'bash install.sh',
+                    \ }
         " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-        Plug 'roxma/ncm-clang'
-        Plug 'roxma/ncm-elm-oracle'
+        " Plug 'roxma/ncm-clang'
+        " Plug 'roxma/ncm-elm-oracle'
     else
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
         " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -119,6 +128,8 @@
 
     " Elm
     Plug 'ElmCast/elm-vim'
+    " fix incompability
+    let g:polyglot_disabled = ['elm']
 
     " Golang
     Plug 'fatih/vim-go'
@@ -282,6 +293,16 @@
     " Pandoc
     let g:pandoc#spell#enabled = 0  " bad highlighting
 
+    " ncm2
+    " Press enter key to trigger snippet expansion
+    " The parameters are the same as `:help feedkeys()`
+    " inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+    autocmd BufEnter * call ncm2#enable_for_buffer()
+    set completeopt=noinsert,menuone,noselect
+    set shortmess+=c
+
+    au TextChangedI * call ncm2#auto_trigger()
+
     " YouCompleteMe
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
     let g:ycm_autoclose_preview_window_after_completion = 1
@@ -313,30 +334,46 @@
     "     \ }
 
     let g:LanguageClient_serverCommands = {
-         \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-         \ 'elixir': ["$HOME/bin/elixir-ls.wrapper.sh"],
-         \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
-         \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
+         \ 'c': ["clangd-6.0"],
+         \ 'cpp': ["clangd-6.0"],
+         \ 'elixir': ["language_server.sh"],
          \ 'go': ['go-langserver', '-gocodecompletion'],
          \ 'html': ['node', "${HOME}/source/vscode-html-languageservice/lib/htmlLanguageService"],
+         \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
+         \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
+         \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
          \ }
+    " \ 'sh': ['bash-language-server', 'start'],
+    " \ 'elixir': ["$HOME/bin/elixir-ls.wrapper.sh"],
+
+    let g:LanguageClient_rootMarkers = {
+         \ 'elixir': ['mix.exs'],
+         \ }
+
+    let g:LanguageClient_loggingFile = '/tmp/vim.languageclient.log'
+    let g:LanguageClient_loggingLevel = 'INFO'
+
+    " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
+    " let g:LanguageClient_completionPreferTextEdit = 1
 
     " Automatically start language servers.
     let g:LanguageClient_autoStart = 1
 
-    nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-    nnoremap <silent> <F6> :call LanguageClient_textDocument_rename()<CR>
+
+    nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
     """
 
     " Python-mode {
-    let g:pymode_rope = 0                            " disable rope
-    " let g:pymode_rope_vim_completion = 0           " disable pymode vim completion
-    " let g:pymode_rope_complete_on_dot = 0          " fix a freeze when using YCM
-    let g:pymode_lint_checkers = ['pep8', 'mccabe']  " ['pyflakes', 'pep8', 'mccabe']
-    " let g:pymode_lint_ignore = "E501,E265,C0301"   " ignore line to long error
-    let g:pymode_lint_ignore = "E501"                " ignore line to long error
-    " }
+    " let g:pymode_rope = 0                            " disable rope
+    " " let g:pymode_rope_vim_completion = 0           " disable pymode vim completion
+    " " let g:pymode_rope_complete_on_dot = 0          " fix a freeze when using YCM
+    " let g:pymode_lint_checkers = ['pep8', 'mccabe']  " ['pyflakes', 'pep8', 'mccabe']
+    " " let g:pymode_lint_ignore = "E501,E265,C0301"   " ignore line to long error
+    " let g:pymode_lint_ignore = "E501"                " ignore line to long error
+    " " }
 
     " let g:syntastic_always_populate_loc_list = 1
     " let g:syntastic_python_checkers = ['pylint3']
@@ -423,15 +460,15 @@
     " let g:go_snippet_engine = "ultisnips"
 
     " Ale
-    let g:ale_linters = {'go': ['gometalinter']}
+    " let g:ale_linters = {'go': ['gometalinter']}
     " }
 
     " nvim-completion-manager
     " let g:cm_completed_snippet_engine = "ultisnips"
-    let g:cm_matcher = {
-        \ 'module': 'cm_matchers.abbrev_matcher',
-        \ 'case': 'smartcase',
-        \ }
+    " let g:cm_matcher = {
+    "     \ 'module': 'cm_matchers.abbrev_matcher',
+    "     \ 'case': 'smartcase',
+    "     \ }
 
     " let g:cm_matcher.case   = 'smartcase'
     " let g:cm_matcher.module = 'cm_matchers.abbrev_matcher'
