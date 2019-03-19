@@ -26,9 +26,6 @@
         endif
     endfunction
 
-    " let Vundle manage Vundle
-    "Plug 'gmarik/vundle'
-
     " Plugins
 
     " for the looks
@@ -80,9 +77,11 @@
     "Plug 'msanders/snipmate.vim'
     Plug 'SirVer/ultisnips'
     Plug 'honza/vim-snippets'
+    Plug 'tandrewnichols/vim-contemplate'
     " Plug 'vim-syntastic/syntastic'
     Plug 'w0rp/ale'
-    Plug 'scrooloose/nerdcommenter'
+    " Plug 'scrooloose/nerdcommenter'
+    Plug 'tpope/vim-commentary'
     " python bundles
     " Plug 'klen/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim',
@@ -254,6 +253,7 @@
     "set completeopt=menuone " show pop up menu for completions
     "set completeopt=menu,menuone,longest " show pop up menu for completions
     set completeopt-=preview " show pop up menu for completions
+    " set diffopt+=algorithm:patience  " better diff
     set formatoptions=rq   " Automatically insert comment leader on return, and let gq format comments
     set ignorecase         " case insensitive by default
     set infercase          " case inferred by default
@@ -301,7 +301,7 @@
     set completeopt=noinsert,menuone,noselect
     set shortmess+=c
 
-    au TextChangedI * call ncm2#auto_trigger()
+    " au TextChangedI * call ncm2#auto_trigger()
 
     " YouCompleteMe
     "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
@@ -329,18 +329,16 @@
     " Required for operations modifying multiple buffers like rename.
     " set hidden
 
-    " let g:cm_sources_override = {
-    "     \ 'cm-gocode': {'enable':0}
-    "     \ }
-
     let g:LanguageClient_serverCommands = {
          \ 'c': ["clangd-6.0"],
          \ 'cpp': ["clangd-6.0"],
          \ 'elixir': ["language_server.sh"],
+         \ 'eelixir': ["language_server.sh"],
          \ 'go': ['go-langserver', '-gocodecompletion'],
          \ 'html': ['node', "${HOME}/source/vscode-html-languageservice/lib/htmlLanguageService"],
          \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
          \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
+         \ 'python': ['pyls'],
          \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
          \ }
     " \ 'sh': ['bash-language-server', 'start'],
@@ -350,7 +348,7 @@
          \ 'elixir': ['mix.exs'],
          \ }
 
-    let g:LanguageClient_loggingFile = '/tmp/vim.languageclient.log'
+    let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
     let g:LanguageClient_loggingLevel = 'INFO'
 
     " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
@@ -365,27 +363,6 @@
     nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
     nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
     """
-
-    " Python-mode {
-    " let g:pymode_rope = 0                            " disable rope
-    " " let g:pymode_rope_vim_completion = 0           " disable pymode vim completion
-    " " let g:pymode_rope_complete_on_dot = 0          " fix a freeze when using YCM
-    " let g:pymode_lint_checkers = ['pep8', 'mccabe']  " ['pyflakes', 'pep8', 'mccabe']
-    " " let g:pymode_lint_ignore = "E501,E265,C0301"   " ignore line to long error
-    " let g:pymode_lint_ignore = "E501"                " ignore line to long error
-    " " }
-
-    " let g:syntastic_always_populate_loc_list = 1
-    " let g:syntastic_python_checkers = ['pylint3']
-    "" let g:syntastic_python_flake8_args =
-    ""       \ '--ignore=W191,E501,E121,E122,E123,E128,E225,W291'
-    "" let pymode_lint = 0
-    "" au FileType python setlocal expandtab shiftwidth=4 tabstop=8
-    ""       \ formatoptions+=croq softtabstop=4 smartindent
-    ""       \ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-    "" let python_highlight_all=1
-    "" let python_highlight_exceptions=0
-    "" let python_highlight_builtins=0
 
     " jedi-vim {
     " disable completion
@@ -405,20 +382,6 @@
     let g:jedi#documentation_command = "<leader>jk"
     let g:jedi#usages_command = "<leader>ju"
     let g:jedi#rename_command = "<leader>jr"
-    " }
-
-    " vim-pyenv {
-    " if jedi#init_python()
-    "     function! s:jedi_auto_force_py_version() abort
-    "         let major_version = pyenv#python#get_internal_major_version()
-    "         call jedi#force_py_version(major_version)
-    "     endfunction
-    "     augroup vim-pyenv-custom-augroup
-    "         au! *
-    "         au User vim-pyenv-activate-post   call s:jedi_auto_force_py_version()
-    "         au User vim-pyenv-deactivate-post call s:jedi_auto_force_py_version()
-    "     augroup END
-    " endif
     " }
 
     " elm {
@@ -445,10 +408,6 @@
     " autoimport
     let g:go_fmt_command = "goimports"
 
-    " ale
-    " let g:ale_sign_error = '⤫'
-    " let g:ale_sign_warning = '⚠'
-
     " print typo
     let g:go_auto_type_info = 1
     let g:go_info_mode = 'guru'
@@ -460,19 +419,15 @@
     " let g:go_snippet_engine = "ultisnips"
 
     " Ale
+    " let g:ale_sign_error = '⤫'
+    " let g:ale_sign_warning = '⚠'
     " let g:ale_linters = {'go': ['gometalinter']}
+    let g:ale_fix_on_save = 1
+    let g:ale_fixers = {
+    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'python': ['yapf'],
+    \}
     " }
-
-    " nvim-completion-manager
-    " let g:cm_completed_snippet_engine = "ultisnips"
-    " let g:cm_matcher = {
-    "     \ 'module': 'cm_matchers.abbrev_matcher',
-    "     \ 'case': 'smartcase',
-    "     \ }
-
-    " let g:cm_matcher.case   = 'smartcase'
-    " let g:cm_matcher.module = 'cm_matchers.abbrev_matcher'
-    " let g:cm_matcher.case   = 'smartcase'
 
     " Ultisnips
     " let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
@@ -501,29 +456,6 @@
     inoremap <C-K> <NOP>
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-
-
-"    " TagList Settings {
-"        let Tlist_Auto_Open=0              " let the tag list open automagically
-"        let Tlist_Compact_Format = 1       " show small menu
-"        let Tlist_Ctags_Cmd = 'ctags'      " location of ctags
-"        let Tlist_Enable_Fold_Column = 0   " do show folding tree
-"        let Tlist_Exist_OnlyWindow = 1     " if you are the last, kill Yourself
-"        let Tlist_File_Fold_Auto_Close = 0 " fold closed other trees
-"        let Tlist_Sort_Type = "name"       " order by
-"        let Tlist_Use_Right_Window = 1     " split to the right side of the screen
-"        let Tlist_WinWidth = 40            " 40 cols wide, so i can (almost always) read my functions
-"        " Language Specifics {
-"            " just functions and classes please
-"            let tlist_aspjscript_settings = 'asp;f:function;c:class'
-"            " just functions and subs please
-"            let tlist_aspvbs_settings = 'asp;f:function;s:sub'
-"            " don't show variables in freaking php
-"            let tlist_php_settings = 'php;c:class;d:constant;f:function'
-"            " just functions and classes please
-"            let tlist_vb_settings = 'asp;f:function;c:class'
-"        " }
-"    " }
 " }
 
 " Mappings {
@@ -605,28 +537,12 @@
     " Use shorter for n. pattern
     nnoremap <C-å> n.
 
-    " space / shift-space scroll in normal mode
-    "noremap <S-space> <C-b>
-    "noremap <space> <C-f>
-
     " Make Arrow Keys Useful Again {
     "    map <down> <ESC>:bn<RETURN>
     "    map <left> <ESC>:NERDTreeToggle<RETURN>
     "    map <right> <ESC>:Tlist<RETURN>
     "    map <up> <ESC>:bp<RETURN>
     " }
-
-    " Buffer shifts
-    " nnoremap <C-S-h> :bprev<CR>
-    " nnoremap <C-S-l> :bnext<CR>
-    " nnoremap <C-S-j> :bfirst<CR>
-    " nnoremap <C-S-k> :blast<CR>
-    " nnoremap <C-Left> :bprev<CR>
-    " nnoremap <C-Right> :bnext<CR>
-    " nnoremap <C-Up> :bfirst<CR>
-    " nnoremap <C-Down> :blast<CR>
-    " inoremap <C-Left> <Esc>:bprev<CR><insert>
-    " inoremap <C-Right> <Esc>:bnext<CR><insert>
 
     " nnoremap <leader>, :CtrlPBuffer<CR>
     " nnoremap <leader>. :CtrlP .<CR>
@@ -638,15 +554,11 @@
     nnoremap <C-h> <C-W>h
     nnoremap <C-l> <C-W>l
 
-    " Visual mode pressing * or # search for current selection
-"    vnoremap <silent> * :call VisualSelection('f')<CR>
-"    vnoremap <silent> # :call VisualSelection('b')<CR>
-
     " FSwitch
     nnoremap <leader>o :FSSplitAbove<CR>
 
     " Fix for minibufexplorer and vimdiff (fugitive's Gdiff)
-    let g:miniBufExplorerHideWhenDiff = 1
+    " let g:miniBufExplorerHideWhenDiff = 1
 
     " Spell
     "map <leader>ss :setlocal spell!
@@ -707,25 +619,6 @@
             " SuperTab option for context aware completion
             "let g:SuperTabDefaultCompletionType = "context"
 
-            " Debug clang_complete
-            "let g:clang_debug = 1
-            " May fix scan issue???
-            "let g:clang_user_options='|| exit 0'
-            " Enable snipmate
-            "let g:clang_snippets = 1
-            "let g:clang_snippets_engine = 'snipmate'
-            " Disable auto popup, use <Tab> to autocomplete
-            "let g:clang_complete_auto = 0
-            " " Show clang errors in the quickfix window
-            "let g:clang_complete_copen = 1
-            " Use the lib instead for speed and functions
-            "let g:clang_use_library = 1
-            "let g:clang_library_path="/usr/lib/"
-            " Correct libclang path
-            "if has("gui_macvim")
-            "        let g:clang_library_path = "/Developer/usr/clang-ide/lib/"
-            "endif
-
             " Cscope
             if has("cscope")
                     " cs tag order = 0 => first cs then tag
@@ -742,14 +635,6 @@
             if has("insert_expand")
                     set showfulltag
             endif
-
-            " C programming stuff
-            "imap ;vmv void main(void) {<CR>}<Esc>ko
-            "imap ;imi int<CR>main(int argc, char *argv[]) {<CR>}<Esc>ko
-            "imap ;if if () {<CR>}<Esc>kf(a
-            "imap ;inc #include <.h><ESC>2hi
-            "imap ;def #define-
-            "imap ;for for (;;) {<CR>}<Esc>kf(a
 
             " YouCompleteMe
             nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -806,6 +691,20 @@
     " }
     au BufNewFile,BufRead *.ahk setf ahk
 " }
+
+" " adds to statusline
+" set laststatus=2
+" set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}
+" 
+" " a little more informative version of the above
+" nmap <Leader>sI :call <SID>SynStack()<CR>
+" 
+" function! <SID>SynStack()
+"     if !exists("*synstack")
+"         return
+"     endif
+"     echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+" endfunc
 
 " GUI Settings {
 if has("gui_running")
