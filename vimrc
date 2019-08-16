@@ -462,7 +462,7 @@
 function! ExpandLspSnippet()
     call UltiSnips#ExpandSnippetOrJump()
     if !pumvisible() || empty(v:completed_item)
-        return ''
+        return ''
     endif
 
     " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
@@ -491,6 +491,7 @@ function! ExpandLspSnippet()
 endfunction
 
 imap <C-j> <C-R>=ExpandLspSnippet()<CR>
+imap <silent> <CR> <C-r>=ExpandLspSnippet()<CR>
 
     " Ultisnips
     "let g:UltiSnipsEditSplit = "vertical"
