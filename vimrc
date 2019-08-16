@@ -54,6 +54,7 @@
     "Plug 'http://www.tidraso.co.uk/repository/vim-plugin/'
 
     " text objects
+    Plug 'wellle/targets.vim'
     Plug 'tpope/vim-jdaddy'
     Plug 'sukima/xmledit'
     Plug 'godlygeek/tabular'
@@ -61,7 +62,7 @@
     Plug 'kana/vim-textobj-indent'
     Plug 'kana/vim-textobj-function'
     Plug 'bps/vim-textobj-python', { 'for': 'python' }
-    Plug 'coderifous/textobj-word-column.vim'
+    Plug 'idbrii/textobj-word-column.vim'
     Plug 'Lokaltog/vim-easymotion'
     Plug 'jeetsukumaran/vim-indentwise'
     Plug 'libclang-vim/libclang-vim'
@@ -86,15 +87,22 @@
     " Plug 'klen/python-mode', { 'for': 'python' }
     Plug 'davidhalter/jedi-vim',
     " Plug 'davidhalter/jedi-vim' | Plug 'lambdalisue/vim-pyenv'
+    Plug 'janko-m/vim-test'
     "
 
     " python/c/c++ bundles
+    " " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Plug 'neoclide/coc-pyls', {'do': 'yarn install --frozen-lockfile'}
+    " Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
+    " Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
+    " " Plug 'neoclide/coc-ultisnips', {'do': 'yarn install --frozen-lockfile'}
     if has('nvim')
         " Plug 'roxma/nvim-completion-manager'
         Plug 'ncm2/ncm2'
         Plug 'roxma/nvim-yarp'
         Plug 'ncm2/ncm2-bufword'
-        " Plug 'ncm2/ncm2-tmux'
+        " " Plug 'ncm2/ncm2-tmux'
         Plug 'ncm2/ncm2-path'
         Plug 'ncm2/ncm2-ultisnips'
         " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -296,32 +304,41 @@
     " ncm2
     " Press enter key to trigger snippet expansion
     " The parameters are the same as `:help feedkeys()`
-    " inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+
+    " let g:deoplete#enable_at_startup = 1
     autocmd BufEnter * call ncm2#enable_for_buffer()
-    set completeopt=noinsert,menuone,noselect
+    " set completeopt=noinsert,menuone,noselect
+    " noselect -> crash when vim-snippet/ultisnips/languageclient " (snippet-lsp)
+    set completeopt=noinsert,menuone
     set shortmess+=c
+
+    " " When the <Enter> key is pressed while the popup menu is visible, it only
+    " " hides the menu. Use this mapping to close the menu and also start a new
+    " " line.
+    " inoremap <silent> <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+    " inoremap <silent> <expr> <c-j> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
     " au TextChangedI * call ncm2#auto_trigger()
 
     " YouCompleteMe
-    "let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
-    let g:ycm_autoclose_preview_window_after_completion = 1
-    let g:ycm_autoclose_preview_window_after_insertion = 1
-    let g:ycm_use_ultisnips_completer = 1
-    let g:ycm_seed_identifiers_with_syntax = 1
-    let g:ycm_confirm_extra_conf = 0
-    "let g:ycm_key_list_selection = ['<Down>']
+    ""let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
+    " let g:ycm_autoclose_preview_window_after_completion = 1
+    " let g:ycm_autoclose_preview_window_after_insertion = 1
+    " let g:ycm_use_ultisnips_completer = 1
+    " let g:ycm_seed_identifiers_with_syntax = 1
+    " let g:ycm_confirm_extra_conf = 0
+    ""let g:ycm_key_list_selection = ['<Down>']
 
     " Virtualenv + YouCompleteMe
-    if isdirectory($VIRTUAL_ENV)
-        " let name = fnamemodify($VIRTUAL_ENV, ':t')
-        let g:ycm_python_binary_path = $VIRTUAL_ENV.'/bin/python'
-    endif
+    " if isdirectory($VIRTUAL_ENV)
+    "     " let name = fnamemodify($VIRTUAL_ENV, ':t')
+    "     let g:ycm_python_binary_path = $VIRTUAL_ENV.'/bin/python'
+    " endif
 
     " Elixir
     " let g:alchemist#elixir_erlang_src = "${HOME}/source/erlang/"
 
-    let g:mix_format_on_save = 1
+    " let g:mix_format_on_save = 1
     " let g:mix_format_options = '--check-equivalent'
     " let g:mix_format_silent_errors = 1
 
@@ -334,13 +351,13 @@
          \ 'cpp': ["clangd-6.0"],
          \ 'elixir': ["language_server.sh"],
          \ 'eelixir': ["language_server.sh"],
-         \ 'go': ['go-langserver', '-gocodecompletion'],
          \ 'html': ['node', "${HOME}/source/vscode-html-languageservice/lib/htmlLanguageService"],
          \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
          \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
          \ 'python': ['pyls'],
          \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
          \ }
+    " \ 'go': ['go-langserver', '-gocodecompletion'],
     " \ 'sh': ['bash-language-server', 'start'],
     " \ 'elixir': ["$HOME/bin/elixir-ls.wrapper.sh"],
 
@@ -358,11 +375,22 @@
     let g:LanguageClient_autoStart = 1
 
 
-    nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
-    """
+    " function! s:show_documentation()
+    "     if &filetype == 'vim'
+    "         execute 'h '.expand('<cword>')
+    "     else
+    "         call CocAction('doHover')
+    "     endif
+    " endfunction
+
+    " " Highlight symbol under cursor on CursorHold
+    " autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " " Use `:Format` for format current buffer
+    " command! -nargs=0 Format :call CocAction('format')
+
+    " " Use `:Fold` for fold current buffer
+    " command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
     " jedi-vim {
     " disable completion
@@ -425,36 +453,74 @@
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
     \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \   'elixir': ['mix_format'],
     \   'python': ['yapf'],
     \}
     " }
 
-    " Ultisnips
-    " let g:UltiSnipsExpandTrigger            = "<Plug>(ultisnips_expand)"
-    " let g:UltiSnipsJumpForwardTrigger       = "<c-j>"
-    " let g:UltiSnipsJumpBackwardTrigger      = "<c-k>"
-    " let g:UltiSnipsRemoveSelectModeMappings = 0
-    " " optional
-    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    """" map <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-    " imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+    " Ultisnips / LSP snippets workaround (to remove later...)
+function! ExpandLspSnippet()
+    call UltiSnips#ExpandSnippetOrJump()
+    if !pumvisible() || empty(v:completed_item)
+        return ''
+    endif
+
+    " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
+    let l:value = v:completed_item['word']
+    let l:matched = len(l:value)
+    if l:matched <= 0
+        return ''
+    endif
+
+    " remove inserted chars before expand snippet
+    if col('.') == col('$')
+        let l:matched -= 1
+        exec 'normal! ' . l:matched . 'Xx'
+    else
+        exec 'normal! ' . l:matched . 'X'
+    endif
+
+    if col('.') == col('$') - 1
+        " move to $ if at the end of line.
+        call cursor(line('.'), col('$'))
+    endif
+
+    " expand snippet now.
+    call UltiSnips#Anon(l:value)
+    return ''
+endfunction
+
+imap <C-j> <C-R>=ExpandLspSnippet()<CR>
 
     " Ultisnips
-    "let g:UltiSnipsExpandTrigger = "<C-Tab>"
-    "let g:UltiSnipsListSnippets = "<S-Tab>"
-    "let g:UltiSnipsJumpForwardTrigger="<C-Tab>"
-    "let g:UltiSnipsExpandTrigger = "<C-Tab>"
     "let g:UltiSnipsEditSplit = "vertical"
     let g:UltiSnipsListSnippets = "<C-h>"
     let g:UltiSnipsExpandTrigger="<c-j>"
     " let g:UltiSnipsExpandTrigger  = "<Plug>(ultisnips_expand)"
-    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
-    " disable digraphs
-    inoremap <C-K> <NOP>
+    " disable digraphs, I dont use 'em
+    inoremap <c-k> <NOP>
     let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    let g:UltiSnipsRemoveSelectModeMappings = 0
+    " " optional
+    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
+    " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+    " inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<tab>"
+
+    " imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+    " imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-j>":"\<CR>")
+    " inoremap <silent> <c-j> <c-r>=(ncm2_ultisnips#completed_is_snippet() ? ncm2_ultisnips_expand_completed() : "\<c-j>")
+    " inoremap <silent> <c-j> <c-r>=(ncm2_ultisnips#completed_is_snippet() ? ncm2#ncm2_ultisnips_expand_completed() : "\<c-j>")
+
+    " imap <expr> <Plug>(ncm2_ultisnips_expand_completed) (ncm2_ultisnips#completed_is_snippet() ? "\<C-j>":"\<CR>")
+
+    " inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+    " inoremap <expr> <CR> (pumvisible() ? "\<C-Y>\<Plug>(expand_or_cr)" : "\<CR>")
+
+    """" map <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+    " imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+
+    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
 
 " }
 
@@ -530,6 +596,68 @@
     " Clear highlighted search, need to test to know what version I want!
     nnoremap <silent> <CR> :nohlsearch<CR><CR>
     nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
+
+    " " Use `[c` and `]c` for navigate diagnostics
+    " nnoremap <silent> [c <Plug>(coc-diagnostic-prev)
+    " nnoremap <silent> ]c <Plug>(coc-diagnostic-next)
+
+    " " Remap keys for gotos
+    " nnoremap <silent> gd <Plug>(coc-definition)
+    " nnoremap <silent> gy <Plug>(coc-type-definition)
+    " nnoremap <silent> gi <Plug>(coc-implementation)
+    " nnoremap <silent> gr <Plug>(coc-references)
+
+    " Use K for show documentation in preview window
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    " nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+    " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    " nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+
+    " " Remap for rename current word
+    " nmap <leader>rn <Plug>(coc-rename)
+
+    " " Remap for format selected region
+    " vmap <leader>f  <Plug>(coc-format-selected)
+    " nmap <leader>f  <Plug>(coc-format-selected)
+
+    " " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+    " vmap <leader>as  <Plug>(coc-codeaction-selected)
+    " nmap <leader>as  <Plug>(coc-codeaction-selected)
+
+    " " Remap for do codeAction of current line
+    " nmap <leader>ca  <Plug>(coc-codeaction)
+    " " Remap for do codelens-action of current line
+    " nmap <leader>cl  <Plug>(coc-codelens-action)
+    " " Fix autofix problem of current line
+    " nmap <leader>qf  <Plug>(coc-fix-current)
+
+    "" Using CocList
+    "" Show all diagnostics
+    "nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+    "" Manage extensions
+    "nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+    "" Show commands
+    "nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+    "" Find symbol of current document
+    "nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+    "" Search workspace symbols
+    "nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+    "" Do default action for next item.
+    "nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+    "" Do default action for previous item.
+    "nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+    "" Resume latest coc list
+    "nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+    """"
+
+    " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
+    nmap <silent> <leader>tn :TestNearest<CR>
+    nmap <silent> <leader>tf :TestFile<CR>
+    nmap <silent> <leader>ts :TestSuite<CR>
+    nmap <silent> <leader>tl :TestLast<CR>
+    nmap <silent> <leader>tv :TestVisit<CR>
 
     " ROT13 - fun
     "map <F12> ggVGg?
@@ -695,10 +823,10 @@
 " " adds to statusline
 " set laststatus=2
 " set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}
-" 
+"
 " " a little more informative version of the above
 " nmap <Leader>sI :call <SID>SynStack()<CR>
-" 
+"
 " function! <SID>SynStack()
 "     if !exists("*synstack")
 "         return
