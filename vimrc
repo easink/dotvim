@@ -32,6 +32,10 @@
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'godlygeek/csapprox'
     Plug 'easink/mustang'
+    " Plug 'bmcilw1/mustang-vim'
+    " Plug 'TheMrNomis/mustang-vim'
+    " Plug 'gruvbox-community/gruvbox'
+    Plug 'amacdougall/Birds-of-Paradise-VIM-Theme'
     Plug 'ap/vim-buftabline'
 
     " features
@@ -42,10 +46,8 @@
     "Plug 'ctrlpvim/ctrlp.vim'
     set rtp+=~/.fzf
     Plug 'junegunn/fzf'
-    "Plug 'wincent/Command-T'
-    "Plug 'techlivezheng/vim-plugin-minibufexpl'
-    "Plug 'fholgado/minibufexpl.vim'
     Plug 'chrisbra/Recover.vim'
+    Plug 'kabbamine/zeavim.vim'
 
     " git
     Plug 'tpope/vim-fugitive'
@@ -99,8 +101,8 @@
     " " Plug 'neoclide/coc-ultisnips', {'do': 'yarn install --frozen-lockfile'}
     if has('nvim')
         " Plug 'roxma/nvim-completion-manager'
-        Plug 'ncm2/ncm2'
         Plug 'roxma/nvim-yarp'
+        Plug 'ncm2/ncm2'
         Plug 'ncm2/ncm2-bufword'
         " " Plug 'ncm2/ncm2-tmux'
         Plug 'ncm2/ncm2-path'
@@ -177,6 +179,7 @@
     syntax on " syntax highlighting on
 
     colorscheme mustang
+    " colorscheme gruvbox
     "complement to mustang...
     :hi ColorColumn guibg=#2d2d2d ctermbg=236
 " }
@@ -307,16 +310,17 @@
 
     " let g:deoplete#enable_at_startup = 1
     autocmd BufEnter * call ncm2#enable_for_buffer()
-    " set completeopt=noinsert,menuone,noselect
+    set completeopt=noinsert,menuone,noselect
     " noselect -> crash when vim-snippet/ultisnips/languageclient " (snippet-lsp)
-    set completeopt=noinsert,menuone
+    " set completeopt=noinsert,menuone
     set shortmess+=c
 
     " " When the <Enter> key is pressed while the popup menu is visible, it only
     " " hides the menu. Use this mapping to close the menu and also start a new
     " " line.
     " inoremap <silent> <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-    " inoremap <silent> <expr> <c-j> ncm2_ultisnips#expand_or("\<CR>", 'n')
+    " inoremap <silent> <expr> <c-j> ncm2_ultisnips#expand_or("\<c-j>", 'n')
+    " inoremap <silent> <expr> <cr> ncm2_ultisnips#expand_or("\<cr>", 'n')
 
     " au TextChangedI * call ncm2#auto_trigger()
 
@@ -349,8 +353,8 @@
     let g:LanguageClient_serverCommands = {
          \ 'c': ["clangd-6.0"],
          \ 'cpp': ["clangd-6.0"],
-         \ 'elixir': ["language_server.sh"],
-         \ 'eelixir': ["language_server.sh"],
+         \ 'elixir': ["language_server_lsp.sh"],
+         \ 'eelixir': ["language_server_lsp.sh"],
          \ 'html': ['node', "${HOME}/source/vscode-html-languageservice/lib/htmlLanguageService"],
          \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
          \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
@@ -373,7 +377,7 @@
 
     " Automatically start language servers.
     let g:LanguageClient_autoStart = 1
-
+    let g:LanguageClient_hasSnippetSupport = 1
 
     " function! s:show_documentation()
     "     if &filetype == 'vim'
@@ -416,7 +420,7 @@
     " disable polyglot
     let g:polyglot_disabled = ['elm']
     " enable ycm
-    let g:ycm_semantic_triggers = { 'elm' : ['.'], }
+    " let g:ycm_semantic_triggers = { 'elm' : ['.'], }
     " }
 
     " vim-go {
@@ -452,52 +456,70 @@
     " let g:ale_linters = {'go': ['gometalinter']}
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
-    \   '*': ['remove_trailing_lines', 'trim_whitespace'],
     \   'elixir': ['mix_format'],
     \   'python': ['yapf'],
     \}
     " }
+    " \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 
     " Ultisnips / LSP snippets workaround (to remove later...)
-function! ExpandLspSnippet()
-    call UltiSnips#ExpandSnippetOrJump()
-    if !pumvisible() || empty(v:completed_item)
-        return ''
-    endif
-
-    " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
-    let l:value = v:completed_item['word']
-    let l:matched = len(l:value)
-    if l:matched <= 0
-        return ''
-    endif
-
-    " remove inserted chars before expand snippet
-    if col('.') == col('$')
-        let l:matched -= 1
-        exec 'normal! ' . l:matched . 'Xx'
-    else
-        exec 'normal! ' . l:matched . 'X'
-    endif
-
-    if col('.') == col('$') - 1
-        " move to $ if at the end of line.
-        call cursor(line('.'), col('$'))
-    endif
-
-    " expand snippet now.
-    call UltiSnips#Anon(l:value)
-    return ''
-endfunction
-
-imap <C-j> <C-R>=ExpandLspSnippet()<CR>
-imap <silent> <CR> <C-r>=ExpandLspSnippet()<CR>
+    " function! ExpandLspSnippet()
+    "     call UltiSnips#ExpandSnippetOrJump()
+    "     if !pumvisible() || empty(v:completed_item)
+    "         return ''
+    "     endif
+    "
+    "     " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
+    "     let l:value = v:completed_item['word']
+    "     let l:matched = len(l:value)
+    "     if l:matched <= 0
+    "         return ''
+    "     endif
+    "
+    "     " remove inserted chars before expand snippet
+    "     if col('.') == col('$')
+    "         let l:matched -= 1
+    "         exec 'normal! ' . l:matched . 'Xx'
+    "     else
+    "         exec 'normal! ' . l:matched . 'X'
+    "     endif
+    "
+    "     if col('.') == col('$') - 1
+    "         " move to $ if at the end of line.
+    "         call cursor(line('.'), col('$'))
+    "     endif
+    "
+    "     " expand snippet now.
+    "     call UltiSnips#Anon(l:value)
+    "     return ''
+    " endfunction
+    "
+    " imap <C-j> <C-R>=ExpandLspSnippet()<CR>
+    " imap <silent> <CR> <C-r>=ExpandLspSnippet()<CR>
 
     " Ultisnips
+
+    " imap <expr> <c-j> ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
+    "
+    " smap <c-j> <Plug>(ultisnips_expand)
+    " inoremap <expr> <c-j> ncm2_ultisnips#expand_or("\<Plug>(ncm2_ultisnips_expand_completed)", 'm')
+    " snoremap <c-j> <Plug>(ncm2_ultisnips_expand_completed)
+
+    imap <expr> <c-j> "\<c-y>\<Plug>(ncm2_ultisnips_expand_completed)"
+    " inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
+    " imap <expr> <CR> (pumvisible() ? "\<C-Y>\<Plug>(expand_or_cr)" : "\<CR>")
+    " imap <expr> <Plug>(expand_or_cr) (ncm2_ultisnips#completed_is_snippet() ? "\<C-U>" : "\<CR>")
+    " let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
+    " inoremap <silent> <C-U> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
+    "
+    " inoremap <silent> <expr> <CR> <c-r>=ncm2_ultisnips#expand_or("\<CR>", 'n')
+    " inoremap <silent> <expr> <CR> pumvisible()? <c-r>=ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
+
+
     "let g:UltiSnipsEditSplit = "vertical"
-    let g:UltiSnipsListSnippets = "<C-h>"
-    let g:UltiSnipsExpandTrigger="<c-j>"
-    " let g:UltiSnipsExpandTrigger  = "<Plug>(ultisnips_expand)"
+    " let g:UltiSnipsListSnippets = "<c-h>"
+    " let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsExpandTrigger  = "<Plug>(ultisnips_expand)"
     let g:UltiSnipsJumpForwardTrigger="<c-j>"
     " disable digraphs, I dont use 'em
     inoremap <c-k> <NOP>
@@ -515,6 +537,9 @@ imap <silent> <CR> <C-r>=ExpandLspSnippet()<CR>
 
     " imap <expr> <Plug>(ncm2_ultisnips_expand_completed) (ncm2_ultisnips#completed_is_snippet() ? "\<C-j>":"\<CR>")
 
+    " inoremap <silent> <expr> <c-j> <c-r>=ncm2_ultisnips#expand_or("\<c-j>", 'n')
+    " inoremap <silent> <expr> <cr> <c-r>=(ncm2_ultisnips#completed_is_snippet() ? "\<Plug>(ncm2_ultisnips_expand_completed)" : "\<cr>")
+    " snoremap <silent> <expr> <c-j> ncm2_ultisnips#expand_or("\<c-j>", 'n')
     " inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
     " inoremap <expr> <CR> (pumvisible() ? "\<C-Y>\<Plug>(expand_or_cr)" : "\<CR>")
 
@@ -793,6 +818,9 @@ imap <silent> <CR> <C-r>=ExpandLspSnippet()<CR>
     " }
     " XML {
         au FileType html setlocal formatexpr=FormatprgLocal('xmllint\ --format')
+    " }
+    " Elixir {
+        au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format\ -')
     " }
     " Python {
         " Tests
