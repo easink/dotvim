@@ -69,6 +69,7 @@
     Plug 'jeetsukumaran/vim-indentwise'
     Plug 'libclang-vim/libclang-vim'
     Plug 'libclang-vim/vim-textobj-clang'
+    Plug 'aoswalt/vim-textobj-elixir'
 
     " markdown
     Plug 'vim-pandoc/vim-pandoc'
@@ -820,7 +821,7 @@
         au FileType html setlocal formatexpr=FormatprgLocal('xmllint\ --format')
     " }
     " Elixir {
-        au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format\ -')
+        au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format -')
     " }
     " Python {
         " Tests
