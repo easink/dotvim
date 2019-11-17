@@ -821,7 +821,7 @@
         au FileType html setlocal formatexpr=FormatprgLocal('xmllint\ --format')
     " }
     " Elixir {
-        au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format -')
+        au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format\ -')
     " }
     " Python {
         " Tests
