@@ -14,17 +14,17 @@
         call plug#begin('~/.vim/plugged')
     endif
 
-    " Special build function for YCM
-    function! BuildYCM(info)
-        " info is a dictionary with 3 fields
-        " - name:   name of the plugin
-        " - status: 'installed', 'updated', or 'unchanged'
-        " - force:  set on PlugInstall! or PlugUpdate!
-        if a:info.status == 'installed' || a:info.force
-            !python3 ./install.py
-            " !python3 ./install.py --clang-completer
-        endif
-    endfunction
+    " " Special build function for YCM
+    " function! BuildYCM(info)
+    "     " info is a dictionary with 3 fields
+    "     " - name:   name of the plugin
+    "     " - status: 'installed', 'updated', or 'unchanged'
+    "     " - force:  set on PlugInstall! or PlugUpdate!
+    "     if a:info.status == 'installed' || a:info.force
+    "         !python3 ./install.py
+    "         " !python3 ./install.py --clang-completer
+    "     endif
+    " endfunction
 
     " Plugins
 
@@ -34,7 +34,8 @@
     Plug 'easink/mustang'
     " Plug 'bmcilw1/mustang-vim'
     " Plug 'TheMrNomis/mustang-vim'
-    " Plug 'gruvbox-community/gruvbox'
+    Plug 'gruvbox-community/gruvbox'
+    Plug 'altercation/vim-colors-solarized'
     Plug 'amacdougall/Birds-of-Paradise-VIM-Theme'
     Plug 'ap/vim-buftabline'
 
@@ -108,9 +109,10 @@
         " " Plug 'ncm2/ncm2-tmux'
         Plug 'ncm2/ncm2-path'
         Plug 'ncm2/ncm2-ultisnips'
+        " Plug 'ncm2/float-preview.nvim'
         " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         Plug 'autozimu/LanguageClient-neovim', {
-                    \  'branch': 'next',
+                    \ 'branch': 'next',
                     \ 'do': 'bash install.sh',
                     \ }
         " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -179,10 +181,13 @@
     "             +-- :read updates alternative file name
     syntax on " syntax highlighting on
 
-    colorscheme mustang
-    " colorscheme gruvbox
+    " set background=light
+    " colorscheme mustang
+    " colorscheme solarized
+    colorscheme gruvbox
+    " colorscheme birds_of_paradise
     "complement to mustang...
-    :hi ColorColumn guibg=#2d2d2d ctermbg=236
+    " :hi ColorColumn guibg=#2d2d2d ctermbg=236
 " }
 
 " General {
@@ -352,33 +357,49 @@
     " set hidden
 
     let g:LanguageClient_serverCommands = {
-         \ 'c': ["clangd-6.0"],
-         \ 'cpp': ["clangd-6.0"],
-         \ 'elixir': ["language_server_lsp.sh"],
-         \ 'eelixir': ["language_server_lsp.sh"],
-         \ 'html': ['node', "${HOME}/source/vscode-html-languageservice/lib/htmlLanguageService"],
-         \ 'javascript': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
-         \ 'javascript.jsx': ['node', "${HOME}/source/javascript-typescript-langserver/lib/language-server-stdio"],
+         \ 'c': ['clangd'],
+         \ 'cpp': ['clangd'],
+         \ 'css': ['css-languageserver', '--stdio'],
+         \ 'elixir': ['language_server_lsp.sh'],
+         \ 'eelixir': ['language_server_lsp.sh'],
+         \ 'go': ['go-langserver', '-gocodecompletion'],
+         \ 'html': ['html-languageserver', '--stdio'],
+         \ 'javascript': ['language-server-stdio'],
+         \ 'javascript.jsx': ['language-server-stdio'],
+         \ 'puppet': ['puppet-langserver.sh'],
          \ 'python': ['pyls'],
          \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+         \ 'sh': ['bash-language-server', 'start'],
+         \ 'vim': ['vim-language-server', '--stdio'],
+         \ 'yaml': ['yaml-language-server', '--stdio'],
          \ }
-    " \ 'go': ['go-langserver', '-gocodecompletion'],
-    " \ 'sh': ['bash-language-server', 'start'],
-    " \ 'elixir': ["$HOME/bin/elixir-ls.wrapper.sh"],
 
     let g:LanguageClient_rootMarkers = {
          \ 'elixir': ['mix.exs'],
          \ }
 
     let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
-    let g:LanguageClient_loggingLevel = 'INFO'
+    " let g:LanguageClient_loggingLevel = 'INFO'
+    let g:LanguageClient_loggingLevel = 'DEBUG'
 
-    " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
     " let g:LanguageClient_completionPreferTextEdit = 1
 
     " Automatically start language servers.
     let g:LanguageClient_autoStart = 1
+
+    " let g:LanguageClient_diagnosticsSignsMax = 0
+    let g:LanguageClient_useFloatingHover = 1
+    let g:LanguageClient_useVirtualText = "All"
     let g:LanguageClient_hasSnippetSupport = 1
+    let g:LanguageClient_changeThrottle = 0.5
+    let g:LanguageClient_virtualTextPrefix = "    ••➜ "
+    " let g:LanguageClient_diagnosticsList = "Location"
+    let g:LanguageClient_selectionUI = "location-list"
+    let g:LanguageClient_hoverpreview = "Always"
+    " Share Language Server config between vscode and neovim
+    " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . "/.vscode/settings.json"
+    " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
+
 
     " function! s:show_documentation()
     "     if &filetype == 'vim'
@@ -635,12 +656,14 @@
     " nnoremap <silent> gr <Plug>(coc-references)
 
     " Use K for show documentation in preview window
-    nnoremap <silent> K :call <SID>show_documentation()<CR>
+    " nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-    " nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-    " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    " nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+    nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    " nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+    nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+    nnoremap <C-Space> :call g:LanguageClient_contextMenu()<CR>
 
     " " Remap for rename current word
     " nmap <leader>rn <Plug>(coc-rename)
@@ -767,7 +790,7 @@
 
             " Complete options (disable preview scratch window)
             " set completeopt=menuone,preview
-            set completeopt-=preview
+            " set completeopt-=preview
             " Limit popup menu height
             set pumheight=15
 
@@ -792,7 +815,7 @@
             endif
 
             " YouCompleteMe
-            nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
+            " nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
             " finds the current function in C
             noremap <leader>f mk[[?^[A-Za-z0-9_].*(<CR>V"ky`k:echo "<C-R>k"<CR>
