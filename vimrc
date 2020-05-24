@@ -44,6 +44,7 @@
     Plug 'tpope/vim-unimpaired'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
+    Plug 'tpope/vim-projectionist'
     "Plug 'ctrlpvim/ctrlp.vim'
     set rtp+=~/.fzf
     Plug 'junegunn/fzf'
@@ -109,12 +110,19 @@
         " " Plug 'ncm2/ncm2-tmux'
         Plug 'ncm2/ncm2-path'
         Plug 'ncm2/ncm2-ultisnips'
+        Plug 'prabirshrestha/async.vim'
+        Plug 'prabirshrestha/vim-lsp'
+        Plug 'ncm2/ncm2-vim-lsp'
+        Plug 'thomasfaingnaert/vim-lsp-snippets'
+        Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+
+
         " Plug 'ncm2/float-preview.nvim'
         " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        Plug 'autozimu/LanguageClient-neovim', {
-                    \ 'branch': 'next',
-                    \ 'do': 'bash install.sh',
-                    \ }
+        " Plug 'autozimu/LanguageClient-neovim', {
+        "             \ 'branch': 'next',
+        "             \ 'do': 'bash install.sh',
+        "             \ }
         " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
         " Plug 'roxma/ncm-clang'
         " Plug 'roxma/ncm-elm-oracle'
@@ -145,6 +153,9 @@
 
     " Golang
     Plug 'fatih/vim-go'
+
+    " Html
+    Plug 'mattn/emmet-vim'
 
     " *-lang
     Plug 'sheerun/vim-polyglot'
@@ -182,12 +193,12 @@
     syntax on " syntax highlighting on
 
     " set background=light
-    " colorscheme mustang
+    colorscheme mustang
     " colorscheme solarized
-    colorscheme gruvbox
+    " colorscheme gruvbox
     " colorscheme birds_of_paradise
     "complement to mustang...
-    " :hi ColorColumn guibg=#2d2d2d ctermbg=236
+    :hi ColorColumn guibg=#2d2d2d ctermbg=236
 " }
 
 " General {
@@ -356,67 +367,136 @@
     " Required for operations modifying multiple buffers like rename.
     " set hidden
 
-    let g:LanguageClient_serverCommands = {
-         \ 'c': ['clangd'],
-         \ 'cpp': ['clangd'],
-         \ 'css': ['css-languageserver', '--stdio'],
-         \ 'elixir': ['language_server_lsp.sh'],
-         \ 'eelixir': ['language_server_lsp.sh'],
-         \ 'go': ['go-langserver', '-gocodecompletion'],
-         \ 'html': ['html-languageserver', '--stdio'],
-         \ 'javascript': ['language-server-stdio'],
-         \ 'javascript.jsx': ['language-server-stdio'],
-         \ 'puppet': ['puppet-langserver.sh'],
-         \ 'python': ['pyls'],
-         \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-         \ 'sh': ['bash-language-server', 'start'],
-         \ 'vim': ['vim-language-server', '--stdio'],
-         \ 'yaml': ['yaml-language-server', '--stdio'],
-         \ }
+    " let g:LanguageClient_serverCommands = {
+    "      \ 'c': ['clangd'],
+    "      \ 'cpp': ['clangd'],
+    "      \ 'css': ['css-languageserver', '--stdio'],
+    "      \ 'dockerfile': ['docker-langserver', '--stdio'],
+    "      \ 'elixir': ['language_server.sh'],
+    "      \ 'eelixir': ['language_server.sh'],
+    "      \ 'go': ['go-langserver', '-gocodecompletion'],
+    "      \ 'html': ['html-languageserver', '--stdio'],
+    "      \ 'javascript': ['javascript-typescript-stdio'],
+    "      \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    "      \ 'puppet': ['puppet-langserver.sh'],
+    "      \ 'python': ['pyls'],
+    "      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    "      \ 'sh': ['bash-language-server', 'start'],
+    "      \ 'vim': ['vim-language-server', '--stdio'],
+    "      \ 'yaml': ['yaml-language-server', '--stdio'],
+    "      \ }
 
-    let g:LanguageClient_rootMarkers = {
-         \ 'elixir': ['mix.exs'],
-         \ }
+    " let g:LanguageClient_rootMarkers = {
+    "      \ 'elixir': ['mix.exs'],
+    "      \ }
 
-    let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
-    " let g:LanguageClient_loggingLevel = 'INFO'
-    let g:LanguageClient_loggingLevel = 'DEBUG'
+    " let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
+    " " let g:LanguageClient_loggingLevel = 'INFO'
+    " let g:LanguageClient_loggingLevel = 'DEBUG'
 
-    " let g:LanguageClient_completionPreferTextEdit = 1
+    " " let g:LanguageClient_completionPreferTextEdit = 1
 
-    " Automatically start language servers.
-    let g:LanguageClient_autoStart = 1
+    " " Automatically start language servers.
+    " let g:LanguageClient_autoStart = 1
 
-    " let g:LanguageClient_diagnosticsSignsMax = 0
-    let g:LanguageClient_useFloatingHover = 1
-    let g:LanguageClient_useVirtualText = "All"
-    let g:LanguageClient_hasSnippetSupport = 1
-    let g:LanguageClient_changeThrottle = 0.5
-    let g:LanguageClient_virtualTextPrefix = "    ••➜ "
-    " let g:LanguageClient_diagnosticsList = "Location"
-    let g:LanguageClient_selectionUI = "location-list"
-    let g:LanguageClient_hoverpreview = "Always"
-    " Share Language Server config between vscode and neovim
-    " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . "/.vscode/settings.json"
-    " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
+    " " let g:LanguageClient_diagnosticsSignsMax = 0
+    " let g:LanguageClient_useFloatingHover = 1
+    " let g:LanguageClient_useVirtualText = "All"
+    " let g:LanguageClient_hasSnippetSupport = 1
+    " let g:LanguageClient_changeThrottle = 0.5
+    " let g:LanguageClient_virtualTextPrefix = "    ••➜ "
+    " " let g:LanguageClient_diagnosticsList = "Location"
+    " let g:LanguageClient_selectionUI = "location-list"
+    " let g:LanguageClient_hoverpreview = "Always"
+    " " Share Language Server config between vscode and neovim
+    " " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . "/.vscode/settings.json"
+    " " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
 
+    " VIM-LSP
 
-    " function! s:show_documentation()
-    "     if &filetype == 'vim'
-    "         execute 'h '.expand('<cword>')
-    "     else
-    "         call CocAction('doHover')
-    "     endif
-    " endfunction
+    let g:lsp_log_verbose = 1
+    let g:lsp_log_file = expand('~/vim-lsp.log')
 
-    " " Highlight symbol under cursor on CursorHold
-    " autocmd CursorHold * silent call CocActionAsync('highlight')
+    " for asyncomplete.vim log
+    let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
-    " " Use `:Format` for format current buffer
-    " command! -nargs=0 Format :call CocAction('format')
+    if executable('clangd')
+        augroup vim_lsp_cpp
+            autocmd!
+            autocmd User lsp_setup call lsp#register_server({
+                        \ 'name':      'clangd',
+                        \ 'cmd':       {server_info->['clangd']},
+                        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+                        \ })
+            autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
+        augroup end
+    endif
 
-    " " Use `:Fold` for fold current buffer
-    " command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+    if executable('language_server.sh')
+        augroup vim_lsp_elixir
+            autocmd!
+            autocmd User lsp_setup call lsp#register_server({
+                        \ 'name':      'elixir',
+                        \ 'cmd':       {server_info->['language_server.sh']},
+                        \ 'whitelist': ['elixir', 'eelixir'],
+                        \ })
+            autocmd FileType ex,exs,eex,leex setlocal omnifunc=lsp#complete
+        augroup end
+    endif
+
+    if executable('pyls')
+        augroup vim_lsp_python
+            autocmd!
+            autocmd User lsp_setup call lsp#register_server({
+                        \ 'name':      'pyls',
+                        \ 'cmd':       {server_info->['pyls']},
+                        \ 'whitelist': ['python'],
+                        \ })
+            autocmd FileType py setlocal omnifunc=lsp#complete
+        augroup end
+    endif
+
+    if executable('typescript-language-server')
+        augroup vim_lsp_js
+            autocmd!
+            autocmd User lsp_setup call lsp#register_server({
+                        \ 'name':      'typescript/javascript',
+                        \ 'cmd':       {server_info->['typescript-language-server --stdio']},
+                        \ 'whitelist': ['javascript', 'typescript'],
+                        \ })
+            autocmd FileType js setlocal omnifunc=lsp#complete
+        augroup end
+    endif
+
+    if executable('bash-language-server')
+        augroup vim_lsp_sh
+            autocmd!
+            autocmd User lsp_setup call lsp#register_server({
+                        \ 'name':      'sh',
+                        \ 'cmd':       {server_info->['bash-language-server', 'start']},
+                        \ 'whitelist': ['sh'],
+                        \ })
+            autocmd FileType sh setlocal omnifunc=lsp#complete
+        augroup end
+    endif
+
+    function! s:on_lsp_buffer_enabled() abort
+        setlocal omnifunc=lsp#complete
+        " setlocal signcolumn=yes
+        " nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+        nmap <buffer> K <plug>(lsp-hover)
+        nmap <buffer> gd <plug>(lsp-definition)
+        " nmap <buffer> gr <plug>(lsp-references)
+        nmap <buffer> <f2> <plug>(lsp-rename)
+
+        " refer to doc to add more commands
+    endfunction
+
+    augroup lsp_install
+        au!
+        " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    augroup END
 
     " jedi-vim {
     " disable completion
@@ -476,6 +556,10 @@
     " let g:ale_sign_error = '⤫'
     " let g:ale_sign_warning = '⚠'
     " let g:ale_linters = {'go': ['gometalinter']}
+    let g:ale_linters = {
+    \ 'elixir': ['credo', 'dialyxir', 'elixir-ls', 'mix'],
+    \ 'go': ['gometalinter']
+    \ }
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
     \   'elixir': ['mix_format'],
@@ -658,12 +742,12 @@
     " Use K for show documentation in preview window
     " nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-    nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    " nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-    nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
-    nnoremap <C-Space> :call g:LanguageClient_contextMenu()<CR>
+    " nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+    " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    " " nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
+    " nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
+    " nnoremap <C-Space> :call g:LanguageClient_contextMenu()<CR>
 
     " " Remap for rename current word
     " nmap <leader>rn <Plug>(coc-rename)
