@@ -154,6 +154,9 @@
     " Golang
     Plug 'fatih/vim-go'
 
+    " Rust
+    Plug 'rust-lang/rust.vim'
+
     " Html
     Plug 'mattn/emmet-vim'
 
@@ -441,6 +444,18 @@
                         \ 'whitelist': ['elixir', 'eelixir'],
                         \ })
             autocmd FileType ex,exs,eex,leex setlocal omnifunc=lsp#complete
+        augroup end
+    endif
+
+    if executable('rls')
+        augroup vim_lsp_rust
+            autocmd!
+            autocmd User lsp_setup call lsp#register_server({
+                        \ 'name':      'rust',
+                        \ 'cmd':       {server_info->['rls']},
+                        \ 'whitelist': ['rust'],
+                        \ })
+            autocmd FileType rs setlocal omnifunc=lsp#complete
         augroup end
     endif
 
