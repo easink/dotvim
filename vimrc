@@ -201,7 +201,10 @@
     " colorscheme gruvbox
     " colorscheme birds_of_paradise
     "complement to mustang...
-    :hi ColorColumn guibg=#2d2d2d ctermbg=236
+    hi ColorColumn guibg=#2d2d2d ctermbg=236
+    hi link ALEWarningSign Error
+    hi link LspWarningText WarningMsg
+    hi link LspWarningHighlight Underlined
 " }
 
 " General {
@@ -573,11 +576,13 @@
     " let g:ale_linters = {'go': ['gometalinter']}
     let g:ale_linters = {
     \ 'elixir': ['credo', 'dialyxir', 'elixir-ls', 'mix'],
+    \ 'rust': ['cargo', 'rls', 'rustc'],
     \ 'go': ['gometalinter']
     \ }
     let g:ale_fix_on_save = 1
     let g:ale_fixers = {
     \   'elixir': ['mix_format'],
+    \   'rust': ['rustfmt'],
     \   'python': ['yapf'],
     \}
     " }
