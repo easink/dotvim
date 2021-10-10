@@ -81,8 +81,8 @@
     " coding
     Plug 'majutsushi/tagbar'
     "Plug 'msanders/snipmate.vim'
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
+    " Plug 'SirVer/ultisnips'
+    " Plug 'honza/vim-snippets'
     Plug 'tandrewnichols/vim-contemplate'
     " Plug 'vim-syntastic/syntastic'
     Plug 'w0rp/ale'
@@ -95,37 +95,41 @@
     Plug 'janko-m/vim-test'
     "
 
-    " python/c/c++ bundles
-    " " Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    " Plug 'neoclide/coc-pyls', {'do': 'yarn install --frozen-lockfile'}
-    " Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-    " Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
-    " " Plug 'neoclide/coc-ultisnips', {'do': 'yarn install --frozen-lockfile'}
     if has('nvim')
-        " Plug 'roxma/nvim-completion-manager'
-        Plug 'roxma/nvim-yarp'
-        Plug 'ncm2/ncm2'
-        Plug 'ncm2/ncm2-bufword'
-        " " Plug 'ncm2/ncm2-tmux'
-        Plug 'ncm2/ncm2-path'
-        Plug 'ncm2/ncm2-ultisnips'
-        Plug 'prabirshrestha/async.vim'
-        Plug 'prabirshrestha/vim-lsp'
-        Plug 'ncm2/ncm2-vim-lsp'
-        Plug 'thomasfaingnaert/vim-lsp-snippets'
-        Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+        Plug 'neovim/nvim-lspconfig'
+        Plug 'hrsh7th/cmp-nvim-lsp', { 'branch': 'main' }
+        Plug 'hrsh7th/cmp-buffer', { 'branch': 'main' }
+        Plug 'hrsh7th/cmp-path', { 'branch': 'main' }
+        Plug 'hrsh7th/nvim-cmp', { 'branch': 'main' }
+
+        " For vsnip user.
+        Plug 'hrsh7th/cmp-vsnip', { 'branch': 'main' }
+        Plug 'hrsh7th/vim-vsnip'
+        Plug 'hrsh7th/vim-vsnip-integ'
+
+        " " Plug 'roxma/nvim-completion-manager'
+        " Plug 'roxma/nvim-yarp'
+        " Plug 'ncm2/ncm2'
+        " Plug 'ncm2/ncm2-bufword'
+        " " " Plug 'ncm2/ncm2-tmux'
+        " Plug 'ncm2/ncm2-path'
+        " Plug 'ncm2/ncm2-ultisnips'
+        " Plug 'prabirshrestha/async.vim'
+        " Plug 'prabirshrestha/vim-lsp'
+        " Plug 'ncm2/ncm2-vim-lsp'
+        " Plug 'thomasfaingnaert/vim-lsp-snippets'
+        " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 
 
-        " Plug 'ncm2/float-preview.nvim'
-        " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        " Plug 'autozimu/LanguageClient-neovim', {
-        "             \ 'branch': 'next',
-        "             \ 'do': 'bash install.sh',
-        "             \ }
-        " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-        " Plug 'roxma/ncm-clang'
-        " Plug 'roxma/ncm-elm-oracle'
+        " " Plug 'ncm2/float-preview.nvim'
+        " " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+        " " Plug 'autozimu/LanguageClient-neovim', {
+        " "             \ 'branch': 'next',
+        " "             \ 'do': 'bash install.sh',
+        " "             \ }
+        " " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+        " " Plug 'roxma/ncm-clang'
+        " " Plug 'roxma/ncm-elm-oracle'
     else
         Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
         " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
@@ -139,7 +143,7 @@
 
     " Elixir
     Plug 'elixir-lang/vim-elixir'
-    Plug 'mhinz/vim-mix-format'
+    " Plug 'mhinz/vim-mix-format'
     if has('nvim')
         " Plug 'awetzel/elixir.nvim'
     else
@@ -205,6 +209,8 @@
     hi link ALEWarningSign Error
     hi link LspWarningText WarningMsg
     hi link LspWarningHighlight Underlined
+    hi LspWarningVirtualText ctermfg=9 ctermbg=237
+    hi link LspDiagnosticsVirtualTextWarning NonText
 " }
 
 " General {
@@ -222,7 +228,7 @@
     set hidden                       " you can change buffers without saving
     "(XXX: #VIM/tpope warns the line below could break things)
     set iskeyword+=_,$,@,%,#         " none of these are word dividers
-    set mouse=a                      " use mouse everywhere
+    set mouse=                       " use mouse everywhere
     set noerrorbells                 " don't make noise
     "set whichwrap=b,s,h,l,<,>,~,[,] " everything wraps
     "              | | | | | | | | |
@@ -332,209 +338,197 @@
     " The parameters are the same as `:help feedkeys()`
 
     " let g:deoplete#enable_at_startup = 1
-    autocmd BufEnter * call ncm2#enable_for_buffer()
+    " autocmd BufEnter * call ncm2#enable_for_buffer()
     set completeopt=noinsert,menuone,noselect
     " noselect -> crash when vim-snippet/ultisnips/languageclient " (snippet-lsp)
     " set completeopt=noinsert,menuone
     set shortmess+=c
 
-    " " When the <Enter> key is pressed while the popup menu is visible, it only
-    " " hides the menu. Use this mapping to close the menu and also start a new
-    " " line.
-    " inoremap <silent> <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
-    " inoremap <silent> <expr> <c-j> ncm2_ultisnips#expand_or("\<c-j>", 'n')
-    " inoremap <silent> <expr> <cr> ncm2_ultisnips#expand_or("\<cr>", 'n')
+    " LSP
+    lua require('lsp')
 
-    " au TextChangedI * call ncm2#auto_trigger()
+    " Code navigation shortcuts
+    nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+    nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+    nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+    nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+    nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+    nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
 
-    " YouCompleteMe
-    ""let g:ycm_filetype_specific_completion_to_disable = {python}    " disable python code completion
-    " let g:ycm_autoclose_preview_window_after_completion = 1
-    " let g:ycm_autoclose_preview_window_after_insertion = 1
-    " let g:ycm_use_ultisnips_completer = 1
-    " let g:ycm_seed_identifiers_with_syntax = 1
-    " let g:ycm_confirm_extra_conf = 0
-    ""let g:ycm_key_list_selection = ['<Down>']
+    " Set updatetime for CursorHold
+    " 300ms of no cursor movement to trigger CursorHold
+    set updatetime=300
+    " Show diagnostic popup on cursor hold
+    autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
-    " Virtualenv + YouCompleteMe
-    " if isdirectory($VIRTUAL_ENV)
-    "     " let name = fnamemodify($VIRTUAL_ENV, ':t')
-    "     let g:ycm_python_binary_path = $VIRTUAL_ENV.'/bin/python'
+    " Goto previous/next diagnostic warning/error
+    nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+    nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+    " have a fixed column for the diagnostics to appear in
+    " this removes the jitter when warnings/errors flow in
+    " set signcolumnCR=yes
+    "
+
+    " " VIM-LSP
+
+    " let g:lsp_log_verbose = 1
+    " let g:lsp_log_file = expand('~/vim-lsp.log')
+    " let g:lsp_highlight_enabled = 1
+    " let g:lsp_diagnostics_highlights_enabled = 0
+
+    " " for asyncomplete.vim log
+    " let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
+    " if executable('clangd')
+    "     augroup vim_lsp_cpp
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'clangd',
+    "                     \ 'cmd':       {server_info->['clangd']},
+    "                     \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+    "                     \ })
+    "         autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
+    "     augroup end
     " endif
 
-    " Elixir
-    " let g:alchemist#elixir_erlang_src = "${HOME}/source/erlang/"
+    " if executable('language_server.sh')
+    "     augroup vim_lsp_elixir
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'elixir',
+    "                     \ 'cmd':       {server_info->['language_server.sh']},
+    "                     \ 'whitelist': ['elixir', 'eelixir'],
+    "                     \ 'root_uri': {server_info->lsp#utils#path_to_uri(
+    "                     \       lsp#utils#find_nearest_parent_file_directory(
+    "                     \               lsp#utils#get_buffer_path(),
+    "                     \               ['mix.exs', '.git/']
+    "                     \        ))},
+    "                     \ })
+    "         autocmd FileType ex,exs,eex,leex,heex setlocal omnifunc=lsp#complete
+    "     augroup end
+    " endif
 
-    " let g:mix_format_on_save = 1
-    " let g:mix_format_options = '--check-equivalent'
-    " let g:mix_format_silent_errors = 1
+    " if executable('rls')
+    "     augroup vim_lsp_rust
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'rust',
+    "                     \ 'cmd':       {server_info->['rls']},
+    "                     \ 'whitelist': ['rust'],
+    "                     \ })
+    "         autocmd FileType rs setlocal omnifunc=lsp#complete
+    "     augroup end
+    " endif
 
-    " Language Server
-    " Required for operations modifying multiple buffers like rename.
-    " set hidden
+    " if executable('pyls')
+    "     augroup vim_lsp_python
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'pyls',
+    "                     \ 'cmd':       {server_info->['pyls']},
+    "                     \ 'whitelist': ['python'],
+    "                     \ })
+    "         autocmd FileType py setlocal omnifunc=lsp#complete
+    "     augroup end
+    " endif
 
-    " let g:LanguageClient_serverCommands = {
-    "      \ 'c': ['clangd'],
-    "      \ 'cpp': ['clangd'],
-    "      \ 'css': ['css-languageserver', '--stdio'],
-    "      \ 'dockerfile': ['docker-langserver', '--stdio'],
-    "      \ 'elixir': ['language_server.sh'],
-    "      \ 'eelixir': ['language_server.sh'],
-    "      \ 'go': ['go-langserver', '-gocodecompletion'],
-    "      \ 'html': ['html-languageserver', '--stdio'],
-    "      \ 'javascript': ['javascript-typescript-stdio'],
-    "      \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    "      \ 'puppet': ['puppet-langserver.sh'],
-    "      \ 'python': ['pyls'],
-    "      \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    "      \ 'sh': ['bash-language-server', 'start'],
-    "      \ 'vim': ['vim-language-server', '--stdio'],
-    "      \ 'yaml': ['yaml-language-server', '--stdio'],
-    "      \ }
+    " if executable('typescript-language-server')
+    "     augroup vim_lsp_js
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'typescript/javascript',
+    "                     \ 'cmd':       {server_info->['typescript-language-server --stdio']},
+    "                     \ 'whitelist': ['javascript', 'typescript'],
+    "                     \ })
+    "         autocmd FileType js setlocal omnifunc=lsp#complete
+    "     augroup end
+    " endif
 
-    " let g:LanguageClient_rootMarkers = {
-    "      \ 'elixir': ['mix.exs'],
-    "      \ }
+    " if executable('bash-language-server')
+    "     augroup vim_lsp_sh
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'sh',
+    "                     \ 'cmd':       {server_info->['bash-language-server', 'start']},
+    "                     \ 'whitelist': ['sh'],
+    "                     \ })
+    "         autocmd FileType sh setlocal omnifunc=lsp#complete
+    "     augroup end
+    " endif
 
-    " let g:LanguageClient_loggingFile = '/tmp/languageclient.log'
-    " " let g:LanguageClient_loggingLevel = 'INFO'
-    " let g:LanguageClient_loggingLevel = 'DEBUG'
+    " if executable('yaml-language-server')
+    "     augroup vim_lsp_yaml
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'yaml',
+    "                     \ 'cmd':       {server_info->['yaml-language-server', '--stdio']},
+    "                     \ 'whitelist': ['yaml', 'json'],
+    "                     \ 'workspace_config': {
+    "                         \ 'yaml': {
+    "                             \ 'format': { 'enable': v:true },
+    "                             \ 'validate': v:true,
+    "                             \ 'hover': v:true,
+    "                             \ 'schemaStore': { 'enable': v:true }
+    "                         \ }
+    "                     \ }
+    "                     \ })
+    "         autocmd FileType yml,yaml,json setlocal omnifunc=lsp#complete
+    "     augroup end
+    " endif
 
-    " " let g:LanguageClient_completionPreferTextEdit = 1
+    " if executable('css-languageserver')
+    "     augroup vim_lsp_css
+    "         autocmd!
+    "         autocmd User lsp_setup call lsp#register_server({
+    "                     \ 'name':      'css',
+    "                     \ 'cmd':       {server_info->['css-languageserver', '--stdio']},
+    "                     \ 'whitelist': ['css', 'less', 'sass'],
+    "                     \ })
+    "         autocmd FileType css,scss setlocal omnifunc=lsp#complete
+    "     augroup end
+    " endif
 
-    " " Automatically start language servers.
-    " let g:LanguageClient_autoStart = 1
+    " function! s:on_lsp_buffer_enabled() abort
+    "     setlocal omnifunc=lsp#complete
+    "     " setlocal signcolumn=yes
+    "     " nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+    "     nmap <buffer> K <plug>(lsp-hover)
+    "     nmap <buffer> gd <plug>(lsp-definition)
+    "     " nmap <buffer> gr <plug>(lsp-references)
+    "     nmap <buffer> <f2> <plug>(lsp-rename)
 
-    " " let g:LanguageClient_diagnosticsSignsMax = 0
-    " let g:LanguageClient_useFloatingHover = 1
-    " let g:LanguageClient_useVirtualText = "All"
-    " let g:LanguageClient_hasSnippetSupport = 1
-    " let g:LanguageClient_changeThrottle = 0.5
-    " let g:LanguageClient_virtualTextPrefix = "    ••➜ "
-    " " let g:LanguageClient_diagnosticsList = "Location"
-    " let g:LanguageClient_selectionUI = "location-list"
-    " let g:LanguageClient_hoverpreview = "Always"
-    " " Share Language Server config between vscode and neovim
-    " " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . "/.vscode/settings.json"
-    " " let g:LanguageClient_settingsPath = $WORKSPACE_DIR . '/.vim/settings.json'
+    "     " refer to doc to add more commands
+    " endfunction
 
-    " VIM-LSP
+    " augroup lsp_install
+    "     au!
+    "     " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    "     autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+    " augroup END
 
-    let g:lsp_log_verbose = 1
-    let g:lsp_log_file = expand('~/vim-lsp.log')
+    " " jedi-vim {
+    " " disable completion
+    " let g:jedi#auto_initialization = 1
+    " let g:jedi#auto_vim_configuration = 0
+    " let g:jedi#smart_auto_mappings = 0
+    " let g:jedi#popup_on_dot = 1
+    " let g:jedi#popup_select_first = 0
+    " let g:jedi#completions_enabled = 1
+    " let g:jedi#completions_command = ""
+    " " let g:jedi#show_call_signatures = 2
+    " let g:jedi#show_call_signatures = "1"
+    " let g:jedi#show_call_signatures_delay = 0
 
-    " for asyncomplete.vim log
-    let g:asyncomplete_log_file = expand('~/asyncomplete.log')
-
-    if executable('clangd')
-        augroup vim_lsp_cpp
-            autocmd!
-            autocmd User lsp_setup call lsp#register_server({
-                        \ 'name':      'clangd',
-                        \ 'cmd':       {server_info->['clangd']},
-                        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
-                        \ })
-            autocmd FileType c,cpp,objc,objcpp,cc setlocal omnifunc=lsp#complete
-        augroup end
-    endif
-
-    if executable('language_server.sh')
-        augroup vim_lsp_elixir
-            autocmd!
-            autocmd User lsp_setup call lsp#register_server({
-                        \ 'name':      'elixir',
-                        \ 'cmd':       {server_info->['language_server.sh']},
-                        \ 'whitelist': ['elixir', 'eelixir'],
-                        \ })
-            autocmd FileType ex,exs,eex,leex setlocal omnifunc=lsp#complete
-        augroup end
-    endif
-
-    if executable('rls')
-        augroup vim_lsp_rust
-            autocmd!
-            autocmd User lsp_setup call lsp#register_server({
-                        \ 'name':      'rust',
-                        \ 'cmd':       {server_info->['rls']},
-                        \ 'whitelist': ['rust'],
-                        \ })
-            autocmd FileType rs setlocal omnifunc=lsp#complete
-        augroup end
-    endif
-
-    if executable('pyls')
-        augroup vim_lsp_python
-            autocmd!
-            autocmd User lsp_setup call lsp#register_server({
-                        \ 'name':      'pyls',
-                        \ 'cmd':       {server_info->['pyls']},
-                        \ 'whitelist': ['python'],
-                        \ })
-            autocmd FileType py setlocal omnifunc=lsp#complete
-        augroup end
-    endif
-
-    if executable('typescript-language-server')
-        augroup vim_lsp_js
-            autocmd!
-            autocmd User lsp_setup call lsp#register_server({
-                        \ 'name':      'typescript/javascript',
-                        \ 'cmd':       {server_info->['typescript-language-server --stdio']},
-                        \ 'whitelist': ['javascript', 'typescript'],
-                        \ })
-            autocmd FileType js setlocal omnifunc=lsp#complete
-        augroup end
-    endif
-
-    if executable('bash-language-server')
-        augroup vim_lsp_sh
-            autocmd!
-            autocmd User lsp_setup call lsp#register_server({
-                        \ 'name':      'sh',
-                        \ 'cmd':       {server_info->['bash-language-server', 'start']},
-                        \ 'whitelist': ['sh'],
-                        \ })
-            autocmd FileType sh setlocal omnifunc=lsp#complete
-        augroup end
-    endif
-
-    function! s:on_lsp_buffer_enabled() abort
-        setlocal omnifunc=lsp#complete
-        " setlocal signcolumn=yes
-        " nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-        nmap <buffer> K <plug>(lsp-hover)
-        nmap <buffer> gd <plug>(lsp-definition)
-        " nmap <buffer> gr <plug>(lsp-references)
-        nmap <buffer> <f2> <plug>(lsp-rename)
-
-        " refer to doc to add more commands
-    endfunction
-
-    augroup lsp_install
-        au!
-        " call s:on_lsp_buffer_enabled only for languages that has the server registered.
-        autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
-    augroup END
-
-    " jedi-vim {
-    " disable completion
-    let g:jedi#auto_initialization = 1
-    let g:jedi#auto_vim_configuration = 0
-    let g:jedi#smart_auto_mappings = 0
-    let g:jedi#popup_on_dot = 1
-    let g:jedi#popup_select_first = 0
-    let g:jedi#completions_enabled = 1
-    let g:jedi#completions_command = ""
-    " let g:jedi#show_call_signatures = 2
-    let g:jedi#show_call_signatures = "1"
-    let g:jedi#show_call_signatures_delay = 0
-
-    let g:jedi#goto_assignments_command = "<leader>ja"
-    let g:jedi#goto_definitions_command = "<leader>jd"
-    let g:jedi#documentation_command = "<leader>jk"
-    let g:jedi#usages_command = "<leader>ju"
-    let g:jedi#rename_command = "<leader>jr"
-    " }
+    " let g:jedi#goto_assignments_command = "<leader>ja"
+    " let g:jedi#goto_definitions_command = "<leader>jd"
+    " let g:jedi#documentation_command = "<leader>jk"
+    " let g:jedi#usages_command = "<leader>ju"
+    " let g:jedi#rename_command = "<leader>jr"
+    " " }
 
     " elm {
     " disable polyglot
@@ -588,92 +582,13 @@
     " }
     " \   '*': ['remove_trailing_lines', 'trim_whitespace'],
 
-    " Ultisnips / LSP snippets workaround (to remove later...)
-    " function! ExpandLspSnippet()
-    "     call UltiSnips#ExpandSnippetOrJump()
-    "     if !pumvisible() || empty(v:completed_item)
-    "         return ''
-    "     endif
-    "
-    "     " only expand Lsp if UltiSnips#ExpandSnippetOrJump not effect.
-    "     let l:value = v:completed_item['word']
-    "     let l:matched = len(l:value)
-    "     if l:matched <= 0
-    "         return ''
-    "     endif
-    "
-    "     " remove inserted chars before expand snippet
-    "     if col('.') == col('$')
-    "         let l:matched -= 1
-    "         exec 'normal! ' . l:matched . 'Xx'
-    "     else
-    "         exec 'normal! ' . l:matched . 'X'
-    "     endif
-    "
-    "     if col('.') == col('$') - 1
-    "         " move to $ if at the end of line.
-    "         call cursor(line('.'), col('$'))
-    "     endif
-    "
-    "     " expand snippet now.
-    "     call UltiSnips#Anon(l:value)
-    "     return ''
-    " endfunction
-    "
-    " imap <C-j> <C-R>=ExpandLspSnippet()<CR>
-    " imap <silent> <CR> <C-r>=ExpandLspSnippet()<CR>
-
-    " Ultisnips
-
-    " imap <expr> <c-j> ncm2_ultisnips#expand_or("\<Plug>(ultisnips_expand)", 'm')
-    "
-    " smap <c-j> <Plug>(ultisnips_expand)
-    " inoremap <expr> <c-j> ncm2_ultisnips#expand_or("\<Plug>(ncm2_ultisnips_expand_completed)", 'm')
-    " snoremap <c-j> <Plug>(ncm2_ultisnips_expand_completed)
-
-    imap <expr> <c-j> "\<c-y>\<Plug>(ncm2_ultisnips_expand_completed)"
-    " inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
-    " imap <expr> <CR> (pumvisible() ? "\<C-Y>\<Plug>(expand_or_cr)" : "\<CR>")
-    " imap <expr> <Plug>(expand_or_cr) (ncm2_ultisnips#completed_is_snippet() ? "\<C-U>" : "\<CR>")
-    " let g:UltiSnipsExpandTrigger = "<Plug>(ultisnips_expand)"
-    " inoremap <silent> <C-U> <C-R>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<CR>
-    "
-    " inoremap <silent> <expr> <CR> <c-r>=ncm2_ultisnips#expand_or("\<CR>", 'n')
-    " inoremap <silent> <expr> <CR> pumvisible()? <c-r>=ncm2_ultisnips#expand_or("\<CR>", 'n') : "\<CR>"
-
-
-    "let g:UltiSnipsEditSplit = "vertical"
-    " let g:UltiSnipsListSnippets = "<c-h>"
-    " let g:UltiSnipsExpandTrigger="<c-j>"
-    let g:UltiSnipsExpandTrigger  = "<Plug>(ultisnips_expand)"
-    let g:UltiSnipsJumpForwardTrigger="<c-j>"
-    " disable digraphs, I dont use 'em
-    inoremap <c-k> <NOP>
-    let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-    let g:UltiSnipsRemoveSelectModeMappings = 0
-    " " optional
-    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-    " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-    " inoremap <expr><cr> pumvisible() ? "\<c-n>" : "\<tab>"
-
-    " imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-    " imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-j>":"\<CR>")
-    " inoremap <silent> <c-j> <c-r>=(ncm2_ultisnips#completed_is_snippet() ? ncm2_ultisnips_expand_completed() : "\<c-j>")
-    " inoremap <silent> <c-j> <c-r>=(ncm2_ultisnips#completed_is_snippet() ? ncm2#ncm2_ultisnips_expand_completed() : "\<c-j>")
-
-    " imap <expr> <Plug>(ncm2_ultisnips_expand_completed) (ncm2_ultisnips#completed_is_snippet() ? "\<C-j>":"\<CR>")
-
-    " inoremap <silent> <expr> <c-j> <c-r>=ncm2_ultisnips#expand_or("\<c-j>", 'n')
-    " inoremap <silent> <expr> <cr> <c-r>=(ncm2_ultisnips#completed_is_snippet() ? "\<Plug>(ncm2_ultisnips_expand_completed)" : "\<cr>")
-    " snoremap <silent> <expr> <c-j> ncm2_ultisnips#expand_or("\<c-j>", 'n')
-    " inoremap <silent> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
-    " inoremap <expr> <CR> (pumvisible() ? "\<C-Y>\<Plug>(expand_or_cr)" : "\<CR>")
-
-    """" map <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-    " imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
-
-    " inoremap <silent> <c-u> <c-r>=cm#sources#ultisnips#trigger_or_popup("\<Plug>(ultisnips_expand)")<cr>
-
+    " imap <expr> <c-j> "\<c-y>\<Plug>(ncm2_ultisnips_expand_completed)"
+    " let g:UltiSnipsExpandTrigger  = "<Plug>(ultisnips_expand)"
+    " let g:UltiSnipsJumpForwardTrigger="<c-j>"
+    " " disable digraphs, I dont use 'em
+    " inoremap <c-k> <NOP>
+    " let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+    " let g:UltiSnipsRemoveSelectModeMappings = 0
 " }
 
 " Mappings {
