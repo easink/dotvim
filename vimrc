@@ -34,9 +34,9 @@
     Plug 'easink/mustang'
     " Plug 'bmcilw1/mustang-vim'
     " Plug 'TheMrNomis/mustang-vim'
-    Plug 'gruvbox-community/gruvbox'
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'amacdougall/Birds-of-Paradise-VIM-Theme'
+    " Plug 'gruvbox-community/gruvbox'
+    " Plug 'altercation/vim-colors-solarized'
+    " Plug 'amacdougall/Birds-of-Paradise-VIM-Theme'
     Plug 'ap/vim-buftabline'
 
     " features
@@ -45,9 +45,14 @@
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-projectionist'
-    "Plug 'ctrlpvim/ctrlp.vim'
-    set rtp+=~/.fzf
-    Plug 'junegunn/fzf'
+    if has('nvim')
+        Plug 'nvim-lua/plenary.nvim'
+        Plug 'nvim-telescope/telescope.nvim'
+    else
+        " Plug 'ctrlpvim/ctrlp.vim'
+        set rtp+=~/.fzf
+        Plug 'junegunn/fzf'
+    endif
     Plug 'chrisbra/Recover.vim'
     Plug 'kabbamine/zeavim.vim'
 
@@ -107,59 +112,31 @@
         Plug 'hrsh7th/vim-vsnip'
         Plug 'hrsh7th/vim-vsnip-integ'
 
-        " " Plug 'roxma/nvim-completion-manager'
-        " Plug 'roxma/nvim-yarp'
-        " Plug 'ncm2/ncm2'
-        " Plug 'ncm2/ncm2-bufword'
-        " " " Plug 'ncm2/ncm2-tmux'
-        " Plug 'ncm2/ncm2-path'
-        " Plug 'ncm2/ncm2-ultisnips'
-        " Plug 'prabirshrestha/async.vim'
-        " Plug 'prabirshrestha/vim-lsp'
-        " Plug 'ncm2/ncm2-vim-lsp'
-        " Plug 'thomasfaingnaert/vim-lsp-snippets'
-        " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
-
-
-        " " Plug 'ncm2/float-preview.nvim'
-        " " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        " " Plug 'autozimu/LanguageClient-neovim', {
-        " "             \ 'branch': 'next',
-        " "             \ 'do': 'bash install.sh',
-        " "             \ }
-        " " Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-        " " Plug 'roxma/ncm-clang'
-        " " Plug 'roxma/ncm-elm-oracle'
-    else
-        Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-        " Plug 'oblitum/YouCompleteMe', { 'do': function('BuildYCM') }
+        " tree sitter
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
     endif
-    " Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-    " Plug 'tenfyzhong/CompleteParameter.vim'
-    " Plug 'Rip-Rip/clang_complete'
+
     Plug 'derekwyatt/vim-fswitch'
     " puppet - well, not really coding
     Plug 'rodjek/vim-puppet'
 
     " Elixir
-    Plug 'elixir-lang/vim-elixir'
-    " Plug 'mhinz/vim-mix-format'
+    Plug 'elixir-editors/vim-elixir'
     if has('nvim')
-        " Plug 'awetzel/elixir.nvim'
-    else
-        Plug 'slashmili/alchemist.vim'
+        " Plug 'elixir-lang/tree-sitter-elixir', { 'branch': 'main' }
+        Plug 'florinpatrascu/vscode-elixir-snippets'
     endif
 
     " Elm
-    Plug 'ElmCast/elm-vim'
-    " fix incompability
-    let g:polyglot_disabled = ['elm']
+    " Plug 'ElmCast/elm-vim'
+    " " fix incompability
+    " let g:polyglot_disabled = ['elm']
 
     " Golang
-    Plug 'fatih/vim-go'
+    " Plug 'fatih/vim-go'
 
     " Rust
-    Plug 'rust-lang/rust.vim'
+    " Plug 'rust-lang/rust.vim'
 
     " Html
     Plug 'mattn/emmet-vim'
@@ -319,7 +296,6 @@
         return getline(v:foldstart).' '
     endfunction                                        " }
     set foldtext=SimpleFoldText()                      " Custom fold text function
-                                                       " (cleaner than default)
 " }
 
 " Plugin Settings {
@@ -333,12 +309,6 @@
     " Pandoc
     let g:pandoc#spell#enabled = 0  " bad highlighting
 
-    " ncm2
-    " Press enter key to trigger snippet expansion
-    " The parameters are the same as `:help feedkeys()`
-
-    " let g:deoplete#enable_at_startup = 1
-    " autocmd BufEnter * call ncm2#enable_for_buffer()
     set completeopt=noinsert,menuone,noselect
     " noselect -> crash when vim-snippet/ultisnips/languageclient " (snippet-lsp)
     " set completeopt=noinsert,menuone
@@ -346,6 +316,7 @@
 
     " LSP
     lua require('lsp')
+    lua require('tree-sitter')
 
     " Code navigation shortcuts
     nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
@@ -532,9 +503,7 @@
 
     " elm {
     " disable polyglot
-    let g:polyglot_disabled = ['elm']
-    " enable ycm
-    " let g:ycm_semantic_triggers = { 'elm' : ['.'], }
+    " let g:polyglot_disabled = ['elm']
     " }
 
     " vim-go {
@@ -629,6 +598,15 @@
     " Reselect pasted text
     nnoremap <leader>v V`]
 
+    " Telecope
+    " Find files using Telescope command-line sugar.
+    nnoremap <leader>ff <cmd>Telescope find_files<cr>
+    nnoremap <leader>. <cmd>Telescope find_files<cr>
+    " nnoremap <leader>fg <cmd>Telescope git_files<cr>
+    nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+    nnoremap <leader>fb <cmd>Telescope buffers<cr>
+    nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
     " Reindent / Format / Prettify
     nnoremap <silent> <leader>p ggVGgq2<C-o>
     nnoremap <silent> <leader>pp ggVGgq2<C-o>
@@ -664,63 +642,6 @@
     nnoremap <silent> <CR> :nohlsearch<CR><CR>
     nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
-    " " Use `[c` and `]c` for navigate diagnostics
-    " nnoremap <silent> [c <Plug>(coc-diagnostic-prev)
-    " nnoremap <silent> ]c <Plug>(coc-diagnostic-next)
-
-    " " Remap keys for gotos
-    " nnoremap <silent> gd <Plug>(coc-definition)
-    " nnoremap <silent> gy <Plug>(coc-type-definition)
-    " nnoremap <silent> gi <Plug>(coc-implementation)
-    " nnoremap <silent> gr <Plug>(coc-references)
-
-    " Use K for show documentation in preview window
-    " nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-    " nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-    " nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    " nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    " " nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-    " nnoremap <silent> <F6> :call LanguageClient#textDocument_rename()<CR>
-    " nnoremap <C-Space> :call g:LanguageClient_contextMenu()<CR>
-
-    " " Remap for rename current word
-    " nmap <leader>rn <Plug>(coc-rename)
-
-    " " Remap for format selected region
-    " vmap <leader>f  <Plug>(coc-format-selected)
-    " nmap <leader>f  <Plug>(coc-format-selected)
-
-    " " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-    " vmap <leader>as  <Plug>(coc-codeaction-selected)
-    " nmap <leader>as  <Plug>(coc-codeaction-selected)
-
-    " " Remap for do codeAction of current line
-    " nmap <leader>ca  <Plug>(coc-codeaction)
-    " " Remap for do codelens-action of current line
-    " nmap <leader>cl  <Plug>(coc-codelens-action)
-    " " Fix autofix problem of current line
-    " nmap <leader>qf  <Plug>(coc-fix-current)
-
-    "" Using CocList
-    "" Show all diagnostics
-    "nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-    "" Manage extensions
-    "nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-    "" Show commands
-    "nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-    "" Find symbol of current document
-    "nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-    "" Search workspace symbols
-    "nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-    "" Do default action for next item.
-    "nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-    "" Do default action for previous item.
-    "nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-    "" Resume latest coc list
-    "nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-    """"
-
     " these "Ctrl mappings" work well when Caps Lock is mapped to Ctrl
     nmap <silent> <leader>tn :TestNearest<CR>
     nmap <silent> <leader>tf :TestFile<CR>
@@ -743,7 +664,7 @@
 
     " nnoremap <leader>, :CtrlPBuffer<CR>
     " nnoremap <leader>. :CtrlP .<CR>
-    nnoremap <leader>. :FZF .<CR>
+    " nnoremap <leader>. :FZF .<CR>
 
     " Window movements
     nnoremap <C-j> <C-W>j
