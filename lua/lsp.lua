@@ -90,13 +90,14 @@ cmp.setup({
 
 -- Set up lspconfig.
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- print(vim.inspect(capabilities.textDocument))
 
-local capabilitiesWithoutFomatting = capabilities
-capabilitiesWithoutFomatting.textDocument.formatting = false
-capabilitiesWithoutFomatting.textDocument.rangeFormatting = false
-capabilitiesWithoutFomatting.textDocument.range_formatting = false
--- print(vim.inspect(capabilitiesWithoutFomatting.textDocument))
+-- local capabilitiesWithoutFomatting = capabilities
+-- capabilitiesWithoutFomatting.textDocument.formatting = false
+-- capabilitiesWithoutFomatting.textDocument.rangeFormatting = false
+-- capabilitiesWithoutFomatting.textDocument.range_formatting = false
+-- -- print(vim.inspect(capabilitiesWithoutFomatting.textDocument))
 
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 --  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -196,6 +197,20 @@ require('lspconfig').lua_ls.setup({
     },
   },
 })
+-- }}}
+
+-- lspconfig - rust {{{
+require'lspconfig'.rust_analyzer.setup{
+  settings = {
+    ['rust-analyzer'] = {
+      -- rustfmt = { rangeFormatting = { enable = true } },
+      diagnostics = {
+        -- enable = false,
+        experimental = { enable = true },
+      }
+    }
+  }
+}
 -- }}}
 
 -- print(vim.inspect(capabilities.textDocument))
@@ -298,7 +313,7 @@ require('lspconfig')['efm'].setup({
 })
 -- }}}
 
--- elixir {{{
+--- elixir {{{
 
 -- local path_to_elixirls = vim.fn.expand("~/bin/language_server.sh")
 
@@ -338,7 +353,8 @@ elixir.setup({
       enableTestLenses = false,
       suggestSpecs = false,
     },
-    on_attach = function(client, bufnr)
+    -- on_attach = function(client, bufnr)
+    on_attach = function(_, _)
       vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
       vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
       vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
@@ -375,6 +391,45 @@ elixir.setup({
 -- LEXICAL
 -- LEXICAL lspconfig.lexical.setup({})
 -- LEXICAL -- }}}
+
+-- LLM-LS -- llm-ls {{{
+-- LLM-LS local llm = require('llm')
+-- LLM-LS
+-- LLM-LS llm.setup({
+-- LLM-LS     api_token = nil,           -- cf Install paragraph
+-- LLM-LS     model = "bigcode/starcoder", -- can be a model ID or an http(s) endpoint
+-- LLM-LS     model_eos = "<|endoftext|>", -- needed to clean the model's output
+-- LLM-LS     -- parameters that are added to the request body
+-- LLM-LS     query_params = {
+-- LLM-LS         max_new_tokens = 60,
+-- LLM-LS         temperature = 0.2,
+-- LLM-LS         top_p = 0.95,
+-- LLM-LS         stop_tokens = nil,
+-- LLM-LS     },
+-- LLM-LS     -- set this if the model supports fill in the middle
+-- LLM-LS     fim = {
+-- LLM-LS         enabled = true,
+-- LLM-LS         prefix = "<fim_prefix>",
+-- LLM-LS         middle = "<fim_middle>",
+-- LLM-LS         suffix = "<fim_suffix>",
+-- LLM-LS     },
+-- LLM-LS     debounce_ms = 150,
+-- LLM-LS     accept_keymap = "<Tab>",
+-- LLM-LS     dismiss_keymap = "<S-Tab>",
+-- LLM-LS     max_context_after = 5000,
+-- LLM-LS     max_context_before = 5000,
+-- LLM-LS     tls_skip_verify_insecure = false,
+-- LLM-LS     -- llm-ls integration
+-- LLM-LS     lsp = {
+-- LLM-LS         enabled = true,
+-- LLM-LS         -- bin_path = vim.api.nvim_call_function("stdpath", { "data" }) .. "/llm_nvim/bin/llm-ls",
+-- LLM-LS         bin_path = "/home/andreas/source/language_server/llm-ls/target/release/llm-ls",
+-- LLM-LS     },
+-- LLM-LS     tokenizer_path = nil, -- when setting model as a URL, set this var
+-- LLM-LS     context_window = 8192, -- max number of tokens for the context window
+-- LLM-LS })
+-- LLM-LS
+-- LLM-LS -- }}}
 
 -- old stuff {{{
 

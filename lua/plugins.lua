@@ -119,6 +119,9 @@ require("lazy").setup({
   -- },
   -- 'florinpatrascu/vscode-elixir-snippets',
 
+  -- -- coding - llm
+  -- 'huggingface/llm.nvim',
+
   --
 })
 
