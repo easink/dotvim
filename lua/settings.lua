@@ -113,7 +113,7 @@ vim.opt.smartcase = true      -- if there are caps, go case-sensitive
 vim.opt.shiftwidth = 4        -- auto-indent amount when using cindent, >>, << and stuff like that
 vim.opt.softtabstop = 4       -- when hitting tab or backspace, how many spaces should a tab be (see expandtab)
 vim.opt.tabstop = 4           -- real tabs should be 8, and they will show with set list on
---     "set smarttab           " ????
+--    "set smarttab           " ????
 vim.opt.expandtab = true      -- no real tabs please!
 -- }}}
 

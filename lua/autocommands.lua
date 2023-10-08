@@ -110,9 +110,23 @@ vim.api.nvim_create_autocmd('FileType', {
 --     " XML {
 --         au FileType html setlocal formatexpr=FormatprgLocal('xmllint\ --format')
 --     " }
---     " Elixir {
---         au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format\ -')
---     " }
+
+-- Elixir {{{
+-- BufWritePre <buffer> lua vim.lsp.buf.format()]]
+vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = { 'elixir', 'eelixir', 'heex' },
+    callback = function(_)
+        vim.lsp.buf.format()
+    end
+})
+-- vim.api.nvim_create_autocmd('FileType', {
+--     pattern = { 'elixir', 'eelixir', 'heex' },
+--     callback = function(_)
+--     end
+-- })
+-- au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format\ -')
+-- }}}
+
 --     " Python {
 --         " Tests
 --         au FileType python nnoremap <localleader>t :!nose2<cr>

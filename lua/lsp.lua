@@ -338,13 +338,18 @@ require('lspconfig')['efm'].setup({
 local elixir = require("elixir")
 local elixirls = require("elixir.elixirls")
 
--- local elixirls_path = vim.fn.expand("~/bin/language_server.sh")
+local elixirls_path = vim.fn.expand("~/bin/language_server.sh")
 
 elixir.setup({
-  nextls = { enable = true },
+  nextls = {
+    enable = false,
+    -- cmd = vim.fn.expand("~/.nix-profile/burrito_out/next_ls_linux_amd64"),
+    -- cmd = vim.fn.expand("~/.nix-profile/bin/next_ls"),
+  },
   credo = { enable = true },
   elixirls = {
-    -- cmd = elixirls_path,
+    enable = true,
+    cmd = elixirls_path,
 
     -- default settings, use the `settings` function to override settings
     settings = elixirls.settings {

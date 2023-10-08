@@ -107,10 +107,10 @@ require("lazy").setup({
   -- 'simrat39/rust-tools.nvim'
 
   -- coding - elixir
-  -- 'elixir-editors/vim-elixir',
-  "elixir-tools/elixir-tools.nvim",
+  'elixir-editors/vim-elixir',
+  'elixir-tools/elixir-tools.nvim',
   -- {
-  --   "elixir-tools/elixir-tools.nvim",
+  --   'elixir-tools/elixir-tools.nvim',
   --   -- version = "*",
   --   -- event = { "BufReadPre", "BufNewFile" },
   --   dependencies = {
