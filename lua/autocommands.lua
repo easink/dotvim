@@ -114,7 +114,8 @@ vim.api.nvim_create_autocmd('FileType', {
 -- Elixir {{{
 -- BufWritePre <buffer> lua vim.lsp.buf.format()]]
 vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = { 'elixir', 'eelixir', 'heex' },
+    -- pattern = { 'elixir', 'eelixir', 'heex' },
+    pattern = { '*.ex', '*.eex', '*.heex' },
     callback = function(_)
         vim.lsp.buf.format()
     end
@@ -125,6 +126,16 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 --     end
 -- })
 -- au FileType elixir setlocal formatexpr=FormatprgLocal('mix\ --format\ -')
+-- }}}
+
+-- Rust {{{
+-- BufWritePre <buffer> lua vim.lsp.buf.format()]]
+vim.api.nvim_create_autocmd('BufWritePre', {
+    pattern = { '*.rs' },
+    callback = function(_)
+        vim.lsp.buf.format()
+    end
+})
 -- }}}
 
 --     " Python {

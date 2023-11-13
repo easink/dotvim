@@ -338,30 +338,31 @@ require('lspconfig')['efm'].setup({
 local elixir = require("elixir")
 local elixirls = require("elixir.elixirls")
 
-local elixirls_path = vim.fn.expand("~/bin/language_server.sh")
+-- local elixirls_path = vim.fn.expand("~/bin/language_server.sh")
 
 elixir.setup({
   nextls = {
-    enable = false,
+    enable = true,
     -- cmd = vim.fn.expand("~/.nix-profile/burrito_out/next_ls_linux_amd64"),
-    -- cmd = vim.fn.expand("~/.nix-profile/bin/next_ls"),
+    cmd = vim.fn.expand("~/.nix-profile/bin/nextls"),
   },
-  credo = { enable = true },
+  credo = { enable = false },
   elixirls = {
     enable = true,
-    cmd = elixirls_path,
+    -- cmd = elixirls_path,
+    tag = 'v0.17.7',
 
     -- default settings, use the `settings` function to override settings
     settings = elixirls.settings {
-      dialyzerEnabled = true,
+      dialyzerEnabled = false,
       fetchDeps = false,
       enableTestLenses = false,
       suggestSpecs = false,
     },
     -- on_attach = function(client, bufnr)
     on_attach = function(_, _)
-      vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-      vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+      vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>",    { buffer = true, noremap = true })
+      vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>",      { buffer = true, noremap = true })
       vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
     end
   }
@@ -369,33 +370,34 @@ elixir.setup({
 
 -- }}}
 
--- LEXICAL -- lspconfig - elixir - lexical-ls {{{
--- LEXICAL local lspconfig = require("lspconfig")
--- LEXICAL local configs = require("lspconfig.configs")
--- LEXICAL
--- LEXICAL local lexical_ls_path = vim.fn.expand("~/bin/start_lexical.sh")
--- LEXICAL local lexical_config = {
--- LEXICAL   filetypes = { "elixir", "eelixir", },
--- LEXICAL   cmd = { lexical_ls_path },
--- LEXICAL   settings = {},
--- LEXICAL }
--- LEXICAL
--- LEXICAL if not configs.lexical then
--- LEXICAL   configs.lexical = {
--- LEXICAL     default_config = {
--- LEXICAL       filetypes = lexical_config.filetypes,
--- LEXICAL       cmd = lexical_config.cmd,
--- LEXICAL       root_dir = function(fname)
--- LEXICAL         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
--- LEXICAL       end,
--- LEXICAL       -- optional settings
--- LEXICAL       settings = lexical_config.settings,
--- LEXICAL     },
--- LEXICAL   }
--- LEXICAL end
--- LEXICAL
--- LEXICAL lspconfig.lexical.setup({})
--- LEXICAL -- }}}
+-- LEXICAL-LS -- lspconfig - elixir - lexical-ls {{{
+-- LEXICAL-LS local lspconfig = require("lspconfig")
+-- LEXICAL-LS local configs = require("lspconfig.configs")
+-- LEXICAL-LS
+-- LEXICAL-LS -- local lexical_ls_path = vim.fn.expand("~/bin/start_lexical.sh")
+-- LEXICAL-LS local lexical_ls_path = vim.fn.expand("~/.nix-profile/bin/start_lexical.sh")
+-- LEXICAL-LS local lexical_config = {
+-- LEXICAL-LS   filetypes = { "elixir", "eelixir", "heex" },
+-- LEXICAL-LS   cmd = { lexical_ls_path },
+-- LEXICAL-LS   settings = {},
+-- LEXICAL-LS }
+-- LEXICAL-LS
+-- LEXICAL-LS if not configs.lexical then
+-- LEXICAL-LS   configs.lexical = {
+-- LEXICAL-LS     default_config = {
+-- LEXICAL-LS       filetypes = lexical_config.filetypes,
+-- LEXICAL-LS       cmd = lexical_config.cmd,
+-- LEXICAL-LS       root_dir = function(fname)
+-- LEXICAL-LS         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+-- LEXICAL-LS       end,
+-- LEXICAL-LS       -- optional settings
+-- LEXICAL-LS       settings = lexical_config.settings,
+-- LEXICAL-LS     },
+-- LEXICAL-LS   }
+-- LEXICAL-LS end
+-- LEXICAL-LS
+-- LEXICAL-LS lspconfig.lexical.setup({})
+-- LEXICAL-LS -- }}}
 
 -- LLM-LS -- llm-ls {{{
 -- LLM-LS local llm = require('llm')
