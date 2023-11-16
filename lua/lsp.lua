@@ -153,6 +153,10 @@ require('lspconfig').bashls.setup({})
 require('lspconfig').pyright.setup({})
 -- }}}
 
+-- lspconfig - puppet {{{
+require('lspconfig').puppet .setup({})
+-- }}}
+
 -- lspconfig - yaml / json {{{
 require('lspconfig').yamlls.setup({
   -- settings = {
