@@ -17,6 +17,30 @@ vim.cmd('hi link LspWarningHighlight Underlined')
 vim.cmd('hi LspWarningVirtualText ctermfg=9 ctermbg=237')
 vim.cmd('hi link LspDiagnosticsVirtualTextWarning NonText')
 
+-- border {{{
+local _border = "single"
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
+
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+--   vim.lsp.handlers.signature_help, {
+--     border = _border
+--   }
+-- )
+
+-- vim.diagnostic.config{
+--   float={border=_border}
+-- }
+
+require('lspconfig.ui.windows').default_options = {
+  border = _border
+}
+
+-- }}}
 
 -- " Vim UI {
 --     set colorcolumn=120          " highligth column 120

@@ -1,7 +1,7 @@
 -- lsp.lua
 --  vim: foldlevel=0 spell:
 
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 
 -- vim.keymap.set('v', '<leader>f', vim.lsp.buf.format, { buffer = true })
 -- vim.keymap.set('v', '<leader>1f', vim.lsp.buf.format, bufopts)
@@ -30,8 +30,9 @@ cmp.setup({
     end,
   },
   window = {
+    -- Add borders around the popup window
     -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+    documentation = cmp.config.window.bordered(),
   },
   mapping = cmp.mapping.preset.insert({
     -- ['<C-n>'] = cmp.mapping.goto_next(),
@@ -223,6 +224,7 @@ require'lspconfig'.rust_analyzer.setup{
 -- lspconfig - efm - json/... {{{
 -- steal from http://github.com/creativenull/efmls-configs-nvim/
 --    or from https://github.com/mattn/efm-langserver
+--    or from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#efm
 require('lspconfig')['efm'].setup({
   -- initializationOptions = {
   init_options = {
@@ -355,74 +357,82 @@ require('lspconfig')['efm'].setup({
 --   }
 -- })
 
--- ELIXIR local elixir = require("elixir")
--- ELIXIR local elixirls = require("elixir.elixirls")
--- ELIXIR
--- ELIXIR -- local elixirls_path = vim.fn.expand("~/bin/language_server.sh")
--- ELIXIR
--- ELIXIR elixir.setup({
--- ELIXIR   nextls = {
--- ELIXIR     enable = true,
--- ELIXIR     -- cmd = vim.fn.expand("~/.nix-profile/burrito_out/next_ls_linux_amd64"),
--- ELIXIR     cmd = vim.fn.expand("~/.nix-profile/bin/nextls"),
--- ELIXIR   },
--- ELIXIR   credo = { enable = false },
--- ELIXIR   elixirls = {
--- ELIXIR     enable = true,
--- ELIXIR     -- cmd = elixirls_path,
--- ELIXIR     tag = 'v0.18.1',
--- ELIXIR
--- ELIXIR     -- default settings, use the `settings` function to override settings
--- ELIXIR     settings = elixirls.settings {
--- ELIXIR       dialyzerEnabled = false,
--- ELIXIR       fetchDeps = false,
--- ELIXIR       enableTestLenses = false,
--- ELIXIR       suggestSpecs = false,
--- ELIXIR     },
--- ELIXIR     -- on_attach = function(client, bufnr)
--- ELIXIR     on_attach = function(_, _)
--- ELIXIR       vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>",    { buffer = true, noremap = true })
--- ELIXIR       vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>",      { buffer = true, noremap = true })
--- ELIXIR       vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
--- ELIXIR     end
--- ELIXIR   }
--- ELIXIR })
+local elixir = require("elixir")
+local elixirls = require("elixir.elixirls")
+
+-- local elixirls_path = vim.fn.expand("~/bin/language_server.sh")
+
+elixir.setup({
+  nextls = {
+    enable = false,
+    -- -- cmd = vim.fn.expand("~/.nix-profile/burrito_out/next_ls_linux_amd64"),
+    -- cmd = vim.fn.expand("~/.nix-profile/bin/nextls"),
+  },
+  credo = { enable = false },
+  elixirls = {
+    enable = true,
+    -- cmd = elixirls_path,
+    tag = 'v0.23.0',
+
+    -- default settings, use the `settings` function to override settings
+    settings = elixirls.settings {
+      dialyzerEnabled = false,
+      fetchDeps = false,
+      enableTestLenses = false,
+      suggestSpecs = false,
+    },
+    -- on_attach = function(client, bufnr)
+    on_attach = function(_, _)
+      vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>",    { buffer = true, noremap = true })
+      vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>",      { buffer = true, noremap = true })
+      vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+    end
+  }
+})
 
 -- }}}
 
 -- lspconfig - elixir - lexical-ls {{{
-local lspconfig = require("lspconfig")
-local configs = require("lspconfig.configs")
-
-local lexical_ls_path = vim.fn.expand("~/source/language_server/lexical/_build/dev/package/lexical/bin/start_lexical.sh")
--- local lexical_ls_path = vim.fn.expand("~/bin/start_lexical.sh")
--- local lexical_ls_path = vim.fn.expand("~/.nix-profile/bin/start_lexical.sh")
-local lexical_config = {
-  filetypes = { "elixir", "eelixir", "heex" },
-  cmd = { lexical_ls_path },
-  settings = {},
-}
-
-if not configs.lexical then
-  configs.lexical = {
-    default_config = {
-      filetypes = lexical_config.filetypes,
-      cmd = lexical_config.cmd,
-      root_dir = function(fname)
-        return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-      end,
-      -- optional settings
-      settings = lexical_config.settings,
-    },
-  }
-end
-
-lspconfig.lexical.setup({})
+-- LEXICAL local lspconfig = require("lspconfig")
+-- LEXICAL local configs = require("lspconfig.configs")
+-- LEXICAL
+-- LEXICAL local lexical_ls_path = vim.fn.expand("~/source/language_server/lexical/_build/prod/package/lexical/bin/start_lexical.sh")
+-- LEXICAL -- local lexical_ls_path = vim.fn.expand("~/bin/start_lexical.sh")
+-- LEXICAL -- local lexical_ls_path = vim.fn.expand("~/.nix-profile/bin/start_lexical.sh")
+-- LEXICAL local lexical_config = {
+-- LEXICAL   filetypes = { "elixir", "eelixir", "heex" },
+-- LEXICAL   cmd = { lexical_ls_path },
+-- LEXICAL   settings = {},
+-- LEXICAL }
+-- LEXICAL
+-- LEXICAL if not configs.lexical then
+-- LEXICAL   configs.lexical = {
+-- LEXICAL     default_config = {
+-- LEXICAL       filetypes = lexical_config.filetypes,
+-- LEXICAL       cmd = lexical_config.cmd,
+-- LEXICAL       root_dir = function(fname)
+-- LEXICAL         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
+-- LEXICAL       end,
+-- LEXICAL       -- optional settings
+-- LEXICAL       settings = lexical_config.settings,
+-- LEXICAL     },
+-- LEXICAL   }
+-- LEXICAL end
+-- LEXICAL
+-- LEXICAL lspconfig.lexical.setup({})
 -- }}}
 
--- lspconfig - nix - rnix-lsp {{{
-require('lspconfig')['rnix'].setup({})
+-- lspconfig - nix - nixd {{{
+require('lspconfig')['nixd'].setup({})
 -- }}}
+
+-- lspconfig - nix - nil_ls {{{
+require('lspconfig')['nil_ls'].setup({})
+-- }}}
+
+-- RNIX -- lspconfig - nix - rnix-lsp {{{
+-- RNIX require('lspconfig')['rnix'].setup({})
+-- RNIX -- }}}
 
 -- LLM-LS -- llm-ls {{{
 -- LLM-LS local llm = require('llm')
