@@ -44,19 +44,6 @@ vim.keymap.set('n', '<leader>W', [[:%s/\s\+$//e<cr>]], { silent = true })
 --     nnoremap <leader>v V`]
 
 
--- Telecope
---     nnoremap <leader>ff <cmd>Telescope find_files<cr>
-vim.keymap.set('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
---     nnoremap <leader>. <cmd>Telescope find_files<cr>
-vim.keymap.set('n', '<leader>.', '<cmd>Telescope find_files<cr>')
---     " nnoremap <leader>fg <cmd>Telescope git_files<cr>
---     nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-vim.keymap.set('n', '<leader>fg', '<cmd>Telescope live_grep<cr>')
---     nnoremap <leader>fb <cmd>Telescope buffers<cr>
-vim.keymap.set('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
---     nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-vim.keymap.set('n', '<leader>fh', '<cmd>Telescope help_tags<cr>')
-
 --     " Reindent / Format / Prettify
 --     nnoremap <silent> <leader>p ggVGgq2<C-o>
 --     nnoremap <silent> <leader>pp ggVGgq2<C-o>

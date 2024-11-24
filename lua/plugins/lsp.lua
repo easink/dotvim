@@ -7,59 +7,59 @@
 -- vim.keymap.set('v', '<leader>1f', vim.lsp.buf.format, bufopts)
 
 function MyFormat()
-  vim.lsp.buf.format({
-    async = true,
-    range = {
-      ["start"] = vim.api.nvim_buf_get_mark(0, "<"),
-      ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
-    }
-  })
+    vim.lsp.buf.format({
+        async = true,
+        range = {
+            ["start"] = vim.api.nvim_buf_get_mark(0, "<"),
+            ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
+        }
+    })
 end
 
 -- cmp {{{
 local cmp = require('cmp')
 
 cmp.setup({
-  snippet = {
-    -- REQUIRED - you must specify a snippet engine
-    expand = function(args)
-      -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-      -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-      vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    end,
-  },
-  window = {
-    -- Add borders around the popup window
-    -- completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
-  },
-  mapping = cmp.mapping.preset.insert({
-    -- ['<C-n>'] = cmp.mapping.goto_next(),
-    -- ['<C-p>'] = cmp.mapping.goto_prev(),
-    -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.abort(),
-    -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    -- ['<C-j>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-j>'] = cmp.mapping.confirm({
-        -- behavior = cmp.ConfirmBehavior.Replace,
-        select = true
+    snippet = {
+        -- REQUIRED - you must specify a snippet engine
+        expand = function(args)
+            -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+            -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+            -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+            vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+        end,
+    },
+    window = {
+        -- Add borders around the popup window
+        -- completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp.mapping.preset.insert({
+        -- ['<C-n>'] = cmp.mapping.goto_next(),
+        -- ['<C-p>'] = cmp.mapping.goto_prev(),
+        -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.abort(),
+        -- ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        -- ['<C-j>'] = cmp.mapping.confirm({ select = true }),
+        ['<C-j>'] = cmp.mapping.confirm({
+            -- behavior = cmp.ConfirmBehavior.Replace,
+            select = true
+        }),
     }),
-  }),
-  sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lsp_signature_help' },
-    -- { name = 'vsnip' }, -- For vsnip users.
-    -- { name = 'luasnip' }, -- For luasnip users.
-    { name = 'ultisnips' }, -- For ultisnips users.
-    -- { name = 'snippy' }, -- For snippy users.
-  }, {
-    { name = 'buffer' },
-    { name = 'path' },
-  })
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
+        -- { name = 'vsnip' }, -- For vsnip users.
+        -- { name = 'luasnip' }, -- For luasnip users.
+        { name = 'ultisnips' }, -- For ultisnips users.
+        -- { name = 'snippy' }, -- For snippy users.
+    }, {
+        { name = 'buffer' },
+        { name = 'path' },
+    })
 })
 
 -- -- Set configuration for specific filetype.
@@ -155,66 +155,66 @@ require('lspconfig').pyright.setup({})
 -- }}}
 
 -- lspconfig - puppet {{{
-require('lspconfig').puppet .setup({})
+require('lspconfig').puppet.setup({})
 -- }}}
 
 -- lspconfig - yaml / json {{{
 require('lspconfig').yamlls.setup({
-  -- settings = {
-  --   yaml = {
-  --     -- schemaStore = { enable = true },
-  --     -- schemas = {
-  --     --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-  --     --   ["../path/relative/to/file.yml"] = "/.github/workflows/*",
-  --     --   ["/path/from/root/of/project"] = "/.github/workflows/*",
-  --     -- },
-  --   },
-  -- }
+    -- settings = {
+    --   yaml = {
+    --     -- schemaStore = { enable = true },
+    --     -- schemas = {
+    --     --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+    --     --   ["../path/relative/to/file.yml"] = "/.github/workflows/*",
+    --     --   ["/path/from/root/of/project"] = "/.github/workflows/*",
+    --     -- },
+    --   },
+    -- }
 })
 -- }}}
 
 -- lspconfig - lua {{{
 -- stolen from lspconfig docs
 require('lspconfig').lua_ls.setup({
-  -- on_attach = function()
-  --   on_attach()
-  --   vim.cmd [[autocmd BufWritePre <buffer> lua require'stylua-nvim'.format_file()]]
-  -- end,
-  settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
+    -- on_attach = function()
+    --   on_attach()
+    --   vim.cmd [[autocmd BufWritePre <buffer> lua require'stylua-nvim'.format_file()]]
+    -- end,
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { 'vim' },
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
     },
-  },
 })
 -- }}}
 
 -- lspconfig - rust {{{
-require'lspconfig'.rust_analyzer.setup{
-  settings = {
-    ['rust-analyzer'] = {
-      -- rustfmt = { rangeFormatting = { enable = true } },
-      diagnostics = {
-        -- enable = false,
-        experimental = { enable = true },
-      }
+require 'lspconfig'.rust_analyzer.setup {
+    settings = {
+        ['rust-analyzer'] = {
+            -- rustfmt = { rangeFormatting = { enable = true } },
+            diagnostics = {
+                -- enable = false,
+                experimental = { enable = true },
+            }
+        }
     }
-  }
 }
 -- }}}
 
@@ -226,171 +226,178 @@ require'lspconfig'.rust_analyzer.setup{
 --    or from https://github.com/mattn/efm-langserver
 --    or from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#efm
 require('lspconfig')['efm'].setup({
-  -- initializationOptions = {
-  init_options = {
-    documentFormatting = true,
-    documentRangeFormatting = true,
-    hover = true,
-    documentSymbol = true,
-    codeAction = true,
-    completion = true
-  },
-  -- capabilities = capabilities,
-  -- on_attach = function(client)
-  --    if client.server_capabilities.document_range_formatting then
-  --       -- vim.keymap.set("v", "<leader>=", format_buffer, { buffer = bufnr })
-  --       print("YYYYYYYYYYYYYY")
-  --   else
-  --       print("NNNNNNNNNNNNNNN")
-  --   end
+    -- initializationOptions = {
+    init_options = {
+        documentFormatting = true,
+        documentRangeFormatting = true,
+        hover = true,
+        documentSymbol = true,
+        codeAction = true,
+        completion = true
+    },
+    -- capabilities = capabilities,
+    -- on_attach = function(client)
+    --    if client.server_capabilities.document_range_formatting then
+    --       -- vim.keymap.set("v", "<leader>=", format_buffer, { buffer = bufnr })
+    --       print("YYYYYYYYYYYYYY")
+    --   else
+    --       print("NNNNNNNNNNNNNNN")
+    --   end
     -- print(vim.inspect(client.server_capabilities))
 
-  --       -- local keyset={}
-  --       -- local n=0
+    --       -- local keyset={}
+    --       -- local n=0
 
-  --       -- for k,v in pairs(client) do
-  --       --   n=n+1
-  --       --   keyset[n]=k
-  --       -- end
+    --       -- for k,v in pairs(client) do
+    --       --   n=n+1
+    --       --   keyset[n]=k
+    --       -- end
 
-  --       print(vim.inspect(client.server_capabilities))
-  --       -- print(vim.inspect(keyset))
-  -- end,
-  -- filetypes = {'markdown'},
-  -- filetypes = { 'elixir', 'markdown', 'python' },
-  filetypes = { 'elixir', 'json', 'markdown' },
-  settings = {
-    -- version = 2,
-    -- logFile = "/tmp/output.log",
-    -- logLevel = 1,
-    rootMarkers = { '.git/' },
-    languages = {
-      -- yaml = {
-      --   {
-      --     prefix = 'yamllint',
-      --     lintCommand = 'yamllint --format parsable -',
-      --     lintStdin = true,
-      --   }
-      -- },
-      -- sh = {
-      --   {
-      --     prefix = 'shellcheck',
-      --     -- lintCommand = 'shellcheck -f gcc -x',
-      --     lintCommand = 'shellcheck --color=never --format gcc --external-sources -',
-      --     lintStdin= true,
-      --     lintFormats = {
-      --       '-:%l:%c: %trror: %m',
-      --       '-:%l:%c: %tarning: %m',
-      --       '-:%l:%c: %tote: %m',
-      --       '%m',
-      --     }
-      --   }
-      -- },
-      elixir = {
-        {
-          -- prefix = 'jq',
-          lintCommand = "mix credo suggest --format=flycheck --read-from-stdin ${INPUT}",
-          lintStdin = true,
-          lintFormats = {
-            '%f:%l:%c: %t: %m',
-            '%f:%l: %t: %m',
-          },
-          rootMarkers = {
-            'mix.lock',
-            'mix.exs',
-          }
+    --       print(vim.inspect(client.server_capabilities))
+    --       -- print(vim.inspect(keyset))
+    -- end,
+    -- filetypes = {'markdown'},
+    -- filetypes = { 'elixir', 'markdown', 'python' },
+    filetypes = { 'elixir', 'json', 'markdown' },
+    settings = {
+        -- version = 2,
+        -- logFile = "/tmp/output.log",
+        -- logLevel = 1,
+        rootMarkers = { '.git/' },
+        languages = {
+            -- yaml = {
+            --   {
+            --     prefix = 'yamllint',
+            --     lintCommand = 'yamllint --format parsable -',
+            --     lintStdin = true,
+            --   }
+            -- },
+            -- sh = {
+            --   {
+            --     prefix = 'shellcheck',
+            --     -- lintCommand = 'shellcheck -f gcc -x',
+            --     lintCommand = 'shellcheck --color=never --format gcc --external-sources -',
+            --     lintStdin= true,
+            --     lintFormats = {
+            --       '-:%l:%c: %trror: %m',
+            --       '-:%l:%c: %tarning: %m',
+            --       '-:%l:%c: %tote: %m',
+            --       '%m',
+            --     }
+            --   }
+            -- },
+            elixir = {
+                {
+                    -- prefix = 'jq',
+                    lintCommand = "mix credo suggest --format=flycheck --read-from-stdin ${INPUT}",
+                    lintStdin = true,
+                    lintFormats = {
+                        '%f:%l:%c: %t: %m',
+                        '%f:%l: %t: %m',
+                    },
+                    rootMarkers = {
+                        'mix.lock',
+                        'mix.exs',
+                    }
+                }
+            },
+            json = {
+                {
+                    prefix = 'jq',
+                    lintCommand = 'jq .',
+                    lintStdin = true,
+                    lintFormats = {
+                        'parse %trror: %m at line %l, column %c',
+                        '%m',
+                    }
+                }
+            },
+            markdown = {
+                -- {
+                --   prefix = 'markdownlint',
+                --   lintCommand = 'markdownlint --stdin',
+                --   lintStdin = true,
+                --   lintIgnoreExitCode = true,
+                --   lintFormats = {
+                --     '%f:%l %m',
+                --     '%f:%l:%c %m',
+                --     '%f: %l: %m',
+                --     '%m',
+                --   }
+                -- },
+                {
+                    formatCommand = 'pandoc -s -f markdown -t gfm -sp --tab-stop=2',
+                    formatStdin = true,
+                },
+            },
         }
-      },
-      json = {
-        {
-          prefix = 'jq',
-          lintCommand = 'jq .',
-          lintStdin= true,
-          lintFormats = {
-            'parse %trror: %m at line %l, column %c',
-            '%m',
-          }
-        }
-      },
-      markdown = {
-        -- {
-        --   prefix = 'markdownlint',
-        --   lintCommand = 'markdownlint --stdin',
-        --   lintStdin = true,
-        --   lintIgnoreExitCode = true,
-        --   lintFormats = {
-        --     '%f:%l %m',
-        --     '%f:%l:%c %m',
-        --     '%f: %l: %m',
-        --     '%m',
-        --   }
-        -- },
-        {
-          formatCommand = 'pandoc -s -f markdown -t gfm -sp --tab-stop=2',
-          formatStdin = true,
-        },
-      },
     }
-  }
 })
 -- }}}
 
---- elixir {{{
+-- elixir {{{
 
 -- local path_to_elixirls = vim.fn.expand("~/bin/language_server.sh")
 
--- lspconfig.elixirls.setup({
---   cmd = {path_to_elixirls},
---   capabilities = capabilities,
---    on_attach = on_attach,
---   settings = {
---     elixirLS = {
---       -- I choose to disable dialyzer for personal reasons, but
---       -- I would suggest you also disable it unless you are well
---       -- aquainted with dialzyer and know how to use it.
---       dialyzerEnabled = false,
---       -- I also choose to turn off the auto dep fetching feature.
---       -- It often get's into a weird state that requires deleting
---       -- the .elixir_ls directory and restarting your editor.
---       fetchDeps = false
---     }
---   }
--- })
+require 'lspconfig'.elixirls.setup({
+    -- cmd = { path_to_elixirls },
+    cmd = { "elixir-ls" },
+    capabilities = capabilities,
+    settings = {
+        elixirLS = {
+            -- I choose to disable dialyzer for personal reasons, but
+            -- I would suggest you also disable it unless you are well
+            -- aquainted with dialzyer and know how to use it.
+            dialyzerEnabled = false,
+            -- I also choose to turn off the auto dep fetching feature.
+            -- It often get's into a weird state that requires deleting
+            -- the .elixir_ls directory and restarting your editor.
+            fetchDeps = false,
+            enableTestLenses = false,
+            suggestSpecs = false
+        }
+    },
+    on_attach = function(_, _)
+        vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+        vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+        vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+    end,
+})
 
-local elixir = require("elixir")
-local elixirls = require("elixir.elixirls")
+-- local elixir = require("elixir")
+-- local elixirls = require("elixir.elixirls")
 
 -- local elixirls_path = vim.fn.expand("~/bin/language_server.sh")
 
-elixir.setup({
-  nextls = {
-    enable = false,
-    -- -- cmd = vim.fn.expand("~/.nix-profile/burrito_out/next_ls_linux_amd64"),
-    -- cmd = vim.fn.expand("~/.nix-profile/bin/nextls"),
-  },
-  credo = { enable = false },
-  elixirls = {
-    enable = true,
-    -- cmd = elixirls_path,
-    tag = 'v0.23.0',
+-- elixir.setup({
+--   nextls = {
+--     enable = false,
+--     -- -- cmd = vim.fn.expand("~/.nix-profile/burrito_out/next_ls_linux_amd64"),
+--     -- cmd = vim.fn.expand("~/.nix-profile/bin/nextls"),
+--   },
+--   credo = { enable = false },
+--   elixirls = {
+--     enable = true,
+--     cmd = elixirls_path,
+--     -- tag = 'v0.24.1',
 
-    -- default settings, use the `settings` function to override settings
-    settings = elixirls.settings {
-      dialyzerEnabled = false,
-      fetchDeps = false,
-      enableTestLenses = false,
-      suggestSpecs = false,
-    },
-    -- on_attach = function(client, bufnr)
-    on_attach = function(_, _)
-      vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>",    { buffer = true, noremap = true })
-      vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>",      { buffer = true, noremap = true })
-      vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-    end
-  }
-})
+--     -- default settings, use the `settings` function to override settings
+--     settings = elixirls.settings {
+--       dialyzerEnabled = false,
+--       fetchDeps = false,
+--       enableTestLenses = false,
+--       suggestSpecs = false,
+--     },
+--     -- on_attach = function(client, bufnr)
+--     on_attach = function(_, _)
+--       vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>",    { buffer = true, noremap = true })
+--       vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>",      { buffer = true, noremap = true })
+--       vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+--     end
+--   }
+-- })
 
--- }}}
+-- -- }}}
 
 -- lspconfig - elixir - lexical-ls {{{
 -- LEXICAL local lspconfig = require("lspconfig")
@@ -493,28 +500,28 @@ require('lspconfig')['nil_ls'].setup({})
 --   map("n", "<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", map_opts)
 --   map("n", "1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>", map_opts)
 
-  -- These have a different style than above because I was fiddling
-  -- around and never converted them. Instead of converting them
-  -- now, I'm leaving them as they are for this article because this is
-  -- what I actually use, and hey, it works ¯\_(ツ)_/¯.
+-- These have a different style than above because I was fiddling
+-- around and never converted them. Instead of converting them
+-- now, I'm leaving them as they are for this article because this is
+-- what I actually use, and hey, it works ¯\_(ツ)_/¯.
 
-  -- Expand
-  -- vim.cmd [[imap <expr> <C-j> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>']]
-  -- vim.cmd [[smap <expr> <C-j> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>']]
+-- Expand
+-- vim.cmd [[imap <expr> <C-j> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>']]
+-- vim.cmd [[smap <expr> <C-j> vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>']]
 
-  -- vim.cmd [[imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
-  -- vim.cmd [[smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
+-- vim.cmd [[imap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
+-- vim.cmd [[smap <expr> <C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>']]
 
-  -- vim.cmd [[imap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
-  -- vim.cmd [[smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
-  -- vim.cmd [[imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
-  -- vim.cmd [[smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
+-- vim.cmd [[imap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
+-- vim.cmd [[smap <expr> <Tab> vsnip#jumpable(1) ? '<Plug>(vsnip-jump-next)' : '<Tab>']]
+-- vim.cmd [[imap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
+-- vim.cmd [[smap <expr> <S-Tab> vsnip#jumpable(-1) ? '<Plug>(vsnip-jump-prev)' : '<S-Tab>']]
 
-  -- vim.cmd [[inoremap <silent><expr> <C-Space> compe#complete()]]
-  -- vim.cmd [[inoremap <silent><expr> <CR> compe#confirm('<CR>')]]
-  -- vim.cmd [[inoremap <silent><expr> <C-e> compe#close('<C-e>')]]
-  -- vim.cmd [[inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })]]
-  -- vim.cmd [[inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })]]
+-- vim.cmd [[inoremap <silent><expr> <C-Space> compe#complete()]]
+-- vim.cmd [[inoremap <silent><expr> <CR> compe#confirm('<CR>')]]
+-- vim.cmd [[inoremap <silent><expr> <C-e> compe#close('<C-e>')]]
+-- vim.cmd [[inoremap <silent><expr> <C-f> compe#scroll({ 'delta': +4 })]]
+-- vim.cmd [[inoremap <silent><expr> <C-d> compe#scroll({ 'delta': -4 })]]
 
 -- })
 
@@ -683,52 +690,52 @@ require('lspconfig')['nil_ls'].setup({})
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
-  -- group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- print("LspAttach")
-    -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    -- if client.server_capabilities.document_range_formatting then
-    -- print(vim.inspect(client.server_capabilities))
-    -- end
+    -- group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+    callback = function(ev)
+        -- print("LspAttach")
+        -- local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        -- if client.server_capabilities.document_range_formatting then
+        -- print(vim.inspect(client.server_capabilities))
+        -- end
 
-    -- print(vim.inspect(ev))
-    -- Enable completion triggered by <c-x><c-o>
-    -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-    -- vim.bo[ev.buf].formatexpr = 'v:lua.vim.lsp.formatexpr(#{timeout_ms:250})'
-    -- vim.bo[ev.buf].formatexpr = nil
+        -- print(vim.inspect(ev))
+        -- Enable completion triggered by <c-x><c-o>
+        -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+        -- vim.bo[ev.buf].formatexpr = 'v:lua.vim.lsp.formatexpr(#{timeout_ms:250})'
+        -- vim.bo[ev.buf].formatexpr = nil
 
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
-    -- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+        -- Buffer local mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local opts = { buffer = ev.buf }
+        vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, opts)
+        -- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+        vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 
-    vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
-    -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    -- vim.keymap.set('n', '<space>wl', function()
-      -- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    -- end, opts)
-    -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-    -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    -- vim.keymap.set('n', '<space>f', function()
-    vim.keymap.set({'n', 'v'}, '<leader>f', function()
-      vim.lsp.buf.format({ async = true })
-    end, opts)
-  end,
+        vim.keymap.set('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
+        -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+        -- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+        -- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+        -- vim.keymap.set('n', '<space>wl', function()
+        -- print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        -- end, opts)
+        -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+        -- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+        -- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+        -- vim.keymap.set('n', '<space>f', function()
+        vim.keymap.set({ 'n', 'v' }, '<leader>f', function()
+            vim.lsp.buf.format({ async = true })
+        end, opts)
+    end,
 })
 
 -- }}}

@@ -23,14 +23,21 @@ return {
             vim.cmd('hi LspWarningVirtualText ctermfg=9 ctermbg=237')
             vim.cmd('hi link LspDiagnosticsVirtualTextWarning NonText')
         end,
-
     },
     -- 'bmcilw1/mustang-vim',
     -- 'TheMrNomis/mustang-vim',
     -- 'gruvbox-community/gruvbox',
     -- 'altercation/vim-colors-solarized',
     -- 'amacdougall/Birds-of-Paradise-VIM-Theme',
-    'ap/vim-buftabline',
+    {
+        'ap/vim-buftabline',
+        init = function()
+            vim.g.buftabline_show = 1 -- show when at least two buffers exists
+            vim.g.buftabline_numbers = 1
+            -- }}}
+        end,
+    }
+
 
     -- -- border {{{
     -- local _border = 'single'
