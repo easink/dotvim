@@ -1,9 +1,8 @@
--- theme.lua {
 --  vim: set foldmarker={,} foldlevel=0 spell:
 
 return {
     -- 'nathanaelkane/vim-indent-guides',
-    -- 'godlygeek/csapprox',
+    -- mustang {{{
     {
         "easink/mustang",
         init = function()
@@ -24,22 +23,26 @@ return {
             vim.cmd('hi link LspDiagnosticsVirtualTextWarning NonText')
         end,
     },
+    -- }}}
+    -- 'godlygeek/csapprox',
     -- 'bmcilw1/mustang-vim',
     -- 'TheMrNomis/mustang-vim',
     -- 'gruvbox-community/gruvbox',
     -- 'altercation/vim-colors-solarized',
     -- 'amacdougall/Birds-of-Paradise-VIM-Theme',
+    -- buftabline {{{
     {
         'ap/vim-buftabline',
         init = function()
             vim.g.buftabline_show = 1 -- show when at least two buffers exists
             vim.g.buftabline_numbers = 1
-            -- }}}
         end,
-    }
+    },
+    'lifepillar/vim-colortemplate',
+    -- }}}
 
 
-    -- -- border {{{
+    -- border {{{
     -- local _border = 'single'
 
     -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
@@ -60,7 +63,7 @@ return {
 
     -- require('lspconfig.ui.windows').default_options.border = _border
 
-    -- -- }}}
+    -- }}}
 
 
 }

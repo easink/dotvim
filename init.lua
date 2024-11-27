@@ -40,7 +40,8 @@ require("lazy").setup({
         { import = "plugins/puppet" },
         { import = "plugins/elixir" },
     },
-    install = { colorscheme = { "habamax" } },
+    -- install = { colorscheme = { "habamax" } },
+    -- install = { colorscheme = { "mustang" } },
     -- automatically check for plugin updates
     checker = {
         enabled = true,
@@ -52,6 +53,7 @@ require("lazy").setup({
     },
 })
 
+require('must')
 require('autocommands')
 
 -- require('plugins')
