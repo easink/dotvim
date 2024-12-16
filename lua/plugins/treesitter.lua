@@ -13,10 +13,12 @@ return {
             'RRethy/nvim-treesitter-endwise',
             "windwp/nvim-ts-autotag",
         },
+        main = 'nvim-treesitter.configs',
         opts = {
             ensure_installed = "all",
             -- ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
             ignore_install = { "astro", "org", "fortran", "hack", "wgsl", "wgsl_bevy" }, -- List of parsers to ignore installing
+            -- auto_install = true,
             indent = { enable = true },
             autotag = { enable = true },
             highlight = {
