@@ -4,11 +4,15 @@ return {
     'tpope/vim-unimpaired',
     'tpope/vim-surround',
     'tpope/vim-repeat',
-    'tpope/vim-projectionist',
+    {
+        'tpope/vim-projectionist',
+        config = function()
+            vim.keymap.set('n', '<leader>,', '<cmd>A<cr>', { desc = "Alternate file" } )
+        end,
+    },
     -- 'chrisbra/Recover.vim',
     -- 'kabbamine/zeavim.vim',
     -- 'sheerun/vim-polyglot',
-    -- 'tpope/vim-endwise',
     {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
