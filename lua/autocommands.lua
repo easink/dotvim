@@ -112,6 +112,62 @@ vim.api.nvim_create_autocmd('FileType', {
 --     " }
 
 -- Elixir {{{
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'elixir', 'eelixir', 'heex' },
+    callback = function(_)
+        -- print('event fired: ' .. vim.inspect(ev))
+        -- vim.opt_local.makeprg = 'mix compile'
+        -- vim.opt_local.errorformat = {
+        --     '%Wwarning: %m',
+        --     '%C%f:%l,%Z',
+        --     '%E== Compilation error in file %f ==',
+        --     '%C** (%\\w%\\+) %f:%l: %m,%Z'
+        -- }
+        -- ExUnit
+        -- let s:cpo_save = &cpo
+        -- set cpo-=C
+
+        -- Compiling 1 file (.ex)
+        --   error: undefined function ddef/2 (there is no such import)
+        --   │
+        -- 15 │   ddef hello do
+        --   │   ^
+        --   │
+        --   └─ lib/vimtest.ex:15:3: Vimtest (module)
+
+        -- == Compilation error in file lib/vimtest.ex ==
+        -- ** (CompileError) lib/vimtest.ex: cannot compile module Vimtest (errors have been logged)
+        vim.opt_local.makeprg = 'mix'
+        -- vim.opt_local.errorformat = {
+        --     '%E  %n) %m',
+        --     '%+G     ** %m',
+        --     '%+G     stacktrace:',
+        --     '%C     f:%l',
+        --     '%+G       (%\\w%\\+) %f:%l: %m',
+        --     '%+G       %f:%l: %.%#',
+        --     '** (%\\w%\\+) %f:%l: %m'
+        -- }
+        vim.opt_local.errorformat = {
+            -- '%E%.%#error: %m',
+            -- '%C%.%#│',
+            -- '%C%.%#│%.%#',
+            -- '%C%.%#│%.%#',
+            -- '%C%.%#│',
+            -- '%Z%.%#└─ %f:%l:%c: %m',
+            -- '%-G',
+            -- '%-GCompiling %.%#',
+            -- '%-G== Compilation %.%#',
+            -- '%-G** %.%#',
+        }
+        --
+        -- let &cpo = s:cpo_save
+        -- unlet s:cpo_save
+
+        -- Credo
+        -- errorformat=%f:%l:%c:\ %t:\ %m,%f:%l:\ %t:\ %m
+        -- makeprg=mix\ credo\ suggest\ --format=flycheck
+    end
+})
 -- BufWritePre <buffer> lua vim.lsp.buf.format()]]
 vim.api.nvim_create_autocmd('BufWritePre', {
     -- pattern = { 'elixir', 'eelixir', 'heex' },

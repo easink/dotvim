@@ -6,8 +6,6 @@ return {
     {
         "easink/mustang",
         init = function()
-            vim.cmd('syntax enable') -- syntax highlighting on
-
             -- set background=light
             vim.cmd('colorscheme mustang')
             --  colorscheme solarized
@@ -21,6 +19,12 @@ return {
             vim.cmd('hi link LspWarningHighlight Underlined')
             vim.cmd('hi LspWarningVirtualText ctermfg=9 ctermbg=237')
             vim.cmd('hi link LspDiagnosticsVirtualTextWarning NonText')
+
+            -- cmp
+            -- vim.cmd('hi default link CmpItemKind CmpItemMenuDefault')
+
+            vim.opt.termguicolors = true
+            vim.cmd('syntax enable') -- syntax highlighting on
         end,
     },
     -- }}}
@@ -38,7 +42,7 @@ return {
             vim.g.buftabline_numbers = 1
         end,
     },
-    'lifepillar/vim-colortemplate',
+    -- 'lifepillar/vim-colortemplate',
     -- }}}
 
 

@@ -127,14 +127,9 @@ o.foldenable = true -- Turn on folding
 -- if you use a high foldlevel)
 o.foldmethod = 'marker' -- Fold on the marker
 o.foldlevel = 100       -- Don't autofold anything (but I can still fold manually)
---     set foldopen=block,hor,mark,percent,quickfix,tag   " what movements
---                                                        " open folds
---     function SimpleFoldText()                          " {
---         return getline(v:foldstart).' '
---     endfunction                                        " }
---     set foldtext=SimpleFoldText()                      " Custom fold text function
 -- }}}
 
+-- o.completeopt = "menuone,noinsert,noselect" -- from cmp
 o.completeopt = "noinsert,menuone,noselect"
 -- set completeopt=noinsert,menuone
 o.shortmess = o.shortmess + "c"

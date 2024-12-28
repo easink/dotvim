@@ -33,12 +33,14 @@ require("lazy").setup({
         { import = "plugins/lspconfig" },
         { import = "plugins/telescope" },
         { import = "plugins/text-objects" },
+        { import = "plugins/test" },
         { import = "plugins/ale" },
         { import = "plugins/markdown" },
         { import = "plugins/efm" },
         { import = "plugins/vim-commentary" },
         { import = "plugins/puppet" },
         { import = "plugins/elixir" },
+        { import = "plugins/avante" },
     },
     -- install = { colorscheme = { "habamax" } },
     -- install = { colorscheme = { "mustang" } },
@@ -53,7 +55,7 @@ require("lazy").setup({
     },
 })
 
-require('must')
+-- require('must')
 require('autocommands')
 
 -- require('plugins')
