@@ -247,30 +247,30 @@ return {
 
         -- local path_to_elixirls = vim.fn.expand("~/bin/language_server.sh")
 
-        require('lspconfig').elixirls.setup({
-            -- cmd = { path_to_elixirls },
-            cmd = { "elixir-ls" },
-            capabilities = capabilities,
-            settings = {
-                elixirLS = {
-                    -- I choose to disable dialyzer for personal reasons, but
-                    -- I would suggest you also disable it unless you are well
-                    -- aquainted with dialzyer and know how to use it.
-                    dialyzerEnabled = false,
-                    -- I also choose to turn off the auto dep fetching feature.
-                    -- It often get's into a weird state that requires deleting
-                    -- the .elixir_ls directory and restarting your editor.
-                    fetchDeps = false,
-                    enableTestLenses = false,
-                    suggestSpecs = false
-                }
-            },
-            on_attach = function(_, _)
-                vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-                vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-                vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-            end,
-        })
+        -- require('lspconfig').elixirls.setup({
+        --     -- cmd = { path_to_elixirls },
+        --     cmd = { "elixir-ls" },
+        --     capabilities = capabilities,
+        --     settings = {
+        --         elixirLS = {
+        --             -- I choose to disable dialyzer for personal reasons, but
+        --             -- I would suggest you also disable it unless you are well
+        --             -- aquainted with dialzyer and know how to use it.
+        --             dialyzerEnabled = false,
+        --             -- I also choose to turn off the auto dep fetching feature.
+        --             -- It often get's into a weird state that requires deleting
+        --             -- the .elixir_ls directory and restarting your editor.
+        --             fetchDeps = false,
+        --             enableTestLenses = true,
+        --             suggestSpecs = false
+        --         }
+        --     },
+        --     on_attach = function(_, _)
+        --         vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
+        --         vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
+        --         vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
+        --     end,
+        -- })
 
         -- elixir.setup({
         --   nextls = {
