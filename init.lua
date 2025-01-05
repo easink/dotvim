@@ -57,12 +57,3 @@ require("lazy").setup({
 
 -- require('must')
 require('autocommands')
-
--- require('plugins')
--- require('plugins-settings')
--- require('settings')
--- require('keybindings')
--- require('autocommands')
--- require('lsp')
--- require('tree-sitter')
--- require('theme')
