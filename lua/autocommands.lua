@@ -169,13 +169,13 @@ vim.api.nvim_create_autocmd('FileType', {
     end
 })
 -- BufWritePre <buffer> lua vim.lsp.buf.format()]]
-vim.api.nvim_create_autocmd('BufWritePre', {
-    -- pattern = { 'elixir', 'eelixir', 'heex' },
-    pattern = { '*.ex', '*.exs', '*.eex', '*.heex' },
-    callback = function(_)
-        vim.lsp.buf.format()
-    end
-})
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--     -- pattern = { 'elixir', 'eelixir', 'heex' },
+--     pattern = { '*.ex', '*.exs', '*.eex', '*.heex' },
+--     callback = function(_)
+--         vim.lsp.buf.format()
+--     end
+-- })
 -- vim.api.nvim_create_autocmd('FileType', {
 --     pattern = { 'elixir', 'eelixir', 'heex' },
 --     callback = function(_)

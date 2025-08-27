@@ -16,7 +16,8 @@ return {
                 nextls = { enable = false },
                 elixirls = {
                     enable = true,
-                    tag = "v0.26.2",
+                    -- branch = "master",
+                    tag = "v0.29.3",
                     settings = elixirls.settings {
                         dialyzerEnabled = false,
                         enableTestLenses = true,

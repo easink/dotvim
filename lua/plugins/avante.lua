@@ -6,26 +6,28 @@ return {
     opts = {
         --- @alias Provider "claude" | "openai" | "azure" | "gemini" | "cohere" | "copilot" | string
         provider = "copilot", -- Recommend using Claude
-        -- auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-        copilot = {
-            --     -- endpoint = "https://api.githubcopilot.com",
-            -- model = "claude-3-5-sonnet-20241022",
-            model = "claude-3.5-sonnet",
-            -- model = "gpt-4o-2024-05-13",
-            -- proxy = "http://10.0.0.3:3128", -- [protocol://]host[:port] Use this proxy
-            --     -- allow_insecure = false, -- Allow insecure server connections
-            --     -- timeout = 30000, -- Timeout in milliseconds
-            --     -- temperature = 0,
-            --     -- max_tokens = 4096,
+        providers = {
+            -- auto_suggestions_provider = "copilot", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+            copilot = {
+                --     -- endpoint = "https://api.githubcopilot.com",
+                -- model = "claude-3-5-sonnet-20241022",
+                model = "claude-3.5-sonnet",
+                -- model = "gpt-4o-2024-05-13",
+                -- proxy = "http://10.0.0.3:3128", -- [protocol://]host[:port] Use this proxy
+                --     -- allow_insecure = false, -- Allow insecure server connections
+                --     -- timeout = 30000, -- Timeout in milliseconds
+                --     -- temperature = 0,
+                --     -- max_tokens = 4096,
+            }
+            -- provider = "claude",                  -- Recommend using Claude
+            -- auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
+            -- claude = {
+            --     endpoint = "https://api.anthropic.com",
+            --     model = "claude-3-5-sonnet-20241022",
+            --     temperature = 0,
+            --     max_tokens = 4096,
+            -- },
         },
-        -- provider = "claude",                  -- Recommend using Claude
-        -- auto_suggestions_provider = "claude", -- Since auto-suggestions are a high-frequency operation and therefore expensive, it is recommended to specify an inexpensive provider or even a free provider: copilot
-        -- claude = {
-        --     endpoint = "https://api.anthropic.com",
-        --     model = "claude-3-5-sonnet-20241022",
-        --     temperature = 0,
-        --     max_tokens = 4096,
-        -- },
         ---Specify the special dual_boost mode
         ---1. enabled: Whether to enable dual_boost mode. Default to false.
         ---2. first_provider: The first provider to generate response. Default to "openai".

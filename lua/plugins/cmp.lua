@@ -3,12 +3,17 @@
 
 return {
     'hrsh7th/nvim-cmp',
+    -- event = { "InsertEnter", "CmdlineEnter", "BufEnter" },
     event = "InsertEnter",
     dependencies = {
+        -- snippets
+        -- "SirVer/ultisnips",
+        -- "quangnguyen30192/cmp-nvim-ultisnips",
+        -- sources
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        "SirVer/ultisnips",
-        "quangnguyen30192/cmp-nvim-ultisnips",
+        -- "hrsh7th/cmp-nvim-lsp-signature-help",
+
         -- {
         --     "L3MON4D3/LuaSnip",
         --     version = "v2.*",
@@ -17,6 +22,7 @@ return {
         -- },
         -- "rafamadriz/friendly-snippets",
         -- "onsails/lspkind.nvim", -- vs-code like pictograms
+        -- "petertriho/cmp-git"
     },
     config = function()
         local cmp = require("cmp")
@@ -29,7 +35,8 @@ return {
             snippet = {
                 expand = function(args)
                     -- luasnip.lsp_expand(args.body)
-                    vim.fn["UltiSnips#Anon"](args.body)
+                    -- vim.fn["UltiSnips#Anon"](args.body)
+                    vim.snippet.expand(args.body)
                 end,
             },
             window = {
@@ -55,10 +62,11 @@ return {
                 }),
             }),
             sources = cmp.config.sources({
-                { name = "nvim_lsp" },
-                { name = 'nvim_lsp_signature_help' },
-                { name = 'ultisnips' },
+                -- { name = 'ultisnips' },
                 -- { name = "luasnip" },
+                { name = "nvim_lsp" },
+                { name = "nvim_lsp_signature_help" },
+                -- { name = "buffer",                 max_item_count = 4 },
                 { name = "buffer" },
                 { name = "path" },
             }),

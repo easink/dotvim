@@ -5,6 +5,8 @@ return {
     -- mustang {{{
     {
         "easink/mustang",
+        lazy = false,
+        priority = 1000,
         init = function()
             -- set background=light
             vim.cmd('colorscheme mustang')
@@ -34,12 +36,24 @@ return {
     -- 'gruvbox-community/gruvbox',
     -- 'altercation/vim-colors-solarized',
     -- 'amacdougall/Birds-of-Paradise-VIM-Theme',
-    -- buftabline {{{
     {
-        'ap/vim-buftabline',
+        'echasnovski/mini.tabline',
+        version = '*',
+        opts = {
+            format = function(buf_id, label)
+                -- local prefix = '[' .. buf_id .. ']'
+                -- local suffix = vim.bo[buf_id].modified and '+ ' or ''
+                -- return prefix .. MiniTabline.default_format(buf_id, label) .. suffix
+                -- return prefix .. MiniTabline.default_format(buf_id, label)
+                return buf_id .. MiniTabline.default_format(buf_id, label)
+            end,
+        },
         init = function()
-            vim.g.buftabline_show = 1 -- show when at least two buffers exists
-            vim.g.buftabline_numbers = 1
+            vim.cmd('hi MiniTablineCurrent         cterm=bold gui=bold ctermfg=11  guifg=NvimLightYellow')
+            vim.cmd('hi MiniTablineModifiedCurrent cterm=bold gui=bold ctermfg=208 guifg=#ff9800')
+            vim.cmd('hi MiniTablineModifiedVisible ctermfg=208 ctermbg=235 guifg=#ff9800 guibg=#303030')
+            vim.cmd('hi MiniTablineModifiedHidden  ctermfg=208 ctermbg=235 guifg=#ff9800 guibg=#303030')
+            vim.cmd('hi MiniTablineFill                        ctermbg=235               guibg=#303030')
         end,
     },
     -- 'lifepillar/vim-colortemplate',

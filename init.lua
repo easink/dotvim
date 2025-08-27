@@ -40,7 +40,9 @@ require("lazy").setup({
         { import = "plugins/vim-commentary" },
         { import = "plugins/puppet" },
         { import = "plugins/elixir" },
-        { import = "plugins/avante" },
+        -- { import = "plugins/avante" },
+        { import = "plugins/codecompanion" },
+        { import = "plugins/mcphub" },
     },
     -- install = { colorscheme = { "habamax" } },
     -- install = { colorscheme = { "mustang" } },
@@ -54,6 +56,20 @@ require("lazy").setup({
         require = false,
     },
 })
+
+-- lsp
+-- vim.lsp.config('*', {
+--     capabilities = {
+--         textDocument = {
+--             semanticTokens = {
+--                 multilineTokenSupport = true,
+--             }
+--         }
+--     },
+--     root_markers = { '.git' },
+-- })
+
+-- vim.lsp.enable({ 'clangd', 'bashls' })
 
 -- require('must')
 require('autocommands')
