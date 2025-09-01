@@ -6,6 +6,8 @@ return {
     -- 'godlygeek/csapprox',
     {
         "easink/mustang",
+        lazy = false,
+        priority = 1000,
         init = function()
             vim.cmd('syntax enable') -- syntax highlighting on
 

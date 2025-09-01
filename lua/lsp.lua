@@ -48,15 +48,15 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 -- Defined in init.lua
 vim.lsp.config('*', {
-  on_attach = on_attach,
-  capabilities = capabilities,
-  root_markers = { '.git' },
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_markers = { '.git' },
 })
 
 -- bashls {{{
 vim.lsp.config['bashls'] = {
-  cmd = { 'bash-language-server', 'start' },
-  filetypes = { 'sh' },
+    cmd = { 'bash-language-server', 'start' },
+    filetypes = { 'sh' },
 }
 
 vim.lsp.enable('bashls')
@@ -81,14 +81,14 @@ vim.lsp.config['yamlls'] = {
     cmd = { 'yaml-language-server', '--stdio' },
     filetypes = { 'yaml', 'json' },
     settings = {
-      yaml = {
-        -- schemaStore = { enable = true },
-        -- schemas = {
-        --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        --   ["../path/relative/to/file.yml"] = "/.github/workflows/*",
-        --   ["/path/from/root/of/project"] = "/.github/workflows/*",
-        -- },
-      },
+        yaml = {
+            -- schemaStore = { enable = true },
+            -- schemas = {
+            --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+            --   ["../path/relative/to/file.yml"] = "/.github/workflows/*",
+            --   ["/path/from/root/of/project"] = "/.github/workflows/*",
+            -- },
+        },
     }
 }
 vim.lsp.enable('yamlls')

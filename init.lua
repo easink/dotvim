@@ -1,20 +1,4 @@
--- lazy
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-    if vim.v.shell_error ~= 0 then
-        vim.api.nvim_echo({
-            { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-            { out,                            "WarningMsg" },
-            { "\nPress any key to exit..." },
-        }, true, {})
-        vim.fn.getchar()
-        os.exit(1)
-    end
-end
-vim.opt.rtp:prepend(lazypath)
--- /lazy
+require('start-lazy')
 
 -- vim.g.mapleader = " "
 -- vim.g.maplocalleader = "\\"
@@ -25,24 +9,25 @@ require('keybindings')
 -- require("lazy").setup("plugins")
 require("lazy").setup({
     spec = {
-        { import = "plugins/git" },
-        { import = "plugins/theme" },
-        { import = "plugins/features" },
-        { import = "plugins/treesitter" },
-        { import = "plugins/cmp" },
-        { import = "plugins/lspconfig" },
-        { import = "plugins/telescope" },
-        { import = "plugins/text-objects" },
-        { import = "plugins/test" },
-        { import = "plugins/ale" },
-        { import = "plugins/markdown" },
-        { import = "plugins/efm" },
-        { import = "plugins/vim-commentary" },
-        { import = "plugins/puppet" },
-        { import = "plugins/elixir" },
-        -- { import = "plugins/avante" },
-        { import = "plugins/codecompanion" },
-        { import = "plugins/mcphub" },
+        { import = "config/git" },
+        { import = "config/theme" },
+        { import = "config/features" },
+        { import = "config/treesitter" },
+        { import = "config/cmp" },
+        { import = "config/lsp-signature" },
+        { import = "config/lspconfig" },
+        { import = "config/telescope" },
+        { import = "config/text-objects" },
+        { import = "config/test" },
+        -- { import = "config/ale" },
+        { import = "config/markdown" },
+        { import = "config/efm" },
+        { import = "config/vim-commentary" },
+        { import = "config/puppet" },
+        { import = "config/elixir" },
+        -- { import = "config/avante" },
+        { import = "config/codecompanion" },
+        { import = "config/mcphub" },
     },
     -- install = { colorscheme = { "habamax" } },
     -- install = { colorscheme = { "mustang" } },
@@ -57,19 +42,7 @@ require("lazy").setup({
     },
 })
 
--- lsp
--- vim.lsp.config('*', {
---     capabilities = {
---         textDocument = {
---             semanticTokens = {
---                 multilineTokenSupport = true,
---             }
---         }
---     },
---     root_markers = { '.git' },
--- })
-
--- vim.lsp.enable({ 'clangd', 'bashls' })
-
 -- require('must')
-require('autocommands')
+-- require('lsp')
+require('config.lsp')
+require('autocmds')

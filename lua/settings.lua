@@ -11,20 +11,20 @@ local o = vim.opt
 --    set noexrc           "  don't use local version of .(g)vimrc, .exrc
 
 o.cpoptions = 'aABceFsmq'
---                   |||||||||
---                   ||||||||+-- When joining lines, leave the cursor
---                   ||||||||     between joined lines
---                   |||||||+-- When a new match is created (showmatch) |||||||     pause for .5
---                   ||||||+-- Set buffer options when entering the
---                   ||||||     buffer
---                   |||||+-- :write command updates current file name
---                   ||||+-- Automatically add <CR> to the last line
---                   ||||     when using :@r
---                   |||+-- Searching continues at the end of the match
---                   |||     at the cursor position
---                   ||+-- A backslash has no special meaning in mappings
---                   |+-- :write updates alternative file name
---                   +-- :read updates alternative file name
+--             |||||||||
+--             ||||||||+-- When joining lines, leave the cursor
+--             ||||||||     between joined lines
+--             |||||||+-- When a new match is created (showmatch) |||||||     pause for .5
+--             ||||||+-- Set buffer options when entering the
+--             ||||||     buffer
+--             |||||+-- :write command updates current file name
+--             ||||+-- Automatically add <CR> to the last line
+--             ||||     when using :@r
+--             |||+-- Searching continues at the end of the match
+--             |||     at the cursor position
+--             ||+-- A backslash has no special meaning in mappings
+--             |+-- :write updates alternative file name
+--             +-- :read updates alternative file name
 
 --     filetype plugin indent on        " load filetype plugins/indent settings
 
@@ -58,7 +58,7 @@ o.wildmenu = true -- turn on command line completion wild style
 -- ignore these list file extensions
 o.wildignore = '*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png'
 o.wildmode = 'list:longest:full' -- turn on wild mode huge list
--- " }}}
+-- " }}}}}}
 
 -- UI Settings {{{
 o.colorcolumn = '120' -- highligth column 120
@@ -101,6 +101,8 @@ o.sidescrolloff = 10           -- Keep 5 lines at the size
 --                               | | +-- readonly flag in square brackets
 --                               | +-- rodified flag in square brackets
 --                               +-- full path to file in the buffer
+
+o.winborder = 'rounded'
 -- }}}
 
 -- Text Formatting/Layout {{{
@@ -129,14 +131,21 @@ o.foldmethod = 'marker' -- Fold on the marker
 o.foldlevel = 100       -- Don't autofold anything (but I can still fold manually)
 -- }}}
 
+--- Misc? {{{
 -- o.completeopt = "menuone,noinsert,noselect" -- from cmp
 o.completeopt = "noinsert,menuone,noselect"
 -- set completeopt=noinsert,menuone
 o.shortmess = o.shortmess + "c"
+--- }}}
+
+--- Text objects {{{
 
 -- entire file text object
 cmd [[ onoremap ae :<c-u>normal! mzggVG<cr>`z ]]
 
+--- }}}
+
+--- hitest {{{
 -- " " adds to statusline
 -- " set laststatus=2
 -- " set statusline+=%{synIDattr(synID(line('.'),col('.'),1),'name')}

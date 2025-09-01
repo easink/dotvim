@@ -3,7 +3,8 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-nvim-lsp-signature-help",
+        "ray-x/lsp_signature.nvim",
+        -- "hrsh7th/cmp-nvim-lsp-signature-help",
         -- { "folke/neodev.nvim", opts = {} },
     },
     config = function()
@@ -128,9 +129,6 @@ return {
         -- }}}
 
         -- lspconfig - efm - json/... {{{
-        -- steal from http://github.com/creativenull/efmls-configs-nvim/
-        --    or from https://github.com/mattn/efm-langserver
-        --    or from https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#efm
         require('lspconfig').efm.setup({
             on_attach = on_attach,
             capabilities = capabilities,

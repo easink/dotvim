@@ -38,6 +38,7 @@ return {
     -- 'amacdougall/Birds-of-Paradise-VIM-Theme',
     {
         'echasnovski/mini.tabline',
+        lazy = false,
         version = '*',
         opts = {
             format = function(buf_id, label)

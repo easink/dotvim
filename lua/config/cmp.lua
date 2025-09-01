@@ -13,6 +13,7 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         -- "hrsh7th/cmp-nvim-lsp-signature-help",
+        "hrsh7th/cmp-nvim-lsp",
 
         -- {
         --     "L3MON4D3/LuaSnip",
@@ -65,7 +66,7 @@ return {
                 -- { name = 'ultisnips' },
                 -- { name = "luasnip" },
                 { name = "nvim_lsp" },
-                { name = "nvim_lsp_signature_help" },
+                -- { name = "nvim_lsp_signature_help" },
                 -- { name = "buffer",                 max_item_count = 4 },
                 { name = "buffer" },
                 { name = "path" },
