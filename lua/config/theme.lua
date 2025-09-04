@@ -85,6 +85,17 @@ return {
     -- }}}
 
 
+    -- diagnostic {{{
+
+    vim.diagnostic.config {
+        -- virtual_text = true,
+        -- virtual_lines = {
+        --     current_line = true
+        -- },
+        -- float = { border = _border }
+    }
+
+    -- }}}
 }
 
 -- " Vim UI {

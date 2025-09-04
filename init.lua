@@ -3,6 +3,7 @@ require('start-lazy')
 -- vim.g.mapleader = " "
 -- vim.g.maplocalleader = "\\"
 
+
 require('settings')
 require('keybindings')
 
@@ -17,6 +18,7 @@ require("lazy").setup({
         { import = "config/lsp-signature" },
         { import = "config/lspconfig" },
         { import = "config/telescope" },
+        { import = "config/tiny" },
         { import = "config/text-objects" },
         { import = "config/test" },
         -- { import = "config/ale" },
