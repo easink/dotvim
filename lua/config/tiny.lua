@@ -6,15 +6,15 @@ return {
             { "nvim-telescope/telescope.nvim" },
         },
         event = "LspAttach",
-        keys = {
-            {
-                "<leader>ca",
-                function() require("tiny-code-action").code_action() end,
-                mode = { "n", "x" },
-                noremap = true,
-                silent = true,
-            }
-        },
+        -- keys = {
+        --     {
+        --         "<leader>ca",
+        --         function() require("tiny-code-action").code_action() end,
+        --         mode = { "n", "x" },
+        --         noremap = true,
+        --         silent = true,
+        --     }
+        -- },
         opts = {
             backend = "vim",
             picker = "telescope",

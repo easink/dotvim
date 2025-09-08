@@ -3,7 +3,6 @@ require('start-lazy')
 -- vim.g.mapleader = " "
 -- vim.g.maplocalleader = "\\"
 
-
 require('settings')
 require('keybindings')
 
