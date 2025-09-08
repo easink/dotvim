@@ -22,7 +22,7 @@ return {
                         dialyzerEnabled = false,
                         enableTestLenses = true,
                         fetchDeps = false,
-                        suggestSpecs = false,
+                        suggestSpecs = true,
 
                     },
                     on_attach = function(client, bufnr)
