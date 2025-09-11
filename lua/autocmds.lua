@@ -15,43 +15,22 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = '<buffer>',
     -- Trim trailing whitespaces
     callback = function()
-        -- Save cursor position to restore later
-        local curpos = vim.api.nvim_win_get_cursor(0)
         -- Search and replace trailing whitespaces
         vim.cmd([[keepjumps keeppatterns silent! %s/\s\+$//e]])
-        vim.api.nvim_win_set_cursor(0, curpos)
     end,
 })
-
-local function cmp_pos(a, b)
-    if a[1] < b[1] then
-        return -1
-    elseif a[1] > b[1] then
-        return 1
-    elseif a[2] < b[2] then
-        return -1
-    elseif a[2] > b[2] then
-        return 1
-    else
-        return 0
-    end
-end
 
 vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = '<buffer>',
     -- Trim trailing blank lines
     callback = function()
-        -- Save cursor position to restore later
-        local curpos = vim.api.nvim_win_get_cursor(0)
-        vim.print(curpos)
+        local windowView = vim.fn.winsaveview()
+
         -- Search and replace trailing blank lines
         vim.cmd([[:keepjumps keeppatterns silent! 0;/^\%(\n*.\)\@!/,$d_]])
 
-        local newpos = vim.api.nvim_win_get_cursor(0)
-        if cmp_pos(newpos, curpos) == 1 then
-            vim.api.nvim_win_set_cursor(0, curpos)
-        else
-            vim.api.nvim_win_set_cursor(0, newpos)
+        if windowView ~= nil then
+            vim.fn.winrestview(windowView)
         end
     end,
 })
