@@ -28,10 +28,22 @@ return {
         end
 
         local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        -- local capabilities = vim.lsp.protocol.make_client_capabilities()
         --  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
         -- local capabilities = vim.lsp.protocol.make_client_capabilities()
 
         capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+        --- ```lua
+        --- --Enable (broadcasting) snippet capability for completion
+        --- local capabilities = vim.lsp.protocol.make_client_capabilities()
+        --- capabilities.textDocument.completion.completionItem.snippetSupport = true
+        ---
+        --- vim.lsp.config('html', {
+        ---   capabilities = capabilities,
+        --- })
+        --- ```
+
         -- local capabilitiesWithoutFomatting = capabilities
         -- capabilitiesWithoutFomatting.textDocument.formatting = false
         -- capabilitiesWithoutFomatting.textDocument.rangeFormatting = false
@@ -42,28 +54,31 @@ return {
         -- print(vim.inspect(capabilities))
 
         -- lspconfig - bash {{{
-        require('lspconfig').bashls.setup({
+        vim.lsp.config('bashls', {
             on_attach = on_attach,
             capabilities = capabilities,
         })
+        vim.lsp.enable('bashls')
         -- }}}
 
         -- lspconfig - python {{{
-        require('lspconfig').pyright.setup({
+        vim.lsp.config('pyright', {
             on_attach = on_attach,
             capabilities = capabilities,
         })
+        vim.lsp.enable('pyright')
         -- }}}
 
         -- lspconfig - puppet {{{
-        require('lspconfig').puppet.setup({
+        vim.lsp.config('puppet', {
             on_attach = on_attach,
             capabilities = capabilities,
         })
+        vim.lsp.enable('puppet')
         -- }}}
 
         -- lspconfig - yaml / json {{{
-        require('lspconfig').yamlls.setup({
+        vim.lsp.config('yamlls', {
             on_attach = on_attach,
             capabilities = capabilities,
             -- settings = {
@@ -77,11 +92,12 @@ return {
             --   },
             -- }
         })
+        vim.lsp.enable('yamlls')
         -- }}}
 
         -- lspconfig - lua {{{
         -- stolen from lspconfig docs
-        require('lspconfig').lua_ls.setup({
+        vim.lsp.config('lua_ls', {
             on_attach = on_attach,
             capabilities = capabilities,
             -- on_attach = function()
@@ -110,10 +126,11 @@ return {
                 },
             },
         })
+        vim.lsp.enable('lua_ls')
         -- }}}
 
         -- lspconfig - rust {{{
-        require('lspconfig').rust_analyzer.setup({
+        vim.lsp.config('rust_analyzer', {
             on_attach = on_attach,
             capabilities = capabilities,
             settings = {
@@ -126,10 +143,11 @@ return {
                 }
             }
         })
+        vim.lsp.enable('rust_analyzer')
         -- }}}
 
         -- lspconfig - efm - json/... {{{
-        require('lspconfig').efm.setup({
+        vim.lsp.config('efm', {
             on_attach = on_attach,
             capabilities = capabilities,
             -- initializationOptions = {
@@ -239,6 +257,7 @@ return {
                 }
             }
         })
+        vim.lsp.enable('efm')
         -- }}}
 
         -- elixir {{{
@@ -331,7 +350,7 @@ return {
         -- }}}
 
         -- lspconfig - nix - nixd {{{
-        require('lspconfig')['nixd'].setup({
+        vim.lsp.config('nixd', {
             on_attach = on_attach,
             capabilities = capabilities,
             settings = {
@@ -342,13 +361,15 @@ return {
                 }
             }
         })
+        vim.lsp.enable('nixd')
         -- }}}
 
         -- lspconfig - nix - nil_ls {{{
-        require('lspconfig')['nil_ls'].setup({
+        vim.lsp.config('nil_ls', {
             on_attach = on_attach,
             capabilities = capabilities,
         })
+        vim.lsp.enable('nil_ls')
         -- }}}
     end,
 }
