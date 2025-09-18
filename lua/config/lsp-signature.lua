@@ -5,8 +5,8 @@ return {
         bind = true,
         hint_enable = false,
         -- floating_window = true,
-        floating_window = false,
-        floating_window_above_cur_line = false,
+        -- floating_window = false,
+        -- floating_window_above_cur_line = false,
         handler_opts = {
             border = "rounded"
         }
