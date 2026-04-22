@@ -13,14 +13,15 @@ return {
     -- 'chrisbra/Recover.vim',
     -- 'kabbamine/zeavim.vim',
     -- 'sheerun/vim-polyglot',
-    {
-        'andymass/vim-matchup',
-        opts = {
-            treesitter = {
-                stopline = 500,
-            }
-        }
-    },
+    -- {
+    --     'andymass/vim-matchup',
+    --     opts = {
+    --         treesitter = {
+    --             enabled = false,
+    --             -- stopline = 500,
+    --         }
+    --     }
+    -- },
     {
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.

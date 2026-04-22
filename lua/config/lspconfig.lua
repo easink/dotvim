@@ -57,6 +57,9 @@ return {
         vim.lsp.config('bashls', {
             on_attach = on_attach,
             capabilities = capabilities,
+            cmd = { 'bash-language-server', 'start' },
+            filetypes = { 'bash', 'sh' },
+            root_markers = { '.git' },
         })
         vim.lsp.enable('bashls')
         -- }}}
@@ -81,16 +84,18 @@ return {
         vim.lsp.config('yamlls', {
             on_attach = on_attach,
             capabilities = capabilities,
-            -- settings = {
-            --   yaml = {
-            --     -- schemaStore = { enable = true },
-            --     -- schemas = {
-            --     --   ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-            --     --   ["../path/relative/to/file.yml"] = "/.github/workflows/*",
-            --     --   ["/path/from/root/of/project"] = "/.github/workflows/*",
-            --     -- },
-            --   },
-            -- }
+            -- filetypes = { 'yaml', 'json' },
+            settings = {
+                yaml = {
+                    -- schemaStore = { enable = true },
+                    schemas = {
+                        -- ["https://opencode.ai/config.json"] = "/opencode.json",
+                        -- ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+                        -- ["../path/relative/to/file.yml"] = "/.github/workflows/*",
+                        -- ["/path/from/root/of/project"] = "/.github/workflows/*",
+                    },
+                },
+            }
         })
         vim.lsp.enable('yamlls')
         -- }}}
@@ -127,6 +132,17 @@ return {
             },
         })
         vim.lsp.enable('lua_ls')
+        -- }}}
+
+        -- lspconfig - c/c++ {{{
+        vim.lsp.config('clangd', {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            cmd = { 'clangd' },
+            filetypes = { 'c', 'cpp' },
+            root_markers = { '.clangd', 'compile_commands.json' },
+        })
+        vim.lsp.enable('clangd')
         -- }}}
 
         -- lspconfig - rust {{{
@@ -233,7 +249,9 @@ return {
                             lintFormats = {
                                 'parse %trror: %m at line %l, column %c',
                                 '%m',
-                            }
+                            },
+                            formatCommand = "jq .",
+                            formatStdin = true
                         }
                     },
                     markdown = {
@@ -350,6 +368,14 @@ return {
         -- }}}
 
         -- lspconfig - nix - nixd {{{
+        vim.lsp.config('systemd-lsp', {
+            on_attach = on_attach,
+            capabilities = capabilities
+        })
+        vim.lsp.enable('systemd-lsp')
+        -- }}}
+
+        -- lspconfig - nix - nixd {{{
         vim.lsp.config('nixd', {
             on_attach = on_attach,
             capabilities = capabilities,
@@ -370,6 +396,14 @@ return {
             capabilities = capabilities,
         })
         vim.lsp.enable('nil_ls')
+        -- }}}
+        --
+        -- lspconfig - qmlls {{{
+        vim.lsp.config('qmlls', {
+            on_attach = on_attach,
+            capabilities = capabilities,
+        })
+        vim.lsp.enable('qmlls')
         -- }}}
     end,
 }

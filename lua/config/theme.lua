@@ -57,6 +57,36 @@ return {
             vim.cmd('hi MiniTablineFill                        ctermbg=235               guibg=#303030')
         end,
     },
+    {
+        'nvim-mini/mini.cmdline',
+        version = '*',
+        opts = {
+            autocomplete = {
+                enable = false,
+            },
+            autocorrect = {
+                enable = false,
+            },
+            autopeek = {
+                enable = true,
+
+                -- Number of lines to show above and below range lines
+                n_context = 10,
+
+                -- Custom rule of when to show peek window
+                -- predicate = nil,
+
+                -- Window options
+                -- window = {
+                --     -- Floating window config
+                --     config = {},
+
+                --     -- Function to render statuscolumn
+                --     statuscolumn = nil,
+                -- }
+            },
+        },
+    },
     -- 'lifepillar/vim-colortemplate',
     -- }}}
 
@@ -88,10 +118,14 @@ return {
     -- diagnostic {{{
 
     vim.diagnostic.config {
+        signs = true,      -- Enables the error signs in the gutter
+        underline = false, -- Disables underlining of the errors
+
         -- virtual_text = true,
-        -- virtual_lines = {
-        --     current_line = true
-        -- },
+        -- virtual_lines = true,
+        virtual_lines = {
+            current_line = true
+        },
         -- float = { border = _border }
     }
 

@@ -6,44 +6,39 @@ return {
                 http = {
                     copilot = function()
                         return require("codecompanion.adapters").extend("copilot", {
-                            model = "claude-3.5-sonnet",
+                            -- model = "claude-3.5-sonnet",
+                            model = "claude-4.5-haiku",
                             -- model = "claude-sonnet-4-20250514"
                         })
                     end,
                 },
             },
-            strategies = {
+            interactions = {
                 chat = {
-                    adapter = {
-                        name = "copilot",
-                    }
+                    adapter = "copilot"
                 },
                 inline = {
-                    adapter = {
-                        name = "copilot",
-                    }
+                    adapter = "copilot"
                 },
                 cmd = {
-                    adapter = {
-                        name = "copilot",
-                    }
+                    adapter = "copilot"
                 }
             },
             extensions = {
-                mcphub = {
-                    callback = "mcphub.extensions.codecompanion",
-                    opts = {
-                        make_vars = true,
-                        make_slash_commands = true,
-                        show_result_in_chat = true
-                    }
-                }
-            },
-            sources = {
-                per_filetype = {
-                    codecompanion = { "codecompanion" },
-                }
-            },
+                -- mcphub = {
+                --     callback = "mcphub.extensions.codecompanion",
+                --     opts = {
+                --         make_vars = true,
+                --         make_slash_commands = true,
+                --         show_result_in_chat = true
+                --     }
+                -- }
+            }
+            -- sources = {
+            --     per_filetype = {
+            --         codecompanion = { "codecompanion" },
+            --     }
+            -- },
         },
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -57,12 +52,12 @@ return {
                     require("copilot").setup({})
                 end,
             },
-            "ravitemer/mcphub.nvim",
-            {
-                -- Make sure to set this up properly if you have lazy=true
-                'MeanderingProgrammer/render-markdown.nvim',
-                ft = { "markdown", "codecompanion" },
-            },
+            -- "ravitemer/mcphub.nvim",
+            -- {
+            --     -- Make sure to set this up properly if you have lazy=true
+            --     'MeanderingProgrammer/render-markdown.nvim',
+            --     ft = { "markdown", "codecompanion" },
+            -- },
             {
                 "echasnovski/mini.diff",
                 config = function()
