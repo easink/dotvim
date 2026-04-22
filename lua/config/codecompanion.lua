@@ -2,27 +2,30 @@ return {
     {
         "olimorris/codecompanion.nvim",
         opts = {
-            adapters = {
-                http = {
-                    copilot = function()
-                        return require("codecompanion.adapters").extend("copilot", {
-                            -- model = "claude-3.5-sonnet",
-                            model = "claude-4.5-haiku",
-                            -- model = "claude-sonnet-4-20250514"
-                        })
-                    end,
-                },
-            },
+            -- The `interactions` key was renamed from `strategies` in
+            -- codecompanion v18.0.0. Setting `adapter = { name, model }`
+            -- directly is simpler than extending the adapter via
+            -- `adapters.http.<name>`.
+            --
+            -- To discover valid Copilot model ids, run `:CodeCompanionActions`
+            -- and pick "Change Adapter Model" in a chat buffer.
             interactions = {
                 chat = {
-                    adapter = "copilot"
+                    adapter = {
+                        name = "copilot",
+                        model = "claude-haiku-4.5",
+                        -- Other Copilot options worth trying:
+                        --   "claude-3.5-sonnet"
+                        --   "claude-sonnet-4"
+                        --   "gpt-4.1"
+                    },
                 },
                 inline = {
-                    adapter = "copilot"
+                    adapter = { name = "copilot", model = "claude-haiku-4.5" },
                 },
                 cmd = {
-                    adapter = "copilot"
-                }
+                    adapter = { name = "copilot", model = "claude-haiku-4.5" },
+                },
             },
             extensions = {
                 -- mcphub = {
@@ -33,7 +36,7 @@ return {
                 --         show_result_in_chat = true
                 --     }
                 -- }
-            }
+            },
             -- sources = {
             --     per_filetype = {
             --         codecompanion = { "codecompanion" },
@@ -69,6 +72,5 @@ return {
                 end,
             },
         },
-
     },
 }

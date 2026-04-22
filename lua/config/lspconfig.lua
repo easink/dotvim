@@ -13,15 +13,21 @@ return {
 
         -- local protocol = require("vim.lsp.protocol")
 
+        -- Single stable group; we only clear autocmds scoped to the current
+        -- buffer when a new server attaches, so additional servers attaching
+        -- elsewhere do not wipe format-on-save for previously-attached buffers.
+        local format_group = vim.api.nvim_create_augroup("LspFormatOnSave", { clear = false })
+
         local on_attach = function(client, bufnr)
             -- format on save
             -- vim.print(vim.inspect(client.server_capabilities))
             if client.server_capabilities.documentFormattingProvider then
+                vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
                 vim.api.nvim_create_autocmd("BufWritePre", {
-                    group = vim.api.nvim_create_augroup("Format", { clear = true }),
+                    group = format_group,
                     buffer = bufnr,
                     callback = function()
-                        vim.lsp.buf.format()
+                        vim.lsp.buf.format({ bufnr = bufnr })
                     end,
                 })
             end
@@ -367,12 +373,12 @@ return {
         -- LEXICAL lspconfig.lexical.setup({})
         -- }}}
 
-        -- lspconfig - nix - nixd {{{
-        vim.lsp.config('systemd-lsp', {
+        -- lspconfig - systemd {{{
+        vim.lsp.config('systemd_ls', {
             on_attach = on_attach,
             capabilities = capabilities
         })
-        vim.lsp.enable('systemd-lsp')
+        vim.lsp.enable('systemd_ls')
         -- }}}
 
         -- lspconfig - nix - nixd {{{
