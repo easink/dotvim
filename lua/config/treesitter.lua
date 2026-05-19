@@ -1,46 +1,31 @@
 --  vim: set foldlevel=0 spell:
 
 return {
-    -- nvim-tree-sitter {{{
+    -- tree-sitter-manager (replaces archived nvim-treesitter) {{{
     {
-        'nvim-treesitter/nvim-treesitter',
-        branch = "main",
+        "romus204/tree-sitter-manager.nvim",
         lazy = false,
-        build = ":TSUpdate",
-        dependencies = {
-            {
-                'nvim-treesitter/nvim-treesitter-textobjects',
-                branch = "main",
-            },
-            'RRethy/nvim-treesitter-endwise',
-            'windwp/nvim-ts-autotag',
-        },
         config = function()
-            require("nvim-treesitter").setup()
-
-            require("nvim-treesitter").install({
-                "lua", "vim", "vimdoc", "query", "bash",
-                "python", "markdown", "markdown_inline",
-                "json", "yaml", "toml", "elixir", "heex",
-                "css", "javascript", "gitcommit"
+            require("tree-sitter-manager").setup({
+                ensure_installed = {
+                    "lua", "vim", "vimdoc", "query", "bash",
+                    "python", "markdown", "markdown_inline",
+                    "json", "yaml", "toml", "elixir", "heex",
+                    "css", "javascript", "gitcommit",
+                },
+                auto_install = false,
+                highlight = true, -- enables vim.treesitter.start automatically
             })
+        end,
+    },
+    -- }}}
 
-            -- Enable treesitter highlighting + indent for every filetype
-            -- that has a parser available. On the `main` branch, highlighting
-            -- is NOT enabled automatically and must be started per buffer.
-            vim.api.nvim_create_autocmd('FileType', {
-                group = vim.api.nvim_create_augroup('TreesitterStart', { clear = true }),
-                callback = function(args)
-                    local bufnr = args.buf
-                    local ft = vim.bo[bufnr].filetype
-                    local lang = vim.treesitter.language.get_lang(ft)
-                    if lang and pcall(vim.treesitter.start, bufnr, lang) then
-                        vim.bo[bufnr].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                    end
-                end,
-            })
-
-            -- nvim-treesitter-textobjects (main branch)
+    -- nvim-treesitter-textobjects (standalone, main branch) {{{
+    {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "main",
+        event = "VeryLazy",
+        config = function()
             require("nvim-treesitter-textobjects").setup({
                 select = {
                     lookahead = true,
@@ -77,11 +62,23 @@ return {
                 function() move.goto_previous_end("@function.outer", "textobjects") end)
             vim.keymap.set({ "n", "x", "o" }, "[C",
                 function() move.goto_previous_end("@class.outer", "textobjects") end)
+        end,
+    },
+    -- }}}
 
-            -- nvim-ts-autotag (self-configures; opts go into setup)
+    -- nvim-treesitter-endwise (no config; uses vim.treesitter queries) {{{
+    {
+        "RRethy/nvim-treesitter-endwise",
+        event = "InsertEnter",
+    },
+    -- }}}
+
+    -- nvim-ts-autotag (self-configures) {{{
+    {
+        "windwp/nvim-ts-autotag",
+        event = "InsertEnter",
+        config = function()
             require("nvim-ts-autotag").setup()
-
-            -- nvim-treesitter-endwise requires no configuration.
         end,
     },
     -- }}}
