@@ -162,3 +162,16 @@ cmd [[ onoremap ae :<c-u>normal! mzggVG<cr>`z ]]
 --  endfunc
 
 -- }}}
+
+--- Experimental built-in UI (messages + cmdline presentation) {{{
+require('vim._core.ui2').enable({
+    enable = true,
+    msg = {
+        targets = 'msg', -- ephemeral floating message window
+        cmd    = { height = 0.5 },
+        msg    = { height = 0.5, timeout = 4000 },
+        pager  = { height = 1 },
+        dialog = { height = 0.5 },
+    },
+})
+--- }}}
