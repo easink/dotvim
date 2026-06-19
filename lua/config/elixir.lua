@@ -17,7 +17,7 @@ return {
                 elixirls = {
                     enable = true,
                     -- branch = "master",
-                    tag = "v0.30.0",
+                    tag = "v0.31.1",
                     settings = elixirls.settings {
                         dialyzerEnabled = false,
                         enableTestLenses = true,
