@@ -284,93 +284,12 @@ return {
         vim.lsp.enable('efm')
         -- }}}
 
-        -- elixir {{{
-
-        -- local path_to_elixirls = vim.fn.expand("~/bin/language_server.sh")
-
-        -- require('lspconfig').elixirls.setup({
-        --     -- cmd = { path_to_elixirls },
-        --     cmd = { "elixir-ls" },
-        --     capabilities = capabilities,
-        --     settings = {
-        --         elixirLS = {
-        --             -- I choose to disable dialyzer for personal reasons, but
-        --             -- I would suggest you also disable it unless you are well
-        --             -- aquainted with dialzyer and know how to use it.
-        --             dialyzerEnabled = false,
-        --             -- I also choose to turn off the auto dep fetching feature.
-        --             -- It often get's into a weird state that requires deleting
-        --             -- the .elixir_ls directory and restarting your editor.
-        --             fetchDeps = false,
-        --             enableTestLenses = true,
-        --             suggestSpecs = false
-        --         }
-        --     },
-        --     on_attach = function(_, _)
-        --         vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>", { buffer = true, noremap = true })
-        --         vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>", { buffer = true, noremap = true })
-        --         vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-        --     end,
-        -- })
-
-        -- elixir.setup({
-        --   nextls = {
-        --     enable = false,
-        --     -- -- cmd = vim.fn.expand("~/.nix-profile/burrito_out/next_ls_linux_amd64"),
-        --     -- cmd = vim.fn.expand("~/.nix-profile/bin/nextls"),
-        --   },
-        --   credo = { enable = false },
-        --   elixirls = {
-        --     enable = true,
-        --     cmd = elixirls_path,
-        --     -- tag = 'v0.24.1',
-
-        --     -- default settings, use the `settings` function to override settings
-        --     settings = elixirls.settings {
-        --       dialyzerEnabled = false,
-        --       fetchDeps = false,
-        --       enableTestLenses = false,
-        --       suggestSpecs = false,
-        --     },
-        --     -- on_attach = function(client, bufnr)
-        --     on_attach = function(_, _)
-        --       vim.keymap.set("n", "<space>fp", ":ElixirFromPipe<cr>",    { buffer = true, noremap = true })
-        --       vim.keymap.set("n", "<space>tp", ":ElixirToPipe<cr>",      { buffer = true, noremap = true })
-        --       vim.keymap.set("v", "<space>em", ":ElixirExpandMacro<cr>", { buffer = true, noremap = true })
-        --     end
-        --   }
-        -- })
-
-        -- }}}
-
-        -- lspconfig - elixir - lexical-ls {{{
-        -- LEXICAL local lspconfig = require("lspconfig")
-        -- LEXICAL local configs = require("lspconfig.configs")
-        -- LEXICAL
-        -- LEXICAL local lexical_ls_path = vim.fn.expand("~/source/language_server/lexical/_build/prod/package/lexical/bin/start_lexical.sh")
-        -- LEXICAL -- local lexical_ls_path = vim.fn.expand("~/bin/start_lexical.sh")
-        -- LEXICAL -- local lexical_ls_path = vim.fn.expand("~/.nix-profile/bin/start_lexical.sh")
-        -- LEXICAL local lexical_config = {
-        -- LEXICAL   filetypes = { "elixir", "eelixir", "heex" },
-        -- LEXICAL   cmd = { lexical_ls_path },
-        -- LEXICAL   settings = {},
-        -- LEXICAL }
-        -- LEXICAL
-        -- LEXICAL if not configs.lexical then
-        -- LEXICAL   configs.lexical = {
-        -- LEXICAL     default_config = {
-        -- LEXICAL       filetypes = lexical_config.filetypes,
-        -- LEXICAL       cmd = lexical_config.cmd,
-        -- LEXICAL       root_dir = function(fname)
-        -- LEXICAL         return lspconfig.util.root_pattern("mix.exs", ".git")(fname) or vim.loop.os_homedir()
-        -- LEXICAL       end,
-        -- LEXICAL       -- optional settings
-        -- LEXICAL       settings = lexical_config.settings,
-        -- LEXICAL     },
-        -- LEXICAL   }
-        -- LEXICAL end
-        -- LEXICAL
-        -- LEXICAL lspconfig.lexical.setup({})
+        -- lspconfig - elixir - expert {{{
+        vim.lsp.config('expert', {
+            on_attach = on_attach,
+            capabilities = capabilities,
+        })
+        vim.lsp.enable('expert')
         -- }}}
 
         -- lspconfig - systemd {{{

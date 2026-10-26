@@ -22,7 +22,6 @@ require("lazy").setup({
         { import = "config/efm" },
         { import = "config/vim-commentary" },
         { import = "config/puppet" },
-        { import = "config/elixir" },
         { import = "config/codecompanion" },
     },
     -- automatically check for plugin updates
